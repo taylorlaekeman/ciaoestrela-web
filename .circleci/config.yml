@@ -1,0 +1,25 @@
+version: 2
+jobs:
+  lint:
+    docker:
+      - image: node:12.2.0-alpine
+    steps:
+      - checkout
+      - run:
+          name: Install Make
+          command: |
+            apk add make
+      - run:
+          name: Install Requirements
+          command: |
+            make install
+      - run:
+          name: Lint
+          command: |
+            make lint
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - lint
