@@ -1,14 +1,24 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Colours from '../styles/Colours';
 
-const Link = styled.a`
-  text-decoration: ${props => props.plain ? "none" : "underlined"};
+const StyledLink = styled.a`
+  text-decoration: ${props => (props.plain ? 'none' : 'underlined')};
   color: ${Colours['grey-400']};
 `;
 
-export default ({ children, className, plain, to }) => {
-  return (
-    <Link className={className} href={to} plain={plain}>{children}</Link>
-  );
+const Link = ({
+  children, className, plain, to,
+}) => (
+  <StyledLink className={className} href={to} plain={plain}>{children}</StyledLink>
+);
+
+Link.propTypes = {
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string.isRequired,
+  plain: PropTypes.bool.isRequired,
+  to: PropTypes.string.isRequired,
 };
+
+export default Link;

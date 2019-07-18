@@ -1,8 +1,8 @@
 import React from 'react';
-import GlobalStyle from './styles/GlobalStyle';
 import { BrowserRouter, Route } from 'react-router-dom';
 import Header from './containers/Header';
 import HomePage from './containers/HomePage';
+import GlobalStyle from './styles/GlobalStyle';
 
 function App() {
   return (

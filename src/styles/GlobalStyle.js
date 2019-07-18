@@ -12,7 +12,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     margin: 0px;
     margin-top: 4px;
-    font-family: ${Fonts['body']}, ${Fonts['fallback']};
+    font-family: ${Fonts.body}, ${Fonts.fallback};
     font-weight: 300;
     background-color: ${Colours['grey-200']};
     color: ${Colours['grey-400']};

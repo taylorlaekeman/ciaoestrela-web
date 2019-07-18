@@ -44,16 +44,14 @@ const Cart = styled(UnstyledCart)`
   width: 15px;
 `;
 
-export default ({ text }) => {
-  return (
-    <Header>
-      <TitleLink plain>
-        <h1>Ciao, Estrela Co.</h1>
-      </TitleLink>
-      <CartLink plain><Cart /></CartLink>
-      <AboutLink plain>about</AboutLink>
-      <GalleryLink plain>gallery</GalleryLink>
-      <OrderLink plain>order now</OrderLink>
-    </Header>
-  );
-};
+export default () => (
+  <Header>
+    <TitleLink plain>
+      <h1>Ciao, Estrela Co.</h1>
+    </TitleLink>
+    <CartLink plain><Cart /></CartLink>
+    <AboutLink plain>about</AboutLink>
+    <GalleryLink plain>gallery</GalleryLink>
+    <OrderLink plain>order now</OrderLink>
+  </Header>
+);
