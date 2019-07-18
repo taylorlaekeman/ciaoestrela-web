@@ -5,5 +5,5 @@ COPY src /app/src
 COPY public /app/public
 RUN apk add make
 RUN make -C app install
-RUN make -C app build
+RUN make -C app build-app
 CMD make -C app run
