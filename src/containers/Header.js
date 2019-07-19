@@ -8,11 +8,17 @@ const Header = styled.header`
   display: grid;
   padding: 20px 20px;
   background-color: white;
+  box-shadow: 0px 2px 6px -4px ${Colours['grey-400']};
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-areas:
     'title title   cart'
     'about gallery order';
-  box-shadow: 0px 2px 6px -4px black;
+  @media (min-width: 500px) {
+    grid-template-columns: 1fr auto auto auto auto;
+    grid-template-areas: 'title about gallery order cart';
+    align-items: center;
+    grid-column-gap: 20px;
+  }
 `;
 
 const TitleLink = styled(Link)`
