@@ -32,6 +32,7 @@ const Link = ({
 );
 
 Link.propTypes = {
+  button: PropTypes.bool.isRequired,
   children: PropTypes.node.isRequired,
   className: PropTypes.string.isRequired,
   plain: PropTypes.bool.isRequired,
