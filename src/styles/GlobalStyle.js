@@ -7,6 +7,7 @@ const GlobalStyle = createGlobalStyle`
 
   html {
     background-color: ${Colours['green-200']};
+    font-size: 16px;
   }
 
   body {
@@ -19,21 +20,21 @@ const GlobalStyle = createGlobalStyle`
     height: 100vh;
   }
 
-  body, p {
-    font-size: 0.9em;
-  }
-
   h1 {
-    font-size: 1.6em;
+    font-size: 1.6rem;
     font-weight: 300;
   }
 
   h2 {
-    font-size: 1.4em;
+    font-size: 2rem;
+    font-weight: 300;
   }
 
   h3 {
-    font-size: 1.2em;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
   }
 `;
 
