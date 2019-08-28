@@ -42,13 +42,11 @@ const AboutTextBoxImg = styled.img`
   width: 100%;
 `;
 
-const AboutPage = () => {
-  return (
-    <Main>
-      <AboutImg src={AboutImage} alt="Ciao, Estrela portrait with sun and quotation" />
-      <AboutTextBoxImg src={AboutTextBoxImage} alt="Ciao, Estrela speech bubble with fronds" />
-    </Main>
-  );
-};
+const AboutPage = () => (
+  <Main>
+    <AboutImg src={AboutImage} alt="Ciao, Estrela portrait with sun and quotation" />
+    <AboutTextBoxImg src={AboutTextBoxImage} alt="Ciao, Estrela speech bubble with fronds" />
+  </Main>
+);
 
 export default AboutPage;
