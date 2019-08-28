@@ -20,6 +20,10 @@ const GlobalStyle = createGlobalStyle`
     height: 100vh;
   }
 
+  main {
+    padding: 20px;
+  }
+
   h1 {
     font-size: 1.6rem;
     font-weight: 300;
