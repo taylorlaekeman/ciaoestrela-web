@@ -71,7 +71,7 @@ export default () => (
         <h1>Ciao, Estrela Co.</h1>
       </TitleLink>
       <CartLink plain><Cart /></CartLink>
-      <AboutLink plain>about</AboutLink>
+      <AboutLink to="/about" plain>about</AboutLink>
       <GalleryLink to="/gallery" plain>gallery</GalleryLink>
       <OrderLink plain>order now</OrderLink>
     </Nav>
