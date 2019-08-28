@@ -28,8 +28,8 @@ const Nav = styled.nav`
   grid-template-columns: 1fr 1fr 1fr;
 
   @media (min-width: 500px) {
-    grid-template-areas: 'title about gallery order cart';
-    grid-template-columns: 1fr auto auto auto auto;
+    grid-template-areas: 'title . about gallery order cart';
+    grid-template-columns: auto 1fr auto auto auto auto;
     align-items: center;
     grid-column-gap: 20px;
   }
