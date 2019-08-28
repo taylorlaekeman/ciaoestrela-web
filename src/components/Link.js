@@ -1,10 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { Link as RouterLink } from 'react-router-dom';
 import Colours from '../styles/Colours';
 
-const StyledLink = styled.a`
-  text-decoration: ${props => (props.plain ? 'none' : 'underlined')};
+const getTextDecoration = ({ button, plain }) => {
+  if (button || plain) return 'none';
+  return 'underlined';
+};
+
+const StyledLink = styled(RouterLink)`
+  text-decoration: ${props => getTextDecoration(props)};
   color: ${props => (props.button ? Colours['grey-600'] : Colours['grey-400'])};
   background-color: ${props => (props.button ? Colours['green-300'] : 'white')};
   padding: ${props => (props.button ? '10px 20px' : '0')};
@@ -24,7 +30,7 @@ const Link = ({
   <StyledLink
     button={button}
     className={className}
-    href={to}
+    to={to}
     plain={plain}
   >
     {children}

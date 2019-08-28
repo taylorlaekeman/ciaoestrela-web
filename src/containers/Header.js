@@ -67,12 +67,12 @@ const Cart = styled(UnstyledCart)`
 export default () => (
   <Header>
     <Nav>
-      <TitleLink plain>
+      <TitleLink to="/" plain>
         <h1>Ciao, Estrela Co.</h1>
       </TitleLink>
       <CartLink plain><Cart /></CartLink>
       <AboutLink plain>about</AboutLink>
-      <GalleryLink plain>gallery</GalleryLink>
+      <GalleryLink to="/gallery" plain>gallery</GalleryLink>
       <OrderLink plain>order now</OrderLink>
     </Nav>
   </Header>

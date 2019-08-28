@@ -8,7 +8,6 @@ import HomePageImage from '../assets/images/home.png';
 import Colours from '../styles/Colours';
 
 const Main = styled.main`
-  padding: 20px;
   display: grid;
   grid-row-gap: 20px;
   grid-template-areas: 
