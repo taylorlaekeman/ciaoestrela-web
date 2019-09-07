@@ -1,22 +1,22 @@
 import { createGlobalStyle } from 'styled-components';
-import Colours from './Colours';
-import Fonts from './Fonts';
+import colours from './colours';
+import fonts from './fonts';
 
-const GlobalStyle = createGlobalStyle`
-  @import url(${Fonts.importUrl});
+const globalStyle = createGlobalStyle`
+  @import url(${fonts.importUrl});
 
   html {
-    background-color: ${Colours['green-200']};
+    background-color: ${colours.green['200']};
     font-size: 16px;
   }
 
   body {
     margin: 0px;
     margin-top: 4px;
-    font-family: ${Fonts.body}, ${Fonts.fallback};
+    font-family: ${fonts.body}, ${fonts.fallback};
     font-weight: 300;
-    background-color: ${Colours['grey-200']};
-    color: ${Colours['grey-400']};
+    background-color: ${colours.grey['200']};
+    color: ${colours.grey['400']};
     height: 100vh;
   }
 
@@ -42,4 +42,4 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-export default GlobalStyle;
+export default globalStyle;

@@ -2,13 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import { ReactComponent as UnstyledCart } from '../assets/icons/cart.svg';
 import Link from '../components/Link';
-import Colours from '../styles/Colours';
+import colours from '../styles/colours';
 
 const Header = styled.header`
   display: grid;
   padding: 20px 20px;
   background-color: white;
-  box-shadow: 0px 2px 6px -4px ${Colours['grey-400']};
+  box-shadow: 0px 2px 6px -4px ${colours.grey['400']};
   grid-template-columns: 1fr;
   grid-template-areas:
     'nav';
@@ -60,7 +60,7 @@ const OrderLink = styled(Link)`
 `;
 
 const Cart = styled(UnstyledCart)`
-  fill: ${Colours['grey-300']};
+  fill: ${colours.grey['300']};
   width: 15px;
 `;
 
@@ -73,7 +73,7 @@ export default () => (
       <CartLink plain><Cart /></CartLink>
       <AboutLink to="/about" plain>about</AboutLink>
       <GalleryLink to="/gallery" plain>gallery</GalleryLink>
-      <OrderLink plain>order now</OrderLink>
+      <OrderLink to="/order" plain>order now</OrderLink>
     </Nav>
   </Header>
 );
