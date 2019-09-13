@@ -48,7 +48,7 @@ const Section = styled.section`
   margin-top: 60px;
 `;
 
-const StyledLink = styled(Button)`
+const OrderButton = styled(Button)`
   margin-top: 40px;
   width: max-content;
 `;
@@ -116,7 +116,7 @@ function HomePage() {
             </ListItem>
           </OrderedList>
         </Section>
-        <StyledLink navigateTo="/order">Order a card</StyledLink>
+        <OrderButton navigateTo="/order">Order a card</OrderButton>
       </Article>
       <Image src={HomePageImage} alt="Ciao, Estrela card with dog and flowers" />
     </Main>

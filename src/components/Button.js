@@ -6,6 +6,7 @@ import boxShadow from '../styles/boxShadow';
 import colours from '../styles/colours';
 
 const sharedStyles = `
+  font-weight: 400;
   text-decoration: none;
   color: ${colours.grey[600]};
   background-color: ${colours.green['200']};
