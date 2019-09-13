@@ -107,7 +107,7 @@ const OrderPage = () => {
           selected={cardstock}
         />
 
-        <IdeasLabel>Please share any information you think might be useful!</IdeasLabel>
+        <IdeasLabel>Please share any ideas you have for the design of your card!</IdeasLabel>
         <IdeasTextarea value={ideas} onChange={(event) => { setIdeas(event.target.value); }} />
 
         <Button onClick={submitForm} isFormSubmit>Add to cart</Button>
