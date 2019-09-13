@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Link from '../components/Link';
+import Button from '../components/Button';
 import { ReactComponent as UnstyledCompose } from '../assets/icons/compose.svg';
 import { ReactComponent as UnstyledCheckmark } from '../assets/icons/checkmark.svg';
 import { ReactComponent as UnstyledEnvelope } from '../assets/icons/envelope.svg';
@@ -48,7 +48,7 @@ const Section = styled.section`
   margin-top: 60px;
 `;
 
-const StyledLink = styled(Link)`
+const StyledLink = styled(Button)`
   margin-top: 40px;
   width: max-content;
 `;
@@ -116,7 +116,7 @@ function HomePage() {
             </ListItem>
           </OrderedList>
         </Section>
-        <StyledLink to="/order" button>Order a card</StyledLink>
+        <StyledLink navigateTo="/order">Order a card</StyledLink>
       </Article>
       <Image src={HomePageImage} alt="Ciao, Estrela card with dog and flowers" />
     </Main>
