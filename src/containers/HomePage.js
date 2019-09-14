@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import Link from '../components/Link';
+import Button from '../components/Button';
 import { ReactComponent as UnstyledCompose } from '../assets/icons/compose.svg';
 import { ReactComponent as UnstyledCheckmark } from '../assets/icons/checkmark.svg';
 import { ReactComponent as UnstyledEnvelope } from '../assets/icons/envelope.svg';
 import HomePageImage from '../assets/images/home.png';
-import Colours from '../styles/Colours';
+import colours from '../styles/colours';
 
 const Main = styled.main`
   display: grid;
@@ -48,7 +48,7 @@ const Section = styled.section`
   margin-top: 60px;
 `;
 
-const StyledLink = styled(Link)`
+const OrderButton = styled(Button)`
   margin-top: 40px;
   width: max-content;
 `;
@@ -67,19 +67,19 @@ const ListItem = styled.li`
 `;
 
 const Compose = styled(UnstyledCompose)`
-  fill: ${Colours['grey-300']};
+  fill: ${colours.grey['300']};
   width: 15px;
   margin-right: 20px;
 `;
 
 const Checkmark = styled(UnstyledCheckmark)`
-  fill: ${Colours['grey-300']};
+  fill: ${colours.grey['300']};
   width: 15px;
   margin-right: 20px;
 `;
 
 const Envelope = styled(UnstyledEnvelope)`
-  fill: ${Colours['grey-300']};
+  fill: ${colours.grey['300']};
   width: 15px;
   margin-right: 20px;
 `;
@@ -116,7 +116,7 @@ function HomePage() {
             </ListItem>
           </OrderedList>
         </Section>
-        <StyledLink button>Order a card</StyledLink>
+        <OrderButton navigateTo="/order">Order a card</OrderButton>
       </Article>
       <Image src={HomePageImage} alt="Ciao, Estrela card with dog and flowers" />
     </Main>

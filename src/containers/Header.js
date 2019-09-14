@@ -1,14 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
+import Button from '../components/Button';
+import colours from '../styles/colours';
 import { ReactComponent as UnstyledCart } from '../assets/icons/cart.svg';
-import Link from '../components/Link';
-import Colours from '../styles/Colours';
 
 const Header = styled.header`
   display: grid;
   padding: 20px 20px;
   background-color: white;
-  box-shadow: 0px 2px 6px -4px ${Colours['grey-400']};
+  box-shadow: 0px 2px 6px -4px ${colours.grey['400']};
   grid-template-columns: 1fr;
   grid-template-areas:
     'nav';
@@ -35,45 +35,45 @@ const Nav = styled.nav`
   }
 `;
 
-const TitleLink = styled(Link)`
+const TitleLink = styled(Button)`
   grid-area: title;
 `;
 
-const CartLink = styled(Link)`
+const CartLink = styled(Button)`
   grid-area: cart;
   justify-self: end;
   align-self: center;
 `;
 
-const AboutLink = styled(Link)`
+const AboutLink = styled(Button)`
   grid-area: about;
 `;
 
-const GalleryLink = styled(Link)`
+const GalleryLink = styled(Button)`
   grid-area: gallery;
   justify-self: center;
 `;
 
-const OrderLink = styled(Link)`
+const OrderLink = styled(Button)`
   grid-area: order;
   justify-self: end;
 `;
 
 const Cart = styled(UnstyledCart)`
-  fill: ${Colours['grey-300']};
+  fill: ${colours.grey['300']};
   width: 15px;
 `;
 
 export default () => (
   <Header>
     <Nav>
-      <TitleLink to="/" plain>
+      <TitleLink navigateTo="/" isPlain>
         <h1>Ciao, Estrela Co.</h1>
       </TitleLink>
-      <CartLink plain><Cart /></CartLink>
-      <AboutLink to="/about" plain>about</AboutLink>
-      <GalleryLink to="/gallery" plain>gallery</GalleryLink>
-      <OrderLink plain>order now</OrderLink>
+      <CartLink navigateTo="/" isPlain><Cart /></CartLink>
+      <AboutLink navigateTo="/about" isPlain>about</AboutLink>
+      <GalleryLink navigateTo="/gallery" isPlain>gallery</GalleryLink>
+      <OrderLink navigateTo="/order" isPlain>order now</OrderLink>
     </Nav>
   </Header>
 );
