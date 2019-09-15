@@ -17,7 +17,6 @@ const globalStyle = createGlobalStyle`
     font-weight: 300;
     background-color: ${colours.grey['200']};
     color: ${colours.grey['400']};
-    height: 100vh;
   }
 
   main {
