@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import boxShadow from '../styles/boxShadow';
 import colours from '../styles/colours';
 
-const getSharedStyles = (props) => `
+const getSharedStyles = props => `
   font-size: 0.9rem;
   font-weight: 400;
   text-align: center;

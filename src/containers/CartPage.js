@@ -1,7 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { withRouter } from 'react-router-dom';
 import Button from '../components/Button';
 import CartItem from '../components/CartItem';
 import { getCart } from '../store/cart';
@@ -50,7 +49,7 @@ const Buttons = styled.section`
   grid-template-columns: auto auto 1fr;
 `;
 
-const CartPage = withRouter(({ history }) => {
+const CartPage = () => {
   let cart = useSelector(getCart);
   cart = [{
     cardstock: 'test cardstock',
@@ -73,7 +72,10 @@ const CartPage = withRouter(({ history }) => {
     <Main>
       <Summary>
         <TotalCost>{`$${cart.length * 10}`}</TotalCost>
-        <CostBreakdown><Bold>{cart.length}</Bold> card{cart.length > 1 ? 's' : ''} at $10 each</CostBreakdown>
+        <CostBreakdown>
+          <Bold>{cart.length}</Bold>
+          {` card${cart.length > 1 ? 's' : ''} at $10 each`}
+        </CostBreakdown>
       </Summary>
       <CartItems>
         {cart.map((item, index) => <CartItem key={`${item.cardstock}-${item.idea ? item.idea : index}`} item={item} />)}
@@ -84,6 +86,6 @@ const CartPage = withRouter(({ history }) => {
       </Buttons>
     </Main>
   );
-});
+};
 
 export default CartPage;

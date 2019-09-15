@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import panelStyle from '../styles/panelStyle';
 
 const Section = styled.section`
@@ -21,14 +22,23 @@ const Bold = styled.span`
   font-weight: 600;
 `;
 
-const CartItem = ({ item }) => {
-  return (
-    <Section>
-      <Heading>Custom card</Heading>
-      <Line>on <Bold>{item.cardstock}</Bold> paper</Line>
-      {item.ideas && <Line>{item.ideas}</Line>}
-    </Section>
-  );
+const CartItem = ({ item }) => (
+  <Section>
+    <Heading>Custom card</Heading>
+    <Line>
+      {'on '}
+      <Bold>{item.cardstock}</Bold>
+      {' paper'}
+    </Line>
+    {item.ideas && <Line>{item.ideas}</Line>}
+  </Section>
+);
+
+CartItem.propTypes = {
+  item: PropTypes.shape({
+    cardstock: PropTypes.string.isRequired,
+    ideas: PropTypes.string,
+  }).isRequired,
 };
 
 export default CartItem;
