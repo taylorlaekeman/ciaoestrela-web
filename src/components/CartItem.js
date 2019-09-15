@@ -3,6 +3,15 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import panelStyle from '../styles/panelStyle';
 
+const truncateIdeas = (ideas) => {
+  if (ideas.length <= 40) {
+    return ideas;
+  }
+  const words = ideas.substring(0, 40).split(' ');
+  const sentence = words.reduce((accumulator, currentValue) => `${accumulator} ${currentValue}`);
+  return `${sentence}...`;
+};
+
 const Section = styled.section`
   ${panelStyle}
   display: grid;
@@ -30,7 +39,7 @@ const CartItem = ({ item }) => (
       <Bold>{item.cardstock}</Bold>
       {' paper'}
     </Line>
-    {item.ideas && <Line>{item.ideas}</Line>}
+    {item.ideas && <Line>{truncateIdeas(item.ideas)}</Line>}
   </Section>
 );
 

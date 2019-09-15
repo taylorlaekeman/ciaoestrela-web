@@ -56,7 +56,7 @@ const CartPage = () => {
     ideas: 'test ideas',
   }, {
     cardstock: 'test cardstock',
-    ideas: 'test other ideas',
+    ideas: 'test other ideas; very, very, very, very, very, very, very long',
   }];
 
   if (cart.length === 0) {
@@ -78,7 +78,7 @@ const CartPage = () => {
         </CostBreakdown>
       </Summary>
       <CartItems>
-        {cart.map((item, index) => <CartItem key={`${item.cardstock}-${item.idea ? item.idea : index}`} item={item} />)}
+        {cart.map((item, index) => <CartItem key={`${item.cardstock}-${item.ideas ? item.ideas : index}`} item={item} />)}
       </CartItems>
       <Buttons>
         <Button navigateTo="/checkout">Proceed to checkout</Button>
