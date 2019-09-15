@@ -26,6 +26,7 @@ const globalStyle = createGlobalStyle`
   h1 {
     font-size: 1.6rem;
     font-weight: 300;
+    margin: 0;
   }
 
   h2 {
@@ -36,8 +37,6 @@ const globalStyle = createGlobalStyle`
   h3 {
     font-size: 0.8rem;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 2px;
   }
 `;
 

@@ -26,8 +26,9 @@ const Nav = styled.nav`
     'title title   cart '
     'about gallery order';
   grid-template-columns: 1fr 1fr 1fr;
+  grid-row-gap: 10px;
 
-  @media (min-width: 500px) {
+  @media (min-width: 504px) {
     grid-template-areas: 'title . about gallery order cart';
     grid-template-columns: auto 1fr auto auto auto auto;
     align-items: center;
@@ -70,7 +71,7 @@ export default () => (
       <TitleLink navigateTo="/" isPlain>
         <h1>Ciao, Estrela Co.</h1>
       </TitleLink>
-      <CartLink navigateTo="/" isPlain><Cart /></CartLink>
+      <CartLink navigateTo="/cart" isPlain><Cart /></CartLink>
       <AboutLink navigateTo="/about" isPlain>about</AboutLink>
       <GalleryLink navigateTo="/gallery" isPlain>gallery</GalleryLink>
       <OrderLink navigateTo="/order" isPlain>order now</OrderLink>

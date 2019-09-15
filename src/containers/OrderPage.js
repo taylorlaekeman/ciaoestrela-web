@@ -43,6 +43,7 @@ const Main = styled.main`
 
 const Form = styled.form`
   ${panelStyle}
+  grid-area: form;
 
   display: grid;
   grid-template-areas:
@@ -74,6 +75,8 @@ const IdeasTextarea = styled.textarea`
   font-family: ${fonts.body}, ${fonts.fallback};
   color: ${colours.grey[400]};
   font-weight: 300;
+  border-radius: 0;
+  -webkit-appearance: none;
 `;
 
 const Image = styled.img`

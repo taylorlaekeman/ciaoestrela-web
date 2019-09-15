@@ -26,3 +26,7 @@ export const reducers = (state = initialState, action) => {
     }
   }
 };
+
+export const getCart = (state) => {
+  return state.cart.cart;
+};
