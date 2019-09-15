@@ -20,7 +20,7 @@ const getSharedStyles = props => `
   -webkit-appearance: none;
 
   &:hover {
-    background-color: ${colours.green['300']};
+    background-color: ${props.isSecondary ? colours.grey['400'] : colours.green['300']};
   }
 
   &:active {
