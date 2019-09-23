@@ -78,11 +78,18 @@ const CartPage = () => {
         </CostBreakdown>
       </Summary>
       <CartItems>
-        {cart.map((item, index) => <CartItem key={`${item.cardstock}-${item.ideas ? item.ideas : index}`} item={item} />)}
+        {cart.map((item, index) => (
+          <CartItem
+            key={`${item.cardstock}-${item.ideas ? item.ideas : index}`}
+            isSelected={isItemSelected(item, selectedCartItem)}
+            item={item}
+            onSelect={selectCartItem}
+          />
+        ))}
       </CartItems>
       <Buttons>
         <Button navigateTo="/checkout">Proceed to checkout</Button>
-        <Button navigateTo="/order" isSecondary>Add another card</Button>
+        <Button navigateTo="/order">Add another card</Button>
       </Buttons>
     </Main>
   );
