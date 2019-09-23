@@ -7,6 +7,11 @@ export const actions = {
     type: 'add-custom-card-to-cart',
     payload: card,
   }),
+
+  removeItemFromCart: index => ({
+    type: 'remove-item-from-cart',
+    payload: index,
+  }),
 };
 
 export const reducers = (state = initialState, action) => {
@@ -14,6 +19,15 @@ export const reducers = (state = initialState, action) => {
     case 'add-custom-card-to-cart': {
       const cart = state.cart.slice(0);
       cart.push(action.payload);
+      return {
+        ...state,
+        cart,
+      };
+    }
+
+    case 'remove-item-from-cart': {
+      const cart = state.cart.slice(0);
+      cart.splice(action.payload, 1);
       return {
         ...state,
         cart,
