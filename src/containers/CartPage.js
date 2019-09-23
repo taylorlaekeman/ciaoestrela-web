@@ -94,6 +94,7 @@ const CartPage = () => {
         {cart.map((item, index) => (
           <CartItem
             key={`${item.cardstock}-${item.ideas ? item.ideas : index}`}
+            index={index}
             isSelected={isItemSelected(item, selectedCartItem)}
             item={item}
             onSelect={selectCartItem}

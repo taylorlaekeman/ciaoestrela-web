@@ -64,7 +64,7 @@ const Delete = styled(UnstyledDelete)`
   ${iconStyle}
 `;
 
-const CartItem = ({ isSelected, item, onDelete, onSelect }) => {
+const CartItem = ({ index, isSelected, item, onDelete, onSelect }) => {
   const ideasText = isSelected ? item.ideas : truncateIdeas(item.ideas);
   return (
     <Section onClick={() => onSelect(item)} isSelected={isSelected}>
@@ -75,7 +75,7 @@ const CartItem = ({ isSelected, item, onDelete, onSelect }) => {
         {' paper'}
       </Cardstock>
       {item.ideas && <Ideas>{ideasText}</Ideas>}
-      {isSelected && <EditButton><Edit /></EditButton>}
+      {isSelected && <EditButton navigateTo={`/order/${index + 1}`}><Edit /></EditButton>}
       {isSelected && <DeleteButton onClick={onDelete}><Delete /></DeleteButton>}
     </Section>
   );

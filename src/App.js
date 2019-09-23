@@ -17,7 +17,8 @@ function App() {
       <Route path="/about" component={AboutPage} />
       <Route path="/cart" component={CartPage} />
       <Route path="/gallery" component={GalleryPage} />
-      <Route path="/order" component={OrderPage} />
+      <Route path="/order" exact component={OrderPage} />
+      <Route path="/order/:index" component={OrderPage} />
     </BrowserRouter>
   );
 }
