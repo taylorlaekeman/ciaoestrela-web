@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { Redirect } from 'react-router-dom';
 import Button from '../components/Button';
 import { actions as cartActions } from '../store/cart';
 import colours from '../styles/colours';
 import fonts from '../styles/fonts';
+import { getCartItem } from '../store/cart';
 import OrderPageImage from '../assets/images/order.png';
 import panelStyle from '../styles/panelStyle';
 import UnstyledSelect from '../components/Select';
@@ -84,15 +86,33 @@ const Image = styled.img`
   grid-area: image;
 `;
 
+const isEdit = () => {
+  const path = window.location.pathname;
+  const splitPath = path.split("/");
+  return splitPath[splitPath.length -1] !== 'order';
+};
+
+const parseIndexFromUrl = () => {
+  const path = window.location.pathname;
+  const splitPath = path.split("/");
+  return splitPath[splitPath.length - 1] - 1;
+};
+
 const OrderPage = () => {
-  const [cardstock, setCardstock] = useState('4" x 5.5" white');
-  const [ideas, setIdeas] = useState('');
+  const index = parseIndexFromUrl();
+  const cartItem = useSelector((state) => getCartItem(state, index));
+  const [cardstock, setCardstock] = useState(isEdit() ? cartItem.cardstock : '4" x 5.5" white');
+  const [ideas, setIdeas] = useState(isEdit() ? cartItem.ideas : '');
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const dispatch = useDispatch();
 
   const submitForm = () => {
     setHasSubmitted(true);
-    dispatch(cartActions.addCustomCardToCart({ cardstock, ideas }));
+    if (isEdit()) {
+      dispatch(cartActions.updateCartItem({ cardstock, ideas }, index));
+    } else {
+      dispatch(cartActions.addCustomCardToCart({ cardstock, ideas }));
+    }
   };
 
   if (hasSubmitted) {
@@ -113,7 +133,7 @@ const OrderPage = () => {
         <IdeasLabel>Please share any ideas you have for the design of your card!</IdeasLabel>
         <IdeasTextarea value={ideas} onChange={(event) => { setIdeas(event.target.value); }} />
 
-        <Button onClick={submitForm} isFormSubmit>Add to cart</Button>
+        <Button onClick={submitForm} isFormSubmit>{isEdit() ? 'Update cart' : 'Add to cart'}</Button>
       </Form>
       <Image src={OrderPageImage} alt="Ciao, Estrela lion with leaves" />
     </Main>
