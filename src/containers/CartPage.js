@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
 import styled from 'styled-components';
 import Button from '../components/Button';
-import { actions as cartActions } from '../store/cart';
+import { actions as cartActions, getCart } from '../store/cart';
 import CartItem from '../components/CartItem';
-import { getCart } from '../store/cart';
+
 
 const Main = styled.main`
   display: grid;
@@ -51,22 +51,13 @@ const Buttons = styled.section`
   grid-template-columns: auto auto 1fr;
 `;
 
-const isItemSelected = (item, selected) => {
-  return item.cardstock === selected.cardstock && item.ideas === selected.ideas;
-};
+const isItemSelected = (item, selected) => item.cardstock === selected.cardstock
+  && item.ideas === selected.ideas;
 
 const CartPage = () => {
-  let cart = useSelector(getCart);
+  const cart = useSelector(getCart);
   const [selectedCartItem, selectCartItem] = useState('');
   const dispatch = useDispatch();
-
-  /*cart = [{
-    cardstock: 'test cardstock',
-    ideas: 'test ideas',
-  }, {
-    cardstock: 'test cardstock',
-    ideas: 'test other ideas; very, very, very, very, very, very, very long',
-  }];*/
 
   if (cart.length === 0) {
     return (
@@ -77,7 +68,7 @@ const CartPage = () => {
     );
   }
 
-  const deleteItem = (index) => () => {
+  const deleteItem = index => () => {
     dispatch(cartActions.removeItemFromCart(index));
   };
 

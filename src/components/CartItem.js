@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import Button from '../components/Button';
+import Button from './Button';
 import iconStyle from '../styles/iconStyle';
 import panelStyle from '../styles/panelStyle';
 import { ReactComponent as UnstyledEdit } from '../assets/icons/pencil.svg';
@@ -64,7 +64,9 @@ const Delete = styled(UnstyledDelete)`
   ${iconStyle}
 `;
 
-const CartItem = ({ index, isSelected, item, onDelete, onSelect }) => {
+const CartItem = ({
+  index, isSelected, item, onDelete, onSelect,
+}) => {
   const ideasText = isSelected ? item.ideas : truncateIdeas(item.ideas);
   return (
     <Section onClick={() => onSelect(item)} isSelected={isSelected}>
@@ -82,10 +84,14 @@ const CartItem = ({ index, isSelected, item, onDelete, onSelect }) => {
 };
 
 CartItem.propTypes = {
+  index: PropTypes.number.isRequired,
+  isSelected: PropTypes.bool.isRequired,
   item: PropTypes.shape({
     cardstock: PropTypes.string.isRequired,
     ideas: PropTypes.string,
   }).isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onSelect: PropTypes.func.isRequired,
 };
 
 export default CartItem;

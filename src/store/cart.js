@@ -58,6 +58,6 @@ export const reducers = (state = initialState, action) => {
 export const getCart = state => state.cart.cart;
 
 export const getCartItem = (state, index) => {
-  if (parseInt(index) === undefined) return {};
+  if (parseInt(index, 10) === undefined) return {};
   return state.cart.cart[index];
-}
+};
