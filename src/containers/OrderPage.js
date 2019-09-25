@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import styled from 'styled-components';
 import { Redirect } from 'react-router-dom';
+
 import Button from '../components/Button';
 import { actions as cartActions, getCartItem } from '../store/cart';
 import colours from '../styles/colours';
 import fonts from '../styles/fonts';
-
 import OrderPageImage from '../assets/images/order.png';
 import panelStyle from '../styles/panelStyle';
 import UnstyledSelect from '../components/Select';

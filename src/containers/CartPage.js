@@ -1,12 +1,47 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
 import styled from 'styled-components';
+
 import Button from '../components/Button';
 import { actions as cartActions, getCart } from '../store/cart';
 import CartItem from '../components/CartItem';
+import panelStyle from '../styles/panelStyle';
 
 const Main = styled.main`
+  display: grid;
+  grid-template-areas:
+    'content';
+
+  @media (min-width: 540px) {
+    grid-template-areas:
+      '. content';
+    grid-template-columns 1fr 500px;
+  }
+
+  @media (min-width: 1160px) {
+    grid-template-areas:
+      '. . content .';
+    grid-template-columns: 1fr 620px 500px 1fr;
+  }
+`;
+
+const EmptyContents = styled.section`
+  grid-area: content;
+  display: grid;
+  grid-template-areas:
+    '.      .'
+    'button .';
+  grid-template-columns: auto 1fr;
+  grid-gap: 20px;
+  ${panelStyle}
+`;
+
+const EmptyButton = styled(Button)`
+  grid-area: button;
+`;
+
+const Contents = styled.section`
+  grid-area: content;
   display: grid;
   grid-template-areas:
     'summary'
@@ -61,8 +96,10 @@ const CartPage = () => {
   if (cart.length === 0) {
     return (
       <Main>
-        Your cart is empty!
-        <Button navigateTo="/order">Add another card</Button>
+        <EmptyContents>
+          Your cart is empty!
+          <EmptyButton navigateTo="/order">Add another card</EmptyButton>
+        </EmptyContents>
       </Main>
     );
   }
@@ -73,29 +110,31 @@ const CartPage = () => {
 
   return (
     <Main>
-      <Summary>
-        <TotalCost>{`$${cart.length * 10}`}</TotalCost>
-        <CostBreakdown>
-          <Bold>{cart.length}</Bold>
-          {` card${cart.length > 1 ? 's' : ''} at $10 each`}
-        </CostBreakdown>
-      </Summary>
-      <CartItems>
-        {cart.map((item, index) => (
-          <CartItem
-            key={`${item.cardstock}-${item.ideas ? item.ideas : index}`}
-            index={index}
-            isSelected={isItemSelected(item, selectedCartItem)}
-            item={item}
-            onSelect={selectCartItem}
-            onDelete={deleteItem(index)}
-          />
-        ))}
-      </CartItems>
-      <Buttons>
-        <Button navigateTo="/checkout">Proceed to checkout</Button>
-        <Button navigateTo="/order">Add another card</Button>
-      </Buttons>
+      <Contents>
+        <Summary>
+          <TotalCost>{`$${cart.length * 10}`}</TotalCost>
+          <CostBreakdown>
+            <Bold>{cart.length}</Bold>
+            {` card${cart.length > 1 ? 's' : ''} at $10 each`}
+          </CostBreakdown>
+        </Summary>
+        <CartItems>
+          {cart.map((item, index) => (
+            <CartItem
+              key={`${item.cardstock}-${item.ideas ? item.ideas : index}`}
+              index={index}
+              isSelected={isItemSelected(item, selectedCartItem)}
+              item={item}
+              onSelect={selectCartItem}
+              onDelete={deleteItem(index)}
+            />
+          ))}
+        </CartItems>
+        <Buttons>
+          <Button navigateTo="/checkout">Proceed to checkout</Button>
+          <Button navigateTo="/order">Add another card</Button>
+        </Buttons>
+      </Contents>
     </Main>
   );
 };
