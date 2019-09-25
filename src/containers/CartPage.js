@@ -6,7 +6,6 @@ import Button from '../components/Button';
 import { actions as cartActions, getCart } from '../store/cart';
 import CartItem from '../components/CartItem';
 
-
 const Main = styled.main`
   display: grid;
   grid-template-areas:
@@ -61,10 +60,10 @@ const CartPage = () => {
 
   if (cart.length === 0) {
     return (
-      <div>
+      <Main>
         Your cart is empty!
-        <Button>Add another card</Button>
-      </div>
+        <Button navigateTo="/order">Add another card</Button>
+      </Main>
     );
   }
 
