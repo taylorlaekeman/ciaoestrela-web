@@ -18,12 +18,10 @@ const truncateIdeas = (ideas) => {
 
 const getGridAreas = ({ ideas, isSelected }) => {
   let base = "'title title title''cardstock cardstock cardstock'";
-  if (ideas !== "")
-    base += "'ideas ideas ideas'";
-  if (isSelected)
-    base += "'edit delete .'";
+  if (ideas !== '') base += "'ideas ideas ideas'";
+  if (isSelected) base += "'edit delete .'";
   return base;
-}
+};
 
 const Section = styled.section`
   ${panelStyle}

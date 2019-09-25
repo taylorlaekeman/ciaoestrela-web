@@ -15,28 +15,28 @@ const Main = styled.main`
   display: grid;
   grid-row-gap: 20px;
   grid-template-areas:
-    "form"
-    "image";
+    'form'
+    'image';
 
   @media (min-width: 540px) {
     grid-template-areas:
-      ". form "
-      ". image";
+      '. form '
+      '. image';
     grid-template-columns: 1fr 500px;
   }
 
   @media (min-width: 1060px) {
     grid-template-areas:
-      "image form"
-      "image .   ";
+      'image form'
+      'image .   ';
     grid-template-columns: 1fr 500px;
     grid-column-gap: 20px;
   }
 
   @media (min-width: 1160px) {
     grid-template-areas:
-      ". image . form ."
-      ". image . .    .";
+      '. image . form .'
+      '. image . .    .';
     grid-template-columns: 1fr 600px 20px 500px 1fr;
     grid-column-gap: 0;
   }

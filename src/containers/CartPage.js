@@ -110,14 +110,14 @@ const CartPage = () => {
   const [selectedCartItem, selectCartItem] = useState('');
   const dispatch = useDispatch();
 
-  const ImageComponent = <Image src={CartPageImage} alt='Sun cartoon character pushing shopping cart full of potted plants' />;
+  const ImageComponent = <Image src={CartPageImage} alt="Sun cartoon character pushing shopping cart full of potted plants" />;
 
   if (cart.length === 0) {
     return (
       <Main>
         <EmptyContents>
           Your cart is empty!
-          <EmptyButton navigateTo='/order'>Add another card</EmptyButton>
+          <EmptyButton navigateTo="/order">Add another card</EmptyButton>
         </EmptyContents>
         {ImageComponent}
       </Main>
@@ -151,8 +151,8 @@ const CartPage = () => {
           ))}
         </CartItems>
         <Buttons>
-          <Button navigateTo='/checkout'>Proceed to checkout</Button>
-          <Button navigateTo='/order'>Add another card</Button>
+          <Button navigateTo="/checkout">Proceed to checkout</Button>
+          <Button navigateTo="/order">Add another card</Button>
         </Buttons>
       </Contents>
       {ImageComponent}
