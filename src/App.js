@@ -1,12 +1,12 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import AboutPage from './containers/AboutPage';
-import CartPage from './containers/CartPage';
-import GalleryPage from './containers/GalleryPage';
+import AboutPage from './components/AboutPage';
+import CartPage from './components/CartPage';
+import GalleryPage from './components/GalleryPage';
 import GlobalStyle from './styles/globalStyle';
-import Header from './containers/Header';
-import HomePage from './containers/HomePage';
-import OrderPage from './containers/OrderPage';
+import Header from './components/Header';
+import HomePage from './components/HomePage';
+import OrderPage from './components/OrderPage';
 
 function App() {
   return (
