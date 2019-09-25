@@ -5,7 +5,6 @@ const panelStyle = `
   padding: 20px;
   border-radius: 5px;
   box-shadow: ${boxShadow.medium};
-  grid-area: form;
 `;
 
 export default panelStyle;

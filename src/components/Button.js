@@ -5,19 +5,22 @@ import styled from 'styled-components';
 import boxShadow from '../styles/boxShadow';
 import colours from '../styles/colours';
 
-const sharedStyles = `
+const getSharedStyles = props => `
+  font-size: 0.9rem;
   font-weight: 400;
+  text-align: center;
   text-decoration: none;
   color: ${colours.grey[600]};
-  background-color: ${colours.green['200']};
+  background-color: ${props.isSecondary ? colours.grey['300'] : colours.green['200']};
   border: none;
   border-radius: 5px;
   box-shadow: ${boxShadow.medium};
   padding: 10px 20px;
   display: inline-block;
+  -webkit-appearance: none;
 
   &:hover {
-    background-color: ${colours.green['300']};
+    background-color: ${props.isSecondary ? colours.grey['400'] : colours.green['300']};
   }
 
   &:active {
@@ -35,15 +38,15 @@ const plainLinkStyles = `
 `;
 
 const StyledButton = styled.button`
-  ${sharedStyles}
+  ${getSharedStyles}
 `;
 
 const StyledSubmit = styled.input`
-  ${sharedStyles}
+  ${getSharedStyles}
 `;
 
-const StyledLink = styled(({ isPlain, ...rest }) => <Link {...rest} />)`
-  ${props => (props.isPlain ? plainLinkStyles : sharedStyles)}
+const StyledLink = styled(({ isPlain, isSecondary, ...rest }) => <Link {...rest} />)`
+  ${props => (props.isPlain ? plainLinkStyles : getSharedStyles(props))}
 `;
 
 const Button = ({
@@ -51,6 +54,7 @@ const Button = ({
   className,
   isFormSubmit,
   isPlain,
+  isSecondary,
   navigateTo,
   onClick,
 }) => {
@@ -58,6 +62,7 @@ const Button = ({
     return (
       <StyledSubmit
         className={className}
+        isSecondary={isSecondary}
         type="submit"
         value={children}
         onClick={onClick}
@@ -68,8 +73,9 @@ const Button = ({
     return (
       <StyledLink
         className={className}
-        to={navigateTo}
         isPlain={isPlain}
+        isSecondary={isSecondary}
+        to={navigateTo}
       >
         {children}
       </StyledLink>
@@ -78,6 +84,7 @@ const Button = ({
   return (
     <StyledButton
       className={className}
+      isSecondary={isSecondary}
       onClick={onClick}
     >
       {children}
@@ -90,6 +97,7 @@ Button.propTypes = {
   className: PropTypes.string,
   isFormSubmit: PropTypes.bool,
   isPlain: PropTypes.bool,
+  isSecondary: PropTypes.bool,
   navigateTo: PropTypes.string,
   onClick: PropTypes.func,
 };
@@ -98,6 +106,7 @@ Button.defaultProps = {
   className: '',
   isFormSubmit: false,
   isPlain: false,
+  isSecondary: false,
   navigateTo: '',
   onClick: null,
 };

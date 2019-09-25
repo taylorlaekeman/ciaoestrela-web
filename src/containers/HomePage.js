@@ -48,6 +48,11 @@ const Section = styled.section`
   margin-top: 60px;
 `;
 
+const H3 = styled.h3`
+  text-transform: uppercase;
+  letter-spacing: 2px;
+`;
+
 const OrderButton = styled(Button)`
   margin-top: 40px;
   width: max-content;
@@ -100,7 +105,7 @@ function HomePage() {
       <Article>
         <H2>Beautiful, one-of-a-kind cards for $10</H2>
         <Section>
-          <h3>How it works</h3>
+          <H3>How it works</H3>
           <OrderedList>
             <ListItem>
               <Compose />
