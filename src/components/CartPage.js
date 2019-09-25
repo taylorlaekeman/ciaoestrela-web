@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-import Button from '../components/Button';
+import Button from './Button';
 import { actions as cartActions, getCart } from '../store/cart';
-import CartItem from '../components/CartItem';
+import CartItem from './CartItem';
 import CartPageImage from '../assets/images/cart.png';
 import panelStyle from '../styles/panelStyle';
 

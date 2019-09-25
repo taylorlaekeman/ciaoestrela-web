@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Button from '../components/Button';
+import Button from './Button';
 import colours from '../styles/colours';
 import { ReactComponent as UnstyledCart } from '../assets/icons/cart.svg';
 
