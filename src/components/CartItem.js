@@ -16,14 +16,19 @@ const truncateIdeas = (ideas) => {
   return `${sentence}...`;
 };
 
+const getGridAreas = ({ ideas, isSelected }) => {
+  let base = "'title title title''cardstock cardstock cardstock'";
+  if (ideas !== "")
+    base += "'ideas ideas ideas'";
+  if (isSelected)
+    base += "'edit delete .'";
+  return base;
+}
+
 const Section = styled.section`
   ${panelStyle}
   display: grid;
-  grid-template-areas:
-    'title     title     title    '
-    'cardstock cardstock cardstock'
-    'ideas     ideas     ideas    '
-    'edit      delete    .        ';
+  grid-template-areas: ${getGridAreas};
   grid-template-columns: auto auto 1fr;
   grid-gap: 10px;
 `;
@@ -69,7 +74,7 @@ const CartItem = ({
 }) => {
   const ideasText = isSelected ? item.ideas : truncateIdeas(item.ideas);
   return (
-    <Section onClick={() => onSelect(item)} isSelected={isSelected}>
+    <Section ideas={item.ideas} onClick={() => onSelect(item)} isSelected={isSelected}>
       <Heading>Custom card</Heading>
       <Cardstock>
         {'on '}

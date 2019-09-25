@@ -5,23 +5,35 @@ import styled from 'styled-components';
 import Button from '../components/Button';
 import { actions as cartActions, getCart } from '../store/cart';
 import CartItem from '../components/CartItem';
+import CartPageImage from '../assets/images/cart.png';
 import panelStyle from '../styles/panelStyle';
 
 const Main = styled.main`
   display: grid;
   grid-template-areas:
-    'content';
+    'content'
+    'image  ';
 
   @media (min-width: 540px) {
     grid-template-areas:
-      '. content';
+      '. content'
+      '. image  ';
     grid-template-columns 1fr 500px;
+  }
+
+  @media (min-width: 1060px) {
+    grid-template-areas:
+      'image content'
+      'image .      ';
+    grid-column-gap: 20px;
   }
 
   @media (min-width: 1160px) {
     grid-template-areas:
-      '. . content .';
-    grid-template-columns: 1fr 620px 500px 1fr;
+      '. image . content .'
+      '. image . .       .';
+    grid-template-columns: 1fr 600px 20px 500px 1fr;
+    grid-column-gap: 0;
   }
 `;
 
@@ -85,6 +97,11 @@ const Buttons = styled.section`
   grid-template-columns: auto auto 1fr;
 `;
 
+const Image = styled.img`
+  grid-area: image;
+  width: 100%;
+`;
+
 const isItemSelected = (item, selected) => item.cardstock === selected.cardstock
   && item.ideas === selected.ideas;
 
@@ -93,13 +110,16 @@ const CartPage = () => {
   const [selectedCartItem, selectCartItem] = useState('');
   const dispatch = useDispatch();
 
+  const ImageComponent = <Image src={CartPageImage} alt='Sun cartoon character pushing shopping cart full of potted plants' />;
+
   if (cart.length === 0) {
     return (
       <Main>
         <EmptyContents>
           Your cart is empty!
-          <EmptyButton navigateTo="/order">Add another card</EmptyButton>
+          <EmptyButton navigateTo='/order'>Add another card</EmptyButton>
         </EmptyContents>
+        {ImageComponent}
       </Main>
     );
   }
@@ -131,10 +151,11 @@ const CartPage = () => {
           ))}
         </CartItems>
         <Buttons>
-          <Button navigateTo="/checkout">Proceed to checkout</Button>
-          <Button navigateTo="/order">Add another card</Button>
+          <Button navigateTo='/checkout'>Proceed to checkout</Button>
+          <Button navigateTo='/order'>Add another card</Button>
         </Buttons>
       </Contents>
+      {ImageComponent}
     </Main>
   );
 };
