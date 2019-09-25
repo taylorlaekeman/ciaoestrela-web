@@ -41,11 +41,17 @@ const EmptyContents = styled.section`
   grid-area: content;
   display: grid;
   grid-template-areas:
-    '.      .'
-    'button .';
+    'text   text'
+    'button .   ';
   grid-template-columns: auto 1fr;
   grid-gap: 20px;
   ${panelStyle}
+`;
+
+const EmptyMessage = styled.h2`
+  grid-area: text;
+  margin: 0;
+  font-size: 1.6rem;
 `;
 
 const EmptyButton = styled(Button)`
@@ -116,8 +122,8 @@ const CartPage = () => {
     return (
       <Main>
         <EmptyContents>
-          Your cart is empty!
-          <EmptyButton navigateTo="/order">Add another card</EmptyButton>
+          <EmptyMessage>Your cart is empty!</EmptyMessage>
+          <EmptyButton navigateTo="/order">Add a card</EmptyButton>
         </EmptyContents>
         {ImageComponent}
       </Main>
