@@ -47,7 +47,7 @@ const Ideas = styled.p`
   margin: 0;
 `;
 
-const Bold = styled.span`
+const Bold = styled.mark`
   font-weight: 600;
 `;
 
