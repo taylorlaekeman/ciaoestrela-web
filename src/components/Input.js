@@ -6,6 +6,10 @@ import boxShadow from '../styles/boxShadow';
 import colours from '../styles/colours';
 import getArea from '../utils/getArea';
 
+const hasVisibleError = props => !props.isValid && props.areErrorsVisible;
+
+const replaceColourIfError = (colour, props) => (hasVisibleError(props) ? 'red' : colour);
+
 const Container = styled.div`
   ${getArea}
 `;
@@ -13,7 +17,7 @@ const Container = styled.div`
 const Label = styled.label`
   padding: 0 12px;
   font-size: 1rem;
-  color: ${props => (props.isValid ? colours.green['600'] : 'red')};
+  color: ${props => replaceColourIfError(colours.green['600'], props)};
 `;
 
 const StyledInput = styled.input`
@@ -22,20 +26,15 @@ const StyledInput = styled.input`
   width: 100%;
   padding: 12px;
   border: none;
-  border-bottom: solid ${colours.grey['300']} 1px;
+  border-bottom: solid ${props => replaceColourIfError(colours.grey['300'], props)} 1px;
   font-size: 1.2rem;
   font-weight: 300;
-  color: ${colours.green['600']};
+  color: ${props => replaceColourIfError(colours.green['600'], props)};
   box-shadow: ${boxShadow.medium};
   -webkit-appearance: none;
 
   &:focus {
     outline: none;
-  }
-
-  &:invalid {
-    color: red;
-    border-bottom-color: red;
   }
 `;
 
@@ -80,6 +79,7 @@ export const isValid = validity => validity.valid;
 
 const Input = ({
   area,
+  areErrorsVisible,
   className,
   isRequired,
   label,
@@ -91,9 +91,17 @@ const Input = ({
   value,
 }) => (
   <Container area={area} className={className}>
-    <Label htmlFor={label} isValid={isValid(validity)}>{label}</Label>
+    <Label
+      areErrorsVisible={areErrorsVisible}
+      htmlFor={label}
+      isValid={isValid(validity)}
+    >
+      {label}
+    </Label>
     <StyledInput
+      areErrorsVisible={areErrorsVisible}
       id={label}
+      isValid={isValid(validity)}
       name={label}
       maxLength={maxLength}
       minLength={minLength}
@@ -102,14 +110,21 @@ const Input = ({
       type={type}
       value={value}
     />
-    {validity.valueMissing && <Error htmlFor={label}>This field is required</Error>}
-    {validity.typeMismatch && <Error htmlFor={label}>{`Must be a valid ${type}`}</Error>}
-    {validity.tooShort && <Error htmlFor={label}>{`This field must be at least ${minLength} characters long`}</Error>}
+    {areErrorsVisible && validity.valueMissing && (
+      <Error htmlFor={label}>This field is required</Error>
+    )}
+    {areErrorsVisible && validity.typeMismatch && (
+      <Error htmlFor={label}>{`Must be a valid ${type}`}</Error>
+    )}
+    {areErrorsVisible && validity.tooShort && (
+      <Error htmlFor={label}>{`This field must be at least ${minLength} characters long`}</Error>
+    )}
   </Container>
 );
 
 Input.propTypes = {
   area: PropTypes.string,
+  areErrorsVisible: PropTypes.bool,
   className: PropTypes.string,
   isRequired: PropTypes.bool,
   label: PropTypes.string.isRequired,
@@ -143,6 +158,7 @@ Input.propTypes = {
 
 Input.defaultProps = {
   area: '',
+  areErrorsVisible: true,
   className: '',
   isRequired: false,
   maxLength: '',

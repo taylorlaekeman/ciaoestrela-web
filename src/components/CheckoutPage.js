@@ -65,11 +65,17 @@ const CheckoutPage = () => {
   const [province, setProvince] = useState(emptyRequiredInput);
   const [country, setCountry] = useState(emptyRequiredInput);
   const [postalCode, setPostalCode] = useState(emptyRequiredInput);
+  const [areErrorsVisible, setAreErrorsVisible] = useState(false);
   const [step, setStep] = useState('contact');
 
   const navigateToShippingFormOrShowErrors = (event) => {
     event.preventDefault();
-    if (isValid(email.validity)) setStep('shipping');
+    if (isValid(email.validity)) {
+      setAreErrorsVisible(false);
+      setStep('shipping');
+    } else {
+      setAreErrorsVisible(true);
+    }
   };
 
   const navigateToBillingFormOrShowErrors = (event) => {
@@ -82,7 +88,12 @@ const CheckoutPage = () => {
       country,
       postalCode,
     ];
-    if (inputs.every(input => isValid(input.validity))) setStep('billing');
+    if (inputs.every(input => isValid(input.validity))) {
+      setAreErrorsVisible(false);
+      setStep('billing');
+    } else {
+      setAreErrorsVisible(true);
+    }
   };
 
   return (
@@ -93,6 +104,7 @@ const CheckoutPage = () => {
           <SectionTitle>Contact Information</SectionTitle>
           <Input
             area="email"
+            areErrorsVisible={areErrorsVisible}
             isRequired
             label="Email Address"
             type="email"
@@ -114,6 +126,7 @@ const CheckoutPage = () => {
           <SectionTitle>Shipping Information</SectionTitle>
           <Input
             area="street"
+            areErrorsVisible={areErrorsVisible}
             isRequired
             label="Street Address"
             onChange={setStreet}
@@ -122,6 +135,7 @@ const CheckoutPage = () => {
           />
           <Input
             area="apartment"
+            areErrorsVisible={areErrorsVisible}
             label="Apartment Number"
             type="number"
             onChange={setApartment}
@@ -130,6 +144,7 @@ const CheckoutPage = () => {
           />
           <Input
             area="city"
+            areErrorsVisible={areErrorsVisible}
             isRequired
             label="City"
             onChange={setCity}
@@ -138,6 +153,7 @@ const CheckoutPage = () => {
           />
           <Input
             area="province"
+            areErrorsVisible={areErrorsVisible}
             isRequired
             label="Province"
             onChange={setProvince}
@@ -146,6 +162,7 @@ const CheckoutPage = () => {
           />
           <Input
             area="country"
+            areErrorsVisible={areErrorsVisible}
             isRequired
             label="Country"
             onChange={setCountry}
@@ -154,6 +171,7 @@ const CheckoutPage = () => {
           />
           <Input
             area="postal"
+            areErrorsVisible={areErrorsVisible}
             isRequired
             label="Postal Code"
             maxLength="6"
