@@ -2,10 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+
 import boxShadow from '../styles/boxShadow';
 import colours from '../styles/colours';
+import getArea from '../utils/getArea';
 
 const getSharedStyles = props => `
+  ${getArea}
   font-size: 0.9rem;
   font-weight: 400;
   text-align: center;
@@ -29,6 +32,7 @@ const getSharedStyles = props => `
 `;
 
 const plainLinkStyles = `
+  ${getArea}
   color: ${colours.grey[600]};
   text-decoration: none;
 
