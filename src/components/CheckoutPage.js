@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import Button from './Button';
 import CartSummary from './CartSummary';
 import { getCart } from '../store/cart';
-import Input, { emptyInput, emptyRequiredInput } from './Input';
+import Input, { emptyInput, emptyRequiredInput, isValid } from './Input';
 import panelStyle from '../styles/panelStyle';
 
 const Form = styled.form`
@@ -67,6 +67,24 @@ const CheckoutPage = () => {
   const [postalCode, setPostalCode] = useState(emptyRequiredInput);
   const [step, setStep] = useState('contact');
 
+  const navigateToShippingFormOrShowErrors = (event) => {
+    event.preventDefault();
+    if (isValid(email.validity)) setStep('shipping');
+  };
+
+  const navigateToBillingFormOrShowErrors = (event) => {
+    event.preventDefault();
+    const inputs = [
+      street,
+      apartment,
+      city,
+      province,
+      country,
+      postalCode,
+    ];
+    if (inputs.every(input => isValid(input.validity))) setStep('billing');
+  };
+
   return (
     <Main>
       <StyledSummary cart={cart} />
@@ -85,7 +103,7 @@ const CheckoutPage = () => {
           <Button
             area="button"
             isFormSubmit
-            onClick={() => setStep('shipping')}
+            onClick={navigateToShippingFormOrShowErrors}
           >
             Continue to shipping information
           </Button>
@@ -145,7 +163,7 @@ const CheckoutPage = () => {
           <Button
             area="button"
             isFormSubmit
-            onClick={() => setStep('billing')}
+            onClick={navigateToBillingFormOrShowErrors}
           >
             Continue to billing information
           </Button>

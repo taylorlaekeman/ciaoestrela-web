@@ -76,7 +76,7 @@ export const emptyRequiredInput = {
   },
 };
 
-const isValid = validity => validity.valid;
+export const isValid = validity => validity.valid;
 
 const Input = ({
   area,
