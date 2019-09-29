@@ -13,7 +13,7 @@ const Container = styled.div`
 const Label = styled.label`
   padding: 0 12px;
   font-size: 1rem;
-  color: ${props => props.isValid ? colours.green['600'] : 'red'};
+  color: ${props => (props.isValid ? colours.green['600'] : 'red')};
 `;
 
 const StyledInput = styled.input`
@@ -60,11 +60,28 @@ export const emptyInput = {
   },
 };
 
+export const emptyRequiredInput = {
+  value: '',
+  validity: {
+    badInput: false,
+    customError: false,
+    patternMismatch: false,
+    rangeOverflow: false,
+    stepMismatch: false,
+    tooLong: false,
+    tooShort: false,
+    typeMismatch: false,
+    valid: false,
+    valueMissing: true,
+  },
+};
+
 const isValid = validity => validity.valid;
 
 const Input = ({
   area,
   className,
+  isRequired,
   label,
   onChange,
   type,
@@ -76,15 +93,23 @@ const Input = ({
     <StyledInput
       id={label}
       name={label}
-      onChange={(event) => onChange({ value: event.target.value, validity: event.target.validity })}
+      onChange={event => onChange({ value: event.target.value, validity: event.target.validity })}
+      required={isRequired}
       type={type}
       value={value}
     />
-    {validity.typeMismatch && <Error htmlFor={label}>Must be a valid {type}</Error>}
+    {validity.valueMissing && <Error htmlFor={label}>This field is required</Error>}
+    {validity.typeMismatch && <Error htmlFor={label}>{`Must be a valid ${type}`}</Error>}
   </Container>
 );
 
 Input.propTypes = {
+  area: PropTypes.string,
+  className: PropTypes.string,
+  isRequired: PropTypes.bool,
+  label: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  type: PropTypes.string,
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
@@ -101,6 +126,13 @@ Input.propTypes = {
     valid: PropTypes.bool.isRequired,
     valueMissing: PropTypes.bool.isRequired,
   }).isRequired,
+};
+
+Input.defaultProps = {
+  area: '',
+  className: '',
+  isRequired: false,
+  type: 'text',
 };
 
 export default Input;

@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import Button from './Button';
 import CartSummary from './CartSummary';
 import { getCart } from '../store/cart';
-import Input, { emptyInput } from './Input';
+import Input, { emptyInput, emptyRequiredInput } from './Input';
 import panelStyle from '../styles/panelStyle';
 
 const Form = styled.form`
@@ -58,13 +58,13 @@ const StyledSummary = styled(CartSummary)`
 
 const CheckoutPage = () => {
   const cart = useSelector(getCart);
-  const [email, setEmail] = useState(emptyInput);
-  const [street, setStreet] = useState(emptyInput);
+  const [email, setEmail] = useState(emptyRequiredInput);
+  const [street, setStreet] = useState(emptyRequiredInput);
   const [apartment, setApartment] = useState(emptyInput);
-  const [city, setCity] = useState(emptyInput);
-  const [province, setProvince] = useState(emptyInput);
-  const [country, setCountry] = useState(emptyInput);
-  const [postalCode, setPostalCode] = useState(emptyInput);
+  const [city, setCity] = useState(emptyRequiredInput);
+  const [province, setProvince] = useState(emptyRequiredInput);
+  const [country, setCountry] = useState(emptyRequiredInput);
+  const [postalCode, setPostalCode] = useState(emptyRequiredInput);
   const [step, setStep] = useState('contact');
 
   return (
@@ -75,6 +75,7 @@ const CheckoutPage = () => {
           <SectionTitle>Contact Information</SectionTitle>
           <Input
             area="email"
+            isRequired
             label="Email Address"
             type="email"
             onChange={setEmail}
@@ -95,6 +96,7 @@ const CheckoutPage = () => {
           <SectionTitle>Shipping Information</SectionTitle>
           <Input
             area="street"
+            isRequired
             label="Street Address"
             onChange={setStreet}
             validity={street.validity}
@@ -110,6 +112,7 @@ const CheckoutPage = () => {
           />
           <Input
             area="city"
+            isRequired
             label="City"
             onChange={setCity}
             validity={city.validity}
@@ -117,6 +120,7 @@ const CheckoutPage = () => {
           />
           <Input
             area="province"
+            isRequired
             label="Province"
             onChange={setProvince}
             validity={province.validity}
@@ -124,6 +128,7 @@ const CheckoutPage = () => {
           />
           <Input
             area="country"
+            isRequired
             label="Country"
             onChange={setCountry}
             validity={country.validity}
@@ -131,6 +136,7 @@ const CheckoutPage = () => {
           />
           <Input
             area="postal"
+            isRequired
             label="Postal Code"
             onChange={setPostalCode}
             validity={postalCode.validity}
