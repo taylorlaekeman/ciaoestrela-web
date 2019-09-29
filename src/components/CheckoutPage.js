@@ -65,73 +65,92 @@ const CheckoutPage = () => {
   const [province, setProvince] = useState(emptyInput);
   const [country, setCountry] = useState(emptyInput);
   const [postalCode, setPostalCode] = useState(emptyInput);
+  const [step, setStep] = useState('contact');
 
   return (
     <Main>
       <StyledSummary cart={cart} />
-      <ContactForm>
-        <SectionTitle>Contact Information</SectionTitle>
-        <Input
-          area="email"
-          label="Email Address"
-          type="email"
-          onChange={setEmail}
-          validity={email.validity}
-          value={email.value}
-        />
-        <Button area="button">Continue to shipping information</Button>
-      </ContactForm>
-      <ShippingForm>
-        <SectionTitle>Shipping Information</SectionTitle>
-        <Input
-          area="street"
-          label="Street Address"
-          onChange={setStreet}
-          validity={street.validity}
-          value={street.value}
-        />
-        <Input
-          area="apartment"
-          label="Apartment Number"
-          type="number"
-          onChange={setApartment}
-          validity={apartment.validity}
-          value={apartment.value}
-        />
-        <Input
-          area="city"
-          label="City"
-          onChange={setCity}
-          validity={city.validity}
-          value={city.value}
-        />
-        <Input
-          area="province"
-          label="Province"
-          onChange={setProvince}
-          validity={province.validity}
-          value={province.value}
-        />
-        <Input
-          area="country"
-          label="Country"
-          onChange={setCountry}
-          validity={country.validity}
-          value={country.value}
-        />
-        <Input
-          area="postal"
-          label="Postal Code"
-          onChange={setPostalCode}
-          validity={postalCode.validity}
-          value={postalCode.value}
-        />
-        <Button area="button">Continue to billing information</Button>
-      </ShippingForm>
-      <Form>
-        <SectionTitle>Billing Information</SectionTitle>
-        <Button>Place order</Button>
-      </Form>
+      {step === 'contact' && (
+        <ContactForm action="#">
+          <SectionTitle>Contact Information</SectionTitle>
+          <Input
+            area="email"
+            label="Email Address"
+            type="email"
+            onChange={setEmail}
+            validity={email.validity}
+            value={email.value}
+          />
+          <Button
+            area="button"
+            isFormSubmit
+            onClick={() => setStep('shipping')}
+          >
+            Continue to shipping information
+          </Button>
+        </ContactForm>
+      )}
+      {step === 'shipping' && (
+        <ShippingForm action='#'>
+          <SectionTitle>Shipping Information</SectionTitle>
+          <Input
+            area="street"
+            label="Street Address"
+            onChange={setStreet}
+            validity={street.validity}
+            value={street.value}
+          />
+          <Input
+            area="apartment"
+            label="Apartment Number"
+            type="number"
+            onChange={setApartment}
+            validity={apartment.validity}
+            value={apartment.value}
+          />
+          <Input
+            area="city"
+            label="City"
+            onChange={setCity}
+            validity={city.validity}
+            value={city.value}
+          />
+          <Input
+            area="province"
+            label="Province"
+            onChange={setProvince}
+            validity={province.validity}
+            value={province.value}
+          />
+          <Input
+            area="country"
+            label="Country"
+            onChange={setCountry}
+            validity={country.validity}
+            value={country.value}
+          />
+          <Input
+            area="postal"
+            label="Postal Code"
+            onChange={setPostalCode}
+            validity={postalCode.validity}
+            value={postalCode.value}
+          />
+          <Button
+            area="button"
+            isFormSubmit
+            onClick={() => setStep('billing')}
+          >
+            Continue to billing information
+          </Button>
+        </ShippingForm>
+      )}
+      {step === 'billing' && (
+        <Form>
+          <SectionTitle>Billing Information</SectionTitle>
+          <Button>Place order</Button>
+        </Form>
+      )}
     </Main>
   );
 };
