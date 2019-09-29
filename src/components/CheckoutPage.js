@@ -110,7 +110,7 @@ const CheckoutPage = () => {
         </ContactForm>
       )}
       {step === 'shipping' && (
-        <ShippingForm action='#'>
+        <ShippingForm action="#">
           <SectionTitle>Shipping Information</SectionTitle>
           <Input
             area="street"
@@ -156,6 +156,8 @@ const CheckoutPage = () => {
             area="postal"
             isRequired
             label="Postal Code"
+            maxLength="6"
+            minLength="6"
             onChange={setPostalCode}
             validity={postalCode.validity}
             value={postalCode.value}

@@ -83,6 +83,8 @@ const Input = ({
   className,
   isRequired,
   label,
+  maxLength,
+  minLength,
   onChange,
   type,
   validity,
@@ -93,6 +95,8 @@ const Input = ({
     <StyledInput
       id={label}
       name={label}
+      maxLength={maxLength}
+      minLength={minLength}
       onChange={event => onChange({ value: event.target.value, validity: event.target.validity })}
       required={isRequired}
       type={type}
@@ -100,6 +104,7 @@ const Input = ({
     />
     {validity.valueMissing && <Error htmlFor={label}>This field is required</Error>}
     {validity.typeMismatch && <Error htmlFor={label}>{`Must be a valid ${type}`}</Error>}
+    {validity.tooShort && <Error htmlFor={label}>{`This field must be at least ${minLength} characters long`}</Error>}
   </Container>
 );
 
@@ -108,6 +113,14 @@ Input.propTypes = {
   className: PropTypes.string,
   isRequired: PropTypes.bool,
   label: PropTypes.string.isRequired,
+  maxLength: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  minLength: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
   onChange: PropTypes.func.isRequired,
   type: PropTypes.string,
   value: PropTypes.oneOfType([
@@ -132,6 +145,8 @@ Input.defaultProps = {
   area: '',
   className: '',
   isRequired: false,
+  maxLength: '',
+  minLength: '',
   type: 'text',
 };
 
