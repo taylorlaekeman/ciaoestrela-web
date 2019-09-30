@@ -6,9 +6,7 @@ import boxShadow from '../styles/boxShadow';
 import colours from '../styles/colours';
 import getArea from '../utils/getArea';
 
-const hasVisibleError = props => !props.isValid && props.areErrorsVisible;
-
-const replaceColourIfError = (colour, props) => (hasVisibleError(props) ? 'red' : colour);
+const replaceColourIfError = (colour, props) => (props.hasVisibleError ? 'red' : colour);
 
 const Container = styled.div`
   ${getArea}
@@ -89,38 +87,41 @@ const Input = ({
   type,
   validity,
   value,
-}) => (
-  <Container area={area} className={className}>
-    <Label
-      areErrorsVisible={areErrorsVisible}
-      htmlFor={label}
-      isValid={isValid(validity)}
-    >
-      {label}
-    </Label>
-    <StyledInput
-      areErrorsVisible={areErrorsVisible}
-      id={label}
-      isValid={isValid(validity)}
-      name={label}
-      maxLength={maxLength}
-      minLength={minLength}
-      onChange={event => onChange({ value: event.target.value, validity: event.target.validity })}
-      required={isRequired}
-      type={type}
-      value={value}
-    />
-    {areErrorsVisible && validity.valueMissing && (
-      <Error htmlFor={label}>This field is required</Error>
-    )}
-    {areErrorsVisible && validity.typeMismatch && (
-      <Error htmlFor={label}>{`Must be a valid ${type}`}</Error>
-    )}
-    {areErrorsVisible && validity.tooShort && (
-      <Error htmlFor={label}>{`This field must be at least ${minLength} characters long`}</Error>
-    )}
-  </Container>
-);
+}) => {
+  const isInputValid = isValid(validity);
+  const isDirty = value !== '';
+  const hasVisibleError = (areErrorsVisible || isDirty) && !isInputValid;
+  return (
+    <Container area={area} className={className}>
+      <Label
+        hasVisibleError={hasVisibleError}
+        htmlFor={label}
+      >
+        {label}
+      </Label>
+      <StyledInput
+        hasVisibleError={hasVisibleError}
+        id={label}
+        name={label}
+        maxLength={maxLength}
+        minLength={minLength}
+        onChange={event => onChange({ value: event.target.value, validity: event.target.validity })}
+        required={isRequired}
+        type={type}
+        value={value}
+      />
+      {hasVisibleError && validity.valueMissing && (
+        <Error htmlFor={label}>This field is required</Error>
+      )}
+      {hasVisibleError && validity.typeMismatch && (
+        <Error htmlFor={label}>{`Must be a valid ${type}`}</Error>
+      )}
+      {hasVisibleError && validity.tooShort && (
+        <Error htmlFor={label}>{`This field must be at least ${minLength} characters long`}</Error>
+      )}
+    </Container>
+  );
+};
 
 Input.propTypes = {
   area: PropTypes.string,
