@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
+import Address from './Address';
 import Button from './Button';
 import CartSummary from './CartSummary';
 import { getCart } from '../store/cart';
@@ -66,6 +67,16 @@ const StyledSummary = styled(CartSummary)`
   ${panelStyle}
 `;
 
+const Email = styled.p`
+  margin: 0;
+  padding: 0 20px;
+  ${panelStyle}
+`;
+
+const StyledAddress = styled(Address)`
+  ${panelStyle}
+`;
+
 const isValid = field => field.validity.valid;
 
 const CheckoutPage = () => {
@@ -118,28 +129,34 @@ const CheckoutPage = () => {
   return (
     <Main>
       <StyledSummary cart={cart} />
-      {step === 'contact' && (
-        <ContactForm action="#">
-          <SectionTitle>Contact Information</SectionTitle>
-          <Input
-            area="email"
-            areErrorsVisible={areErrorsVisible}
-            isRequired
-            label="Email Address"
-            type="email"
-            onChange={setEmail}
-            validity={email.validity}
-            value={email.value}
-          />
-          <Button
-            area="button"
-            isFormSubmit
-            onClick={navigateToShippingFormOrShowErrors}
-          >
-            Continue to shipping information
-          </Button>
-        </ContactForm>
-      )}
+      {
+        step === 'contact'
+          ? (
+            <ContactForm action="#">
+              <SectionTitle>Contact Information</SectionTitle>
+              <Input
+                area="email"
+                areErrorsVisible={areErrorsVisible}
+                isRequired
+                label="Email Address"
+                type="email"
+                onChange={setEmail}
+                validity={email.validity}
+                value={email.value}
+              />
+              <Button
+                area="button"
+                isFormSubmit
+                onClick={navigateToShippingFormOrShowErrors}
+              >
+                Continue to shipping information
+              </Button>
+            </ContactForm>
+          )
+          :(
+            <Email>{email.value}</Email>
+          )
+      }
       {step === 'shipping' && (
         <ShippingForm action="#">
           <SectionTitle>Shipping Information</SectionTitle>
@@ -207,6 +224,16 @@ const CheckoutPage = () => {
             Continue to billing information
           </Button>
         </ShippingForm>
+      )}
+      {step === 'billing' && (
+        <StyledAddress
+          apartment={apartment.value}
+          city={city.value}
+          country={country.value}
+          postalCode={postalCode.value}
+          province={province.value}
+          street={street.value}
+        />
       )}
       {step === 'billing' && (
         <BillingForm action="#">
