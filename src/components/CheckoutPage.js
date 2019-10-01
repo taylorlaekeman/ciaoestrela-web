@@ -5,13 +5,14 @@ import { useSelector } from 'react-redux';
 import Button from './Button';
 import CartSummary from './CartSummary';
 import { getCart } from '../store/cart';
-import Input, { emptyInput, emptyRequiredInput, isValid } from './Input';
+import Input, { emptyInput, emptyRequiredInput } from './Input';
 import panelStyle from '../styles/panelStyle';
 
 const Form = styled.form`
   ${panelStyle}
   display: grid;
   grid-gap: 20px;
+  grid-template-columns: auto 1fr;
 `;
 
 const ContactForm = styled(Form)`
@@ -31,6 +32,15 @@ const ShippingForm = styled(Form)`
     'country   country  '
     'postal    postal   '
     'button    .        ';
+`;
+
+const BillingForm = styled(Form)`
+  grid-template-areas:
+    'title    title   '
+    'credit   credit  '
+    'expiry   expiry  '
+    'security security'
+    'button   .       ';
 `;
 
 const Main = styled.main`
@@ -56,6 +66,8 @@ const StyledSummary = styled(CartSummary)`
   ${panelStyle}
 `;
 
+const isValid = field => field.validity.valid;
+
 const CheckoutPage = () => {
   const cart = useSelector(getCart);
   const [email, setEmail] = useState(emptyRequiredInput);
@@ -66,11 +78,14 @@ const CheckoutPage = () => {
   const [country, setCountry] = useState(emptyRequiredInput);
   const [postalCode, setPostalCode] = useState(emptyRequiredInput);
   const [areErrorsVisible, setAreErrorsVisible] = useState(false);
+  const [creditCardNumber, setCreditCardNumber] = useState(emptyRequiredInput);
+  const [expiry, setExpiry] = useState(emptyRequiredInput);
+  const [security, setSecurity] = useState(emptyRequiredInput);
   const [step, setStep] = useState('contact');
 
   const navigateToShippingFormOrShowErrors = (event) => {
     event.preventDefault();
-    if (isValid(email.validity)) {
+    if (isValid(email)) {
       setAreErrorsVisible(false);
       setStep('shipping');
     } else {
@@ -88,12 +103,16 @@ const CheckoutPage = () => {
       country,
       postalCode,
     ];
-    if (inputs.every(input => isValid(input.validity))) {
+    if (inputs.every(input => isValid(input))) {
       setAreErrorsVisible(false);
       setStep('billing');
     } else {
       setAreErrorsVisible(true);
     }
+  };
+
+  const placeOrder = (event) => {
+    event.preventDefault();
   };
 
   return (
@@ -190,10 +209,47 @@ const CheckoutPage = () => {
         </ShippingForm>
       )}
       {step === 'billing' && (
-        <Form>
+        <BillingForm action="#">
           <SectionTitle>Billing Information</SectionTitle>
-          <Button>Place order</Button>
-        </Form>
+          <Input
+            area="credit"
+            areErrorsVisible={areErrorsVisible}
+            isRequired
+            label="Credit card number"
+            pattern="\d{16}"
+            type="number"
+            onChange={setCreditCardNumber}
+            validity={creditCardNumber.validity}
+            value={creditCardNumber.value}
+          />
+          <Input
+            area="expiry"
+            areErrorsVisible={areErrorsVisible}
+            isRequired
+            label="Expiry"
+            type="number"
+            onChange={setExpiry}
+            validity={expiry.validity}
+            value={expiry.value}
+          />
+          <Input
+            area="security"
+            areErrorsVisible={areErrorsVisible}
+            isRequired
+            label="Security Code"
+            type="number"
+            onChange={setSecurity}
+            validity={security.validity}
+            value={security.value}
+          />
+          <Button
+            area="button"
+            isFormSubmit
+            onClick={placeOrder}
+          >
+            Place order
+          </Button>
+        </BillingForm>
       )}
     </Main>
   );

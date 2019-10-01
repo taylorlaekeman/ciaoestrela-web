@@ -73,8 +73,6 @@ export const emptyRequiredInput = {
   },
 };
 
-export const isValid = validity => validity.valid;
-
 const Input = ({
   area,
   areErrorsVisible,
@@ -88,9 +86,9 @@ const Input = ({
   validity,
   value,
 }) => {
-  const isInputValid = isValid(validity);
+  const isValid = validity.valid;
   const isDirty = value !== '';
-  const hasVisibleError = (areErrorsVisible || isDirty) && !isInputValid;
+  const hasVisibleError = (areErrorsVisible || isDirty) && !isValid;
   return (
     <Container area={area} className={className}>
       <Label
