@@ -22,7 +22,7 @@ const Main = styled.main`
     'contact    '
     'shipping   '
     'billing    '
-    'upper-image';
+    'upper-image'
     'lower-image';
   grid-template-columns: '1fr';
   grid-template-rows: 'auto auto';
