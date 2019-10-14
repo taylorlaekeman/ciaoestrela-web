@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Section = styled.section`
-  ${props => props.area ? `grid-area: ${props.area};` : ''}
+  ${props => (props.area ? `grid-area: ${props.area};` : '')}
 `;
 
 const Line = styled.p`
@@ -11,8 +11,8 @@ const Line = styled.p`
 `;
 
 const Address = ({
-  area,
   apartment,
+  area,
   city,
   className,
   country,
@@ -24,7 +24,7 @@ const Address = ({
   return (
     <Section area={area} className={className}>
       <Line>{lineOne}</Line>
-      <Line>{city}, {province}, {country}</Line>
+      <Line>{`${city}, ${province}, ${country}`}</Line>
       <Line>{postalCode}</Line>
     </Section>
   );
@@ -35,7 +35,9 @@ Address.propTypes = {
     PropTypes.string,
     PropTypes.number,
   ]),
+  area: PropTypes.string,
   city: PropTypes.string.isRequired,
+  className: PropTypes.string,
   country: PropTypes.string.isRequired,
   postalCode: PropTypes.string.isRequired,
   province: PropTypes.string.isRequired,
@@ -44,6 +46,8 @@ Address.propTypes = {
 
 Address.defaultProps = {
   apartment: '',
+  area: '',
+  className: '',
 };
 
 export default Address;

@@ -86,7 +86,7 @@ const Email = styled.p`
 `;
 
 const Edit = styled(UnstyledEdit)`
-  ${props => props.area ? `grid-area: ${props.area};` : ''}
+  ${props => (props.area ? `grid-area: ${props.area};` : '')}
   ${iconStyle}
 `;
 

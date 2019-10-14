@@ -24,23 +24,26 @@ const TotalCost = styled.p`
   margin: 0;
 `;
 
-const Summary = ({ cart, className }) => {
-  return (
-    <Container className={className}>
-      <TotalCost>{`$${cart.length * 10}`}</TotalCost>
-      <CostBreakdown>
-        <Bold>{cart.length}</Bold>
-        {` card${cart.length > 1 ? 's' : ''} at $10 each`}
-      </CostBreakdown>
-    </Container>
-  );
-};
+const Summary = ({ cart, className }) => (
+  <Container className={className}>
+    <TotalCost>{`$${cart.length * 10}`}</TotalCost>
+    <CostBreakdown>
+      <Bold>{cart.length}</Bold>
+      {` card${cart.length > 1 ? 's' : ''} at $10 each`}
+    </CostBreakdown>
+  </Container>
+);
 
 Summary.propTypes = {
   cart: PropTypes.arrayOf(PropTypes.shape({
     cardstock: PropTypes.string.isRequired,
     ideas: PropTypes.string,
   })).isRequired,
+  className: PropTypes.string,
+};
+
+Summary.defaultProps = {
+  className: '',
 };
 
 export default Summary;
