@@ -5,11 +5,28 @@ import { useSelector } from 'react-redux';
 import Address from './Address';
 import Button from './Button';
 import CartSummary from './CartSummary';
+import CheckoutBottomImage from '../assets/images/checkout-bottom.png';
+import CheckoutTopImage from '../assets/images/checkout-top.png';
 import { getCart } from '../store/cart';
 import iconStyle from '../styles/iconStyle';
+import Image from './Image';
 import Input, { emptyInput, emptyRequiredInput } from './Input';
 import panelStyle from '../styles/panelStyle';
 import { ReactComponent as UnstyledEdit } from '../assets/icons/pencil.svg';
+
+const Main = styled.main`
+  display: grid;
+  grid-gap: 20px;
+  grid-template-areas:
+    'summary    '
+    'contact    '
+    'shipping   '
+    'billing    '
+    'upper-image';
+    'lower-image';
+  grid-template-columns: '1fr';
+  grid-template-rows: 'auto auto';
+`;
 
 const Form = styled.form`
   ${panelStyle}
@@ -44,16 +61,6 @@ const BillingForm = styled(Form)`
     'expiry   expiry  '
     'security security'
     'button   .       ';
-`;
-
-const Main = styled.main`
-  display: grid;
-  grid-gap: 20px;
-  grid-template-areas:
-    'summary'
-    'contact-info';
-  grid-template-columns: '1fr';
-  grid-template-rows: 'auto auto';
 `;
 
 const SectionTitle = styled.h2`
@@ -305,6 +312,8 @@ const CheckoutPage = () => {
           </Button>
         </BillingForm>
       )}
+      <Image src={CheckoutTopImage} alt="Two polaroid photos over a grid background.  On the upper right, an image of a mother's day card featuring a woman sitting and looking at the sky.  On the lower left, an image of a card featuring two men posing infront of mountains." />
+      <Image src={CheckoutBottomImage} alt="An image of a cartoon lion on a piece of paper taped to a background decorated with stars." />
     </Main>
   );
 };
