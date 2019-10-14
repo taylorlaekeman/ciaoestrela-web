@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 const Section = styled.section`
-  padding: 0 20px;
+  ${props => props.area ? `grid-area: ${props.area};` : ''}
 `;
 
 const Line = styled.p`
@@ -11,6 +11,7 @@ const Line = styled.p`
 `;
 
 const Address = ({
+  area,
   apartment,
   city,
   className,
@@ -21,7 +22,7 @@ const Address = ({
 }) => {
   const lineOne = apartment ? `${apartment}-${street}` : street;
   return (
-    <Section className={className}>
+    <Section area={area} className={className}>
       <Line>{lineOne}</Line>
       <Line>{city}, {province}, {country}</Line>
       <Line>{postalCode}</Line>

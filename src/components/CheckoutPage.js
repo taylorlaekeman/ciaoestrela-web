@@ -6,8 +6,10 @@ import Address from './Address';
 import Button from './Button';
 import CartSummary from './CartSummary';
 import { getCart } from '../store/cart';
+import iconStyle from '../styles/iconStyle';
 import Input, { emptyInput, emptyRequiredInput } from './Input';
 import panelStyle from '../styles/panelStyle';
+import { ReactComponent as UnstyledEdit } from '../assets/icons/pencil.svg';
 
 const Form = styled.form`
   ${panelStyle}
@@ -67,14 +69,25 @@ const StyledSummary = styled(CartSummary)`
   ${panelStyle}
 `;
 
-const Email = styled.p`
-  margin: 0;
-  padding: 0 20px;
+const Section = styled.section`
   ${panelStyle}
+  padding: 20px;
+  display: grid;
+  grid-gap: 20px;
+  grid-template-areas:
+    'header edit .'
+    'info   .    .';
+  grid-template-columns: auto auto 1fr;
 `;
 
-const StyledAddress = styled(Address)`
-  ${panelStyle}
+const Email = styled.p`
+  margin: 0;
+  grid-area: info;
+`;
+
+const Edit = styled(UnstyledEdit)`
+  ${props => props.area ? `grid-area: ${props.area};` : ''}
+  ${iconStyle}
 `;
 
 const isValid = field => field.validity.valid;
@@ -92,13 +105,16 @@ const CheckoutPage = () => {
   const [creditCardNumber, setCreditCardNumber] = useState(emptyRequiredInput);
   const [expiry, setExpiry] = useState(emptyRequiredInput);
   const [security, setSecurity] = useState(emptyRequiredInput);
-  const [step, setStep] = useState('contact');
+  const [isContactFormEditable, setIsContactFormEditable] = useState(true);
+  const [isShippingFormEditable, setIsShippingFormEditable] = useState(false);
+  const [isBillingFormEditable, setIsBillingFormEditable] = useState(false);
 
   const navigateToShippingFormOrShowErrors = (event) => {
     event.preventDefault();
     if (isValid(email)) {
       setAreErrorsVisible(false);
-      setStep('shipping');
+      setIsContactFormEditable(false);
+      setIsShippingFormEditable(true);
     } else {
       setAreErrorsVisible(true);
     }
@@ -116,7 +132,8 @@ const CheckoutPage = () => {
     ];
     if (inputs.every(input => isValid(input))) {
       setAreErrorsVisible(false);
-      setStep('billing');
+      setIsShippingFormEditable(false);
+      setIsBillingFormEditable(true);
     } else {
       setAreErrorsVisible(true);
     }
@@ -129,35 +146,38 @@ const CheckoutPage = () => {
   return (
     <Main>
       <StyledSummary cart={cart} />
-      {
-        step === 'contact'
-          ? (
-            <ContactForm action="#">
-              <SectionTitle>Contact Information</SectionTitle>
-              <Input
-                area="email"
-                areErrorsVisible={areErrorsVisible}
-                isRequired
-                label="Email Address"
-                type="email"
-                onChange={setEmail}
-                validity={email.validity}
-                value={email.value}
-              />
-              <Button
-                area="button"
-                isFormSubmit
-                onClick={navigateToShippingFormOrShowErrors}
-              >
-                Continue to shipping information
-              </Button>
-            </ContactForm>
-          )
-          :(
-            <Email>{email.value}</Email>
-          )
-      }
-      {step === 'shipping' && (
+      {isContactFormEditable && (
+        <ContactForm action="#">
+          <SectionTitle>Contact Information</SectionTitle>
+          <Input
+            area="email"
+            areErrorsVisible={areErrorsVisible}
+            isRequired
+            label="Email Address"
+            type="email"
+            onChange={setEmail}
+            validity={email.validity}
+            value={email.value}
+          />
+          {!isShippingFormEditable && !isBillingFormEditable && (
+            <Button
+              area="button"
+              isFormSubmit
+              onClick={navigateToShippingFormOrShowErrors}
+            >
+              Continue to shipping information
+            </Button>
+          )}
+        </ContactForm>
+      )}
+      {!isContactFormEditable && (
+        <Section>
+          <header>Contact Information</header>
+          <Edit area="edit" onClick={() => setIsContactFormEditable(true)} />
+          <Email>{email.value}</Email>
+        </Section>
+      )}
+      {isShippingFormEditable && (
         <ShippingForm action="#">
           <SectionTitle>Shipping Information</SectionTitle>
           <Input
@@ -216,26 +236,33 @@ const CheckoutPage = () => {
             validity={postalCode.validity}
             value={postalCode.value}
           />
-          <Button
-            area="button"
-            isFormSubmit
-            onClick={navigateToBillingFormOrShowErrors}
-          >
-            Continue to billing information
-          </Button>
+          {!isContactFormEditable && !isBillingFormEditable && (
+            <Button
+              area="button"
+              isFormSubmit
+              onClick={navigateToBillingFormOrShowErrors}
+            >
+              Continue to billing information
+            </Button>
+          )}
         </ShippingForm>
       )}
-      {step === 'billing' && (
-        <StyledAddress
-          apartment={apartment.value}
-          city={city.value}
-          country={country.value}
-          postalCode={postalCode.value}
-          province={province.value}
-          street={street.value}
-        />
+      {isBillingFormEditable && !isShippingFormEditable && (
+        <Section>
+          <header>Shipping Information</header>
+          <Edit onClick={() => setIsShippingFormEditable(true)} />
+          <Address
+            area="info"
+            apartment={apartment.value}
+            city={city.value}
+            country={country.value}
+            postalCode={postalCode.value}
+            province={province.value}
+            street={street.value}
+          />
+        </Section>
       )}
-      {step === 'billing' && (
+      {isBillingFormEditable && (
         <BillingForm action="#">
           <SectionTitle>Billing Information</SectionTitle>
           <Input
