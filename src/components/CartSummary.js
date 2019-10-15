@@ -7,7 +7,6 @@ const Bold = styled.span`
 `;
 
 const Container = styled.section`
-  grid-area: summary;
   display: flex;
   justify-content: space-between;
   align-items: baseline;
