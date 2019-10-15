@@ -6,6 +6,7 @@ import Button from './Button';
 import { actions as cartActions, getCart } from '../store/cart';
 import CartItem from './CartItem';
 import CartPageImage from '../assets/images/cart.png';
+import CartSummary from './CartSummary';
 import panelStyle from '../styles/panelStyle';
 
 const Main = styled.main`
@@ -68,28 +69,6 @@ const Contents = styled.section`
   grid-gap: 20px;
 `;
 
-const Bold = styled.span`
-  font-weight: 600;
-`;
-
-const Summary = styled.section`
-  grid-area: summary;
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-`;
-
-const TotalCost = styled.p`
-  font-size: 1.6rem;
-  font-weight: 400;
-  margin: 0;
-`;
-
-const CostBreakdown = styled.p`
-  font-size: 1.2rem;
-  margin: 0;
-`;
-
 const CartItems = styled.section`
   display: grid;
   grid-area: items;
@@ -137,13 +116,7 @@ const CartPage = () => {
   return (
     <Main>
       <Contents>
-        <Summary>
-          <TotalCost>{`$${cart.length * 10}`}</TotalCost>
-          <CostBreakdown>
-            <Bold>{cart.length}</Bold>
-            {` card${cart.length > 1 ? 's' : ''} at $10 each`}
-          </CostBreakdown>
-        </Summary>
+        <CartSummary cart={cart} />
         <CartItems>
           {cart.map((item, index) => (
             <CartItem

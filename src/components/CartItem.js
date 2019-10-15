@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+
 import Button from './Button';
+import colours from '../styles/colours';
 import iconStyle from '../styles/iconStyle';
 import panelStyle from '../styles/panelStyle';
 import { ReactComponent as UnstyledEdit } from '../assets/icons/pencil.svg';
@@ -47,8 +49,10 @@ const Ideas = styled.p`
   margin: 0;
 `;
 
-const Bold = styled.span`
+const Bold = styled.mark`
   font-weight: 600;
+  color: ${colours.grey[600]};
+  background: none;
 `;
 
 const EditButton = styled(Button)`
