@@ -15,11 +15,12 @@ jobs:
       - image: circleci/node:12.2.0
     steps:
       - checkout
+      - run: ls
       - attach_workspace:
          at: /
-      - run:
-          name: Lint
-          command: npx eslint src/
+      - run: ls
+      - run: ls node_modules
+      - run: npx eslint src/
 
   build:
     docker:
