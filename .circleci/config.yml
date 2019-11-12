@@ -1,25 +1,11 @@
 version: 2
 jobs:
-  install:
-    docker:
-      - image: circleci/node:12.2.0
-    steps:
-      - checkout
-      - run: npm install
-      - persist_to_workspace:
-          root: .
-          paths:
-            - node_modules
   lint:
     docker:
       - image: circleci/node:12.2.0
     steps:
       - checkout
-      - run: ls
-      - attach_workspace:
-         at: /
-      - run: ls
-      - run: ls node_modules
+      - run: npm install
       - run: npx eslint src/
 
   build:
@@ -27,12 +13,8 @@ jobs:
       - image: circleci/node:12.2.0
     steps:
       - checkout
-      - run:
-          name: Install requirements
-          command: npm install
-      - run:
-          name: Build
-          command: npm run build
+      - run: npm install
+      - run: npm run build
       - persist_to_workspace:
           root: .
           paths:
@@ -45,30 +27,21 @@ jobs:
       - checkout
       - attach_workspace:
           at: /
-      - run:
-          name: Install aws cli
-          command: sudo pip install awscli
+      - run: sudo pip install awscli
       - run:
           name: List
           command: ls
       - run:
           name: List build
           command: ls build
-      - run:
-          name: Build
-          command: npm run build
 
 workflows:
   version: 2
   build_and_test:
     jobs:
-      - install
-      - lint:
-          requires:
-            - install
+      - lint
       - build:
           requires:
-            - install
             - lint
       - deploy:
           requires:
