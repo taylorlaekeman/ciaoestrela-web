@@ -17,7 +17,7 @@ jobs:
       - run: npm run build
       - run: pwd
       - persist_to_workspace:
-          root: .
+          root: /home/circleci/project/
           paths:
             - build
 
@@ -27,7 +27,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: /build
+          at: /home/circleci/project/
       - run: sudo pip install awscli
       - run: ls
       - run: ls build
