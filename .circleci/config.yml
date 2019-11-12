@@ -1,26 +1,29 @@
 version: 2
 jobs:
-  lint:
+  install:
     docker:
-      - image: node:12.2.0-alpine
+      - image: circleci/node:12.2.0
     steps:
       - checkout
-      - run:
-          name: Install requirements
-          command: npm install
-      - run:
-          name: List
-          command: ls
-      - run:
-          name: List requirements
-          command: ls node_modules
+      - run: npm install
+      - persist_to_workspace:
+          root: .
+          paths:
+            - node_modules
+  lint:
+    docker:
+      - image: circleci/node:12.2.0
+    steps:
+      - checkout
+      - attach_workspace:
+         at: /
       - run:
           name: Lint
           command: npx eslint src/
 
   build:
     docker:
-      - image: node:12.2.0-alpine
+      - image: circleci/node:12.2.0
     steps:
       - checkout
       - run:
