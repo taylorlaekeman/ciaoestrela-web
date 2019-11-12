@@ -22,6 +22,7 @@ jobs:
     docker:
       - image: circleci/python:3.7-stretch
     steps:
+      - checkout
       - run:
           name: Install aws cli
           command: sudo pip install awscli
