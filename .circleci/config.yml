@@ -6,17 +6,17 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install Make
-          command: |
-            apk add make
+          name: Install requirements
+          command: npm install
       - run:
-          name: Install Requirements
-          command: |
-            make install
+          name: List
+          command: ls
+      - run:
+          name: List requirements
+          command: ls node_modules
       - run:
           name: Lint
-          command: |
-            make lint
+          command: npx eslint src/
 
   build:
     docker:
@@ -24,14 +24,11 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install make
-          command: apk add make
-      - run:
-          name: Install Requirements
-          command: make install
+          name: Install requirements
+          command: npm install
       - run:
           name: Build
-          command: make build
+          command: npm run build
       - persist_to_workspace:
           root: .
           paths:
