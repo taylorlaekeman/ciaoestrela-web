@@ -2,24 +2,46 @@ version: 2
 jobs:
   lint:
     docker:
-      - image: node:12.2.0-alpine
+      - image: circleci/node:12.2.0
     steps:
       - checkout
-      - run:
-          name: Install Make
-          command: |
-            apk add make
-      - run:
-          name: Install Requirements
-          command: |
-            make install
-      - run:
-          name: Lint
-          command: |
-            make lint
+      - run: npm install
+      - run: npx eslint src/
+
+  build:
+    docker:
+      - image: circleci/node:12.2.0
+    steps:
+      - checkout
+      - run: npm install
+      - run: npm run build
+      - run: pwd
+      - persist_to_workspace:
+          root: /home/circleci/project/
+          paths:
+            - build
+
+  deploy:
+    docker:
+      - image: circleci/python:3.7-stretch
+    steps:
+      - checkout
+      - attach_workspace:
+          at: /home/circleci/project/
+      - run: sudo pip install awscli
+      - run: aws s3 sync build/ s3://dev.ciaoestrela.co
 
 workflows:
   version: 2
-  build_and_test:
+  test_build_deploy:
     jobs:
       - lint
+      - build:
+          requires:
+            - lint
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: dev
