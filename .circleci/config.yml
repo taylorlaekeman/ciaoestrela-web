@@ -15,6 +15,7 @@ jobs:
       - checkout
       - run: npm install
       - run: npm run build
+      - run: pwd
       - persist_to_workspace:
           root: .
           paths:
@@ -26,14 +27,10 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: /
+          at: /build
       - run: sudo pip install awscli
-      - run:
-          name: List
-          command: ls
-      - run:
-          name: List build
-          command: ls build
+      - run: ls
+      - run: ls build
 
 workflows:
   version: 2
