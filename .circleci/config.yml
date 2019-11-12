@@ -29,8 +29,7 @@ jobs:
       - attach_workspace:
           at: /home/circleci/project/
       - run: sudo pip install awscli
-      - run: ls
-      - run: ls build
+      - run: aws s3 sync build/ s3://dev.ciaoestrela.co
 
 workflows:
   version: 2
