@@ -46,6 +46,7 @@ workflows:
   version: 2
   test_build_deploy:
     jobs:
+      - install
       - lint
       - build:
           requires:
