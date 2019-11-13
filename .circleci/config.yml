@@ -18,9 +18,7 @@ jobs:
       - checkout
       - attach_workspace:
           at: /home/circleci/project
-      - run: ls
-      - run: ls node_modules
-      - run: npx eslint src/
+      - run: make lint
 
   build:
     docker:
@@ -29,7 +27,7 @@ jobs:
       - checkout
       - attach_workspace:
           at: /home/circleci/project
-      - run: npm run build
+      - run: make build
       - persist_to_workspace:
           root: /home/circleci/project/
           paths:
