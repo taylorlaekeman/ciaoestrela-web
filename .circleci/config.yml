@@ -1,5 +1,16 @@
 version: 2
 jobs:
+  install:
+    docker:
+      - image: circleci/node:12.2.0
+    steps:
+      - checkout
+      - run: npm install
+      - persist_to_workspace:
+          root: /home/circleci/project/
+          paths:
+            - node_modules
+
   lint:
     docker:
       - image: circleci/node:12.2.0
