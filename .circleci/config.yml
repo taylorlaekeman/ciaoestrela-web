@@ -1,21 +1,33 @@
 version: 2
 jobs:
+  install:
+    docker:
+      - image: circleci/node:12.2.0
+    steps:
+      - checkout
+      - run: make install
+      - persist_to_workspace:
+          root: /home/circleci/project/
+          paths:
+            - node_modules
+
   lint:
     docker:
       - image: circleci/node:12.2.0
     steps:
       - checkout
-      - run: npm install
-      - run: npx eslint src/
+      - attach_workspace:
+          at: /home/circleci/project
+      - run: make lint
 
   build:
     docker:
       - image: circleci/node:12.2.0
     steps:
       - checkout
-      - run: npm install
-      - run: npm run build
-      - run: pwd
+      - attach_workspace:
+          at: /home/circleci/project
+      - run: make build
       - persist_to_workspace:
           root: /home/circleci/project/
           paths:
@@ -35,12 +47,16 @@ workflows:
   version: 2
   test_build_deploy:
     jobs:
-      - lint
+      - install
+      - lint:
+          requires:
+            - install
       - build:
           requires:
-            - lint
+            - install
       - deploy:
           requires:
+            - lint
             - build
           filters:
             branches:
