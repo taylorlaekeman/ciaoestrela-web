@@ -5,7 +5,7 @@ jobs:
       - image: circleci/node:12.2.0
     steps:
       - checkout
-      - run: npm install
+      - run: make install
       - persist_to_workspace:
           root: /home/circleci/project/
           paths:
