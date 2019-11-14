@@ -134,20 +134,9 @@ const CheckoutPage = () => {
   const [isShippingFormEditable, setIsShippingFormEditable] = useState(false);
   const [isBillingFormEditable, setIsBillingFormEditable] = useState(false);
 
-  const navigateToShippingFormOrShowErrors = (event) => {
+  const placeOrder = (event) => {
     event.preventDefault();
-    if (isValid(email)) {
-      setAreErrorsVisible(false);
-      setIsContactFormEditable(false);
-      setIsShippingFormEditable(true);
-    } else {
-      setAreErrorsVisible(true);
-    }
-  };
-
-  const navigateToBillingFormOrShowErrors = (event) => {
-    event.preventDefault();
-    if (isValid(address)) {
+    if (isValid(email) && isValid(address)) {
       setAreErrorsVisible(false);
       setIsShippingFormEditable(false);
       setIsBillingFormEditable(true);
@@ -156,112 +145,77 @@ const CheckoutPage = () => {
     }
   };
 
-  const placeOrder = (event) => {
-    event.preventDefault();
-  };
-
   return (
     <Main>
       <Forms>
         <StyledSummary cart={cart} />
-        {isContactFormEditable && (
-          <ContactForm action="#">
-            <SectionTitle>Contact Information</SectionTitle>
-            <Input
-              area="email"
-              areErrorsVisible={areErrorsVisible}
-              isRequired
-              label="Email Address"
-              type="email"
-              onChange={setEmail}
-              validity={email.validity}
-              value={email.value}
-            />
-            {!isShippingFormEditable && !isBillingFormEditable && (
-              <Button
-                area="button"
-                isFormSubmit
-                onClick={navigateToShippingFormOrShowErrors}
-              >
-                Continue to shipping information
-              </Button>
-            )}
-          </ContactForm>
-        )}
-        {!isContactFormEditable && (
-          <Section>
-            <header>Contact Information</header>
-            <Edit area="edit" onClick={() => setIsContactFormEditable(true)} />
-            <Email>{email.value}</Email>
-          </Section>
-        )}
-        {(isShippingFormEditable || isBillingFormEditable) && (
-          <ShippingForm action="#">
-            <SectionTitle>Shipping Information</SectionTitle>
-            <TextArea
-              area="address"
-              areErrorsVisible={areErrorsVisible}
-              isRequired
-              label="Address"
-              onChange={setAddress}
-              rows={4}
-              validity={address.validity}
-              value={address.value}
-            />
-            {!isBillingFormEditable && (
-              <Button
-                area="button"
-                isFormSubmit
-                onClick={navigateToBillingFormOrShowErrors}
-              >
-                Continue to billing information
-              </Button>
-            )}
-          </ShippingForm>
-        )}
-        {isBillingFormEditable && (
-          <BillingForm action="#">
-            <SectionTitle>Billing Information</SectionTitle>
-            <Input
-              area="credit"
-              areErrorsVisible={areErrorsVisible}
-              isRequired
-              label="Credit card number"
-              pattern="\d{16}"
-              type="number"
-              onChange={setCreditCardNumber}
-              validity={creditCardNumber.validity}
-              value={creditCardNumber.value}
-            />
-            <Input
-              area="expiry"
-              areErrorsVisible={areErrorsVisible}
-              isRequired
-              label="Expiry"
-              type="number"
-              onChange={setExpiry}
-              validity={expiry.validity}
-              value={expiry.value}
-            />
-            <Input
-              area="security"
-              areErrorsVisible={areErrorsVisible}
-              isRequired
-              label="Security Code"
-              type="number"
-              onChange={setSecurity}
-              validity={security.validity}
-              value={security.value}
-            />
-            <Button
-              area="button"
-              isFormSubmit
-              onClick={placeOrder}
-            >
-              Place order
-            </Button>
-          </BillingForm>
-        )}
+        <ContactForm action="#">
+          <SectionTitle>Contact Information</SectionTitle>
+          <Input
+            area="email"
+            areErrorsVisible={areErrorsVisible}
+            isRequired
+            label="Email Address"
+            type="email"
+            onChange={setEmail}
+            validity={email.validity}
+            value={email.value}
+          />
+        </ContactForm>
+        <ShippingForm action="#">
+          <SectionTitle>Shipping Information</SectionTitle>
+          <TextArea
+            area="address"
+            areErrorsVisible={areErrorsVisible}
+            isRequired
+            label="Address"
+            onChange={setAddress}
+            rows={4}
+            validity={address.validity}
+            value={address.value}
+          />
+        </ShippingForm>
+        <BillingForm action="#">
+          <SectionTitle>Billing Information</SectionTitle>
+          <Input
+            area="credit"
+            areErrorsVisible={areErrorsVisible}
+            isRequired
+            label="Credit card number"
+            pattern="\d{16}"
+            type="number"
+            onChange={setCreditCardNumber}
+            validity={creditCardNumber.validity}
+            value={creditCardNumber.value}
+          />
+          <Input
+            area="expiry"
+            areErrorsVisible={areErrorsVisible}
+            isRequired
+            label="Expiry"
+            type="number"
+            onChange={setExpiry}
+            validity={expiry.validity}
+            value={expiry.value}
+          />
+          <Input
+            area="security"
+            areErrorsVisible={areErrorsVisible}
+            isRequired
+            label="Security Code"
+            type="number"
+            onChange={setSecurity}
+            validity={security.validity}
+            value={security.value}
+          />
+          <Button
+            area="button"
+            isFormSubmit
+            onClick={placeOrder}
+          >
+            Place order
+          </Button>
+        </BillingForm>
       </Forms>
       <Images>
         <Image
