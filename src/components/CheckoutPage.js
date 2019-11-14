@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
-import Address from './Address';
 import Button from './Button';
 import CartSummary from './CartSummary';
 import CheckoutBottomImage from '../assets/images/checkout-bottom.png';
@@ -10,8 +9,9 @@ import CheckoutTopImage from '../assets/images/checkout-top.png';
 import { getCart } from '../store/cart';
 import iconStyle from '../styles/iconStyle';
 import Image from './Image';
-import Input, { emptyInput, emptyRequiredInput } from './Input';
+import Input, { emptyRequiredInput } from './Input';
 import panelStyle from '../styles/panelStyle';
+import TextArea from './TextArea';
 import { ReactComponent as UnstyledEdit } from '../assets/icons/pencil.svg';
 
 const Main = styled.main`
@@ -73,12 +73,7 @@ const ContactForm = styled(Form)`
 const ShippingForm = styled(Form)`
   grid-template-areas:
     'title     title    '
-    'street    street   '
-    'apartment apartment'
-    'city      city     '
-    'province  province '
-    'country   country  '
-    'postal    postal   '
+    'address   address  '
     'button    .        ';
 `;
 
@@ -130,12 +125,7 @@ const isValid = field => field.validity.valid;
 const CheckoutPage = () => {
   const cart = useSelector(getCart);
   const [email, setEmail] = useState(emptyRequiredInput);
-  const [street, setStreet] = useState(emptyRequiredInput);
-  const [apartment, setApartment] = useState(emptyInput);
-  const [city, setCity] = useState(emptyRequiredInput);
-  const [province, setProvince] = useState(emptyRequiredInput);
-  const [country, setCountry] = useState(emptyRequiredInput);
-  const [postalCode, setPostalCode] = useState(emptyRequiredInput);
+  const [address, setAddress] = useState(emptyRequiredInput);
   const [areErrorsVisible, setAreErrorsVisible] = useState(false);
   const [creditCardNumber, setCreditCardNumber] = useState(emptyRequiredInput);
   const [expiry, setExpiry] = useState(emptyRequiredInput);
@@ -157,15 +147,7 @@ const CheckoutPage = () => {
 
   const navigateToBillingFormOrShowErrors = (event) => {
     event.preventDefault();
-    const inputs = [
-      street,
-      apartment,
-      city,
-      province,
-      country,
-      postalCode,
-    ];
-    if (inputs.every(input => isValid(input))) {
+    if (isValid(address)) {
       setAreErrorsVisible(false);
       setIsShippingFormEditable(false);
       setIsBillingFormEditable(true);
@@ -213,64 +195,18 @@ const CheckoutPage = () => {
             <Email>{email.value}</Email>
           </Section>
         )}
-        {isShippingFormEditable && (
+        {(isShippingFormEditable || isBillingFormEditable) && (
           <ShippingForm action="#">
             <SectionTitle>Shipping Information</SectionTitle>
-            <Input
-              area="street"
+            <TextArea
+              area="address"
               areErrorsVisible={areErrorsVisible}
               isRequired
-              label="Street Address"
-              onChange={setStreet}
-              validity={street.validity}
-              value={street.value}
-            />
-            <Input
-              area="apartment"
-              areErrorsVisible={areErrorsVisible}
-              label="Apartment Number"
-              type="number"
-              onChange={setApartment}
-              validity={apartment.validity}
-              value={apartment.value}
-            />
-            <Input
-              area="city"
-              areErrorsVisible={areErrorsVisible}
-              isRequired
-              label="City"
-              onChange={setCity}
-              validity={city.validity}
-              value={city.value}
-            />
-            <Input
-              area="province"
-              areErrorsVisible={areErrorsVisible}
-              isRequired
-              label="Province"
-              onChange={setProvince}
-              validity={province.validity}
-              value={province.value}
-            />
-            <Input
-              area="country"
-              areErrorsVisible={areErrorsVisible}
-              isRequired
-              label="Country"
-              onChange={setCountry}
-              validity={country.validity}
-              value={country.value}
-            />
-            <Input
-              area="postal"
-              areErrorsVisible={areErrorsVisible}
-              isRequired
-              label="Postal Code"
-              maxLength="6"
-              minLength="6"
-              onChange={setPostalCode}
-              validity={postalCode.validity}
-              value={postalCode.value}
+              label="Address"
+              onChange={setAddress}
+              rows={4}
+              validity={address.validity}
+              value={address.value}
             />
             {!isBillingFormEditable && (
               <Button
@@ -282,21 +218,6 @@ const CheckoutPage = () => {
               </Button>
             )}
           </ShippingForm>
-        )}
-        {isBillingFormEditable && !isShippingFormEditable && (
-          <Section>
-            <header>Shipping Information</header>
-            <Edit onClick={() => setIsShippingFormEditable(true)} />
-            <Address
-              area="info"
-              apartment={apartment.value}
-              city={city.value}
-              country={country.value}
-              postalCode={postalCode.value}
-              province={province.value}
-              street={street.value}
-            />
-          </Section>
         )}
         {isBillingFormEditable && (
           <BillingForm action="#">
