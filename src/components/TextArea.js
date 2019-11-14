@@ -37,6 +37,11 @@ const StyledTextArea = styled.textarea`
   }
 `;
 
+const Error = styled.label`
+  padding: 12px;
+  color: red;
+`;
+
 const TextArea = ({
   area,
   className,
@@ -68,6 +73,9 @@ const TextArea = ({
         rows={rows}
         value={value}
       />
+      {hasVisibleError && (
+        <Error htmlFor={label}>This field is required</Error>
+      )}
     </Container>
   );
 };
