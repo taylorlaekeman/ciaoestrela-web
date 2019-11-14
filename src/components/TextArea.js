@@ -30,6 +30,7 @@ const StyledTextArea = styled.textarea`
   color: ${props => replaceColourIfError(colours.green['600'], props)};
   -webkit-appearance: none;
   resize: none;
+  box-shadow: none;
 
   &:focus {
     outline: none;
