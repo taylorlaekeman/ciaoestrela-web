@@ -7,13 +7,11 @@ import CartSummary from './CartSummary';
 import CheckoutBottomImage from '../assets/images/checkout-bottom.png';
 import CheckoutTopImage from '../assets/images/checkout-top.png';
 import { getCart } from '../store/cart';
-import iconStyle from '../styles/iconStyle';
 import Image from './Image';
 import Input from './Input';
 import { emptyRequiredInput } from './FormField';
 import panelStyle from '../styles/panelStyle';
 import TextArea from './TextArea';
-import { ReactComponent as UnstyledEdit } from '../assets/icons/pencil.svg';
 
 const Main = styled.main`
   display: grid;
@@ -100,27 +98,6 @@ const StyledSummary = styled(CartSummary)`
   ${panelStyle}
 `;
 
-const Section = styled.section`
-  ${panelStyle}
-  padding: 20px;
-  display: grid;
-  grid-gap: 20px;
-  grid-template-areas:
-    'header edit .'
-    'info   .    .';
-  grid-template-columns: auto auto 1fr;
-`;
-
-const Email = styled.p`
-  margin: 0;
-  grid-area: info;
-`;
-
-const Edit = styled(UnstyledEdit)`
-  ${props => (props.area ? `grid-area: ${props.area};` : '')}
-  ${iconStyle}
-`;
-
 const isValid = field => field.validity.valid;
 
 const CheckoutPage = () => {
@@ -131,18 +108,13 @@ const CheckoutPage = () => {
   const [creditCardNumber, setCreditCardNumber] = useState(emptyRequiredInput);
   const [expiry, setExpiry] = useState(emptyRequiredInput);
   const [security, setSecurity] = useState(emptyRequiredInput);
-  const [isContactFormEditable, setIsContactFormEditable] = useState(true);
-  const [isShippingFormEditable, setIsShippingFormEditable] = useState(false);
-  const [isBillingFormEditable, setIsBillingFormEditable] = useState(false);
 
   const placeOrder = (event) => {
     event.preventDefault();
-    if (isValid(email) && isValid(address)) {
-      setAreErrorsVisible(false);
-      setIsShippingFormEditable(false);
-      setIsBillingFormEditable(true);
-    } else {
-      setAreErrorsVisible(true);
+    setAreErrorsVisible(true);
+    const hasErrors = !(isValid(email) && isValid(address));
+    if (!hasErrors) {
+      console.log('placed order!');
     }
   };
 
