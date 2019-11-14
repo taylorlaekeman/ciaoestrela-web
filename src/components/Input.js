@@ -4,19 +4,7 @@ import styled from 'styled-components';
 
 import boxShadow from '../styles/boxShadow';
 import colours from '../styles/colours';
-import getArea from '../utils/getArea';
-
-const replaceColourIfError = (colour, props) => (props.hasVisibleError ? 'red' : colour);
-
-const Container = styled.div`
-  ${getArea}
-`;
-
-const Label = styled.label`
-  padding: 0 12px;
-  font-size: 1rem;
-  color: ${props => replaceColourIfError(colours.green['600'], props)};
-`;
+import FormField, { hasVisibleError, replaceColourIfError } from './FormField';
 
 const StyledInput = styled.input`
   box-sizing: border-box;
@@ -36,43 +24,6 @@ const StyledInput = styled.input`
   }
 `;
 
-const Error = styled.label`
-  padding: 12px;
-  color: red;
-`;
-
-export const emptyInput = {
-  value: '',
-  validity: {
-    badInput: false,
-    customError: false,
-    patternMismatch: false,
-    rangeOverflow: false,
-    stepMismatch: false,
-    tooLong: false,
-    tooShort: false,
-    typeMismatch: false,
-    valid: true,
-    valueMissing: false,
-  },
-};
-
-export const emptyRequiredInput = {
-  value: '',
-  validity: {
-    badInput: false,
-    customError: false,
-    patternMismatch: false,
-    rangeOverflow: false,
-    stepMismatch: false,
-    tooLong: false,
-    tooShort: false,
-    typeMismatch: false,
-    valid: false,
-    valueMissing: true,
-  },
-};
-
 const Input = ({
   area,
   areErrorsVisible,
@@ -85,41 +36,29 @@ const Input = ({
   type,
   validity,
   value,
-}) => {
-  const isValid = validity.valid;
-  const isDirty = value !== '';
-  const hasVisibleError = (areErrorsVisible || isDirty) && !isValid;
-  return (
-    <Container area={area} className={className}>
-      <Label
-        hasVisibleError={hasVisibleError}
-        htmlFor={label}
-      >
-        {label}
-      </Label>
-      <StyledInput
-        hasVisibleError={hasVisibleError}
-        id={label}
-        name={label}
-        maxLength={maxLength}
-        minLength={minLength}
-        onChange={event => onChange({ value: event.target.value, validity: event.target.validity })}
-        required={isRequired}
-        type={type}
-        value={value}
-      />
-      {hasVisibleError && validity.valueMissing && (
-        <Error htmlFor={label}>This field is required</Error>
-      )}
-      {hasVisibleError && validity.typeMismatch && (
-        <Error htmlFor={label}>{`Must be a valid ${type}`}</Error>
-      )}
-      {hasVisibleError && validity.tooShort && (
-        <Error htmlFor={label}>{`This field must be at least ${minLength} characters long`}</Error>
-      )}
-    </Container>
-  );
-};
+}) => (
+  <FormField
+    area={area}
+    className={className}
+    hasVisibleError={hasVisibleError(value, validity, areErrorsVisible)}
+    label={label}
+    minLength={minLength}
+    type={type}
+    validity={validity}
+  >
+    <StyledInput
+      hasVisibleError={hasVisibleError(value, validity, areErrorsVisible)}
+      id={label}
+      name={label}
+      maxLength={maxLength}
+      minLength={minLength}
+      onChange={event => onChange({ value: event.target.value, validity: event.target.validity })}
+      required={isRequired}
+      type={type}
+      value={value}
+    />
+  </FormField>
+);
 
 Input.propTypes = {
   area: PropTypes.string,
@@ -137,10 +76,6 @@ Input.propTypes = {
   ]),
   onChange: PropTypes.func.isRequired,
   type: PropTypes.string,
-  value: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]).isRequired,
   validity: PropTypes.shape({
     badInput: PropTypes.bool.isRequired,
     customError: PropTypes.bool.isRequired,
@@ -153,6 +88,10 @@ Input.propTypes = {
     valid: PropTypes.bool.isRequired,
     valueMissing: PropTypes.bool.isRequired,
   }).isRequired,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
 };
 
 Input.defaultProps = {
