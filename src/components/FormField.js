@@ -77,12 +77,14 @@ const FormField = ({
   validity,
 }) => (
   <Container area={area} className={className}>
-    <Label
-      hasVisibleError={hasError}
-      htmlFor={label}
-    >
-      {label}
-    </Label>
+    {label && (
+      <Label
+        hasVisibleError={hasError}
+        htmlFor={label}
+      >
+        {label}
+      </Label>
+    )}
     {children}
     {hasError && validity.valueMissing && (
     <Error htmlFor={label}>This field is required</Error>
@@ -108,17 +110,17 @@ FormField.propTypes = {
   ]),
   type: PropTypes.string,
   validity: PropTypes.shape({
-    badInput: PropTypes.bool.isRequired,
-    customError: PropTypes.bool.isRequired,
-    patternMismatch: PropTypes.bool.isRequired,
-    rangeOverflow: PropTypes.bool.isRequired,
-    stepMismatch: PropTypes.bool.isRequired,
-    tooLong: PropTypes.bool.isRequired,
-    tooShort: PropTypes.bool.isRequired,
-    typeMismatch: PropTypes.bool.isRequired,
-    valid: PropTypes.bool.isRequired,
-    valueMissing: PropTypes.bool.isRequired,
-  }).isRequired,
+    badInput: PropTypes.bool,
+    customError: PropTypes.bool,
+    patternMismatch: PropTypes.bool,
+    rangeOverflow: PropTypes.bool,
+    stepMismatch: PropTypes.bool,
+    tooLong: PropTypes.bool,
+    tooShort: PropTypes.bool,
+    typeMismatch: PropTypes.bool,
+    valid: PropTypes.bool,
+    valueMissing: PropTypes.bool,
+  }),
 };
 
 FormField.defaultProps = {
@@ -127,6 +129,7 @@ FormField.defaultProps = {
   hasVisibleError: true,
   minLength: '',
   type: 'text',
+  validity: {},
 };
 
 export default FormField;
