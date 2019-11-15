@@ -5,10 +5,9 @@ import { Redirect } from 'react-router-dom';
 
 import Button from './Button';
 import { actions as cartActions, getCartItem } from '../store/cart';
-import colours from '../styles/colours';
-import fonts from '../styles/fonts';
 import OrderPageImage from '../assets/images/order.png';
 import panelStyle from '../styles/panelStyle';
+import TextArea from './TextArea';
 import UnstyledSelect from './Select';
 
 const Main = styled.main`
@@ -50,7 +49,6 @@ const Form = styled.form`
   grid-template-areas:
     'cardstock   cardstock  '
     'select      select     '
-    'ideas-label ideas-label'
     'ideas       ideas      '
     'submit      .          ';
   grid-template-columns: auto 1fr;
@@ -63,21 +61,6 @@ const CardstockLabel = styled.label`
 
 const Select = styled(UnstyledSelect)`
   grid-area: select;
-`;
-
-const IdeasLabel = styled.label`
-  grid-area: ideas-label;
-`;
-
-const IdeasTextarea = styled.textarea`
-  grid-area: ideas;
-  height: 100px;
-  border: solid ${colours.grey[300]} 1px;
-  font-family: ${fonts.body}, ${fonts.fallback};
-  color: ${colours.grey[400]};
-  font-weight: 300;
-  border-radius: 0;
-  -webkit-appearance: none;
 `;
 
 const Image = styled.img`
@@ -129,8 +112,12 @@ const OrderPage = () => {
           selected={cardstock}
         />
 
-        <IdeasLabel>Please share any ideas you have for the design of your card!</IdeasLabel>
-        <IdeasTextarea value={ideas} onChange={(event) => { setIdeas(event.target.value); }} />
+        <TextArea
+          area="ideas"
+          label="Please share any ideas you have for the design of your card!"
+          onChange={setIdeas}
+          value={ideas}
+        />
 
         <Button onClick={submitForm} isFormSubmit>{isEdit() ? 'Update cart' : 'Add to cart'}</Button>
       </Form>
