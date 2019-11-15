@@ -4,19 +4,19 @@ import styled from 'styled-components';
 
 import colours from '../styles/colours';
 import fonts from '../styles/fonts';
-import FormField, { hasVisibleError, replaceColourIfError } from './FormField';
+import FormField, { hasValidation, hasVisibleError, replaceColourIfError } from './FormField';
 
 const StyledTextArea = styled.textarea`
   box-sizing: border-box;
-  border-radius: 0;
   width: 100%;
   padding: 12px;
   border: solid ${props => replaceColourIfError(colours.grey['300'], props)} 1px;
   border-radius: 5px;
-  font-family: ${fonts.body}, ${fonts.fallback};
-  font-size: 1.1rem;
   color: ${props => replaceColourIfError(colours.green['600'], props)};
+  font-family: ${fonts.body}, ${fonts.fallback};
+  font-weight: 300;
   -webkit-appearance: none;
+
   resize: none;
   box-shadow: none;
 
@@ -35,25 +35,37 @@ const TextArea = ({
   rows,
   validity,
   value,
-}) => (
-  <FormField
-    area={area}
-    className={className}
-    hasVisibleError={hasVisibleError(value, validity, areErrorsVisible)}
-    label={label}
-    validity={validity}
-  >
-    <StyledTextArea
+}) => {
+  const reportChange = (event) => {
+    const simpleValue = event.target.value;
+    const complexValue = {
+      value: simpleValue,
+      validity: event.target.validity
+    };
+    const valueToReport = hasValidation(validity) ? complexValue : simpleValue;
+    onChange(valueToReport);
+  };
+
+  return (
+    <FormField
+      area={area}
+      className={className}
       hasVisibleError={hasVisibleError(value, validity, areErrorsVisible)}
-      id={label}
-      name={label}
-      onChange={event => onChange({ value: event.target.value, validity: event.target.validity })}
-      required={isRequired}
-      rows={rows}
-      value={value}
-    />
-  </FormField>
-);
+      label={label}
+      validity={validity}
+    >
+      <StyledTextArea
+        hasVisibleError={hasVisibleError(value, validity, areErrorsVisible)}
+        id={label}
+        name={label}
+        onChange={reportChange}
+        required={isRequired}
+        rows={rows}
+        value={value}
+      />
+    </FormField>
+  );
+};
 
 TextArea.propTypes = {
   area: PropTypes.string,
@@ -64,17 +76,17 @@ TextArea.propTypes = {
   onChange: PropTypes.func.isRequired,
   rows: PropTypes.number,
   validity: PropTypes.shape({
-    badInput: PropTypes.bool.isRequired,
-    customError: PropTypes.bool.isRequired,
-    patternMismatch: PropTypes.bool.isRequired,
-    rangeOverflow: PropTypes.bool.isRequired,
-    stepMismatch: PropTypes.bool.isRequired,
-    tooLong: PropTypes.bool.isRequired,
-    tooShort: PropTypes.bool.isRequired,
-    typeMismatch: PropTypes.bool.isRequired,
-    valid: PropTypes.bool.isRequired,
-    valueMissing: PropTypes.bool.isRequired,
-  }).isRequired,
+    badInput: PropTypes.bool,
+    customError: PropTypes.bool,
+    patternMismatch: PropTypes.bool,
+    rangeOverflow: PropTypes.bool,
+    stepMismatch: PropTypes.bool,
+    tooLong: PropTypes.bool,
+    tooShort: PropTypes.bool,
+    typeMismatch: PropTypes.bool,
+    valid: PropTypes.bool,
+    valueMissing: PropTypes.bool,
+  }),
   value: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
@@ -87,6 +99,7 @@ TextArea.defaultProps = {
   className: '',
   isRequired: false,
   rows: 3,
+  validity: {},
 };
 
 export default TextArea;
