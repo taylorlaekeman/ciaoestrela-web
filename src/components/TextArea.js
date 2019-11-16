@@ -43,7 +43,7 @@ const TextArea = ({
     const simpleValue = event.target.value;
     const complexValue = {
       value: simpleValue,
-      validity: event.target.validity
+      validity: event.target.validity,
     };
     const valueToReport = hasValidation(validity) ? complexValue : simpleValue;
     onChange(valueToReport);

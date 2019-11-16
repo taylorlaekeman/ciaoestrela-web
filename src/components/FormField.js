@@ -10,7 +10,7 @@ export const replaceColourIfError = (colour, props) => (props.hasVisibleError ? 
 export const hasValidation = (validity) => {
   const isValidityEmpty = Object.getOwnPropertyNames(validity).length === 0;
   return !isValidityEmpty || (validity instanceof ValidityState);
-}
+};
 
 export const hasVisibleError = (value, validity, areErrorsVisible) => {
   if (!hasValidation(validity)) return false;
