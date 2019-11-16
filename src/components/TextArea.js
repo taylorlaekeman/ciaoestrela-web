@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import borderRadius from '../styles/borderRadius';
 import colours from '../styles/colours';
+import boxShadow from '../styles/boxShadow';
 import fonts from '../styles/fonts';
 import FormField, { hasValidation, hasVisibleError, replaceColourIfError } from './FormField';
 
@@ -11,14 +13,14 @@ const StyledTextArea = styled.textarea`
   width: 100%;
   padding: 12px;
   border: solid ${props => replaceColourIfError(colours.grey['300'], props)} 1px;
-  border-radius: 5px;
+  border-radius: ${borderRadius};
   color: ${props => replaceColourIfError(colours.green['600'], props)};
   font-family: ${fonts.body}, ${fonts.fallback};
   font-weight: 300;
   -webkit-appearance: none;
+  box-shadow: ${boxShadow.innerMedium};
 
   resize: none;
-  box-shadow: none;
 
   &:focus {
     outline: none;
