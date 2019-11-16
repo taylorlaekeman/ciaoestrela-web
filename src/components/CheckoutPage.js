@@ -87,7 +87,6 @@ const BillingForm = styled(Form)`
 
 const SectionTitle = styled.h2`
   margin: 0;
-  padding: 0 12px;
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 2px;

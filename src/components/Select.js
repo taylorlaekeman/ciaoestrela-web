@@ -19,16 +19,16 @@ const Select = ({
 }) => (
   <div className={className}>
     {
-        options.map(option => (
-          <Option
-            key={option}
-            onClick={() => onSelect(option)}
-            isSelected={option === selected}
-          >
-            {option}
-          </Option>
-        ))
-      }
+      options.map(option => (
+        <Option
+          key={option}
+          onClick={() => onSelect(option)}
+          isSelected={option === selected}
+        >
+          {option}
+        </Option>
+      ))
+    }
   </div>
 );
 

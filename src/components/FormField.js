@@ -7,7 +7,13 @@ import getArea from '../utils/getArea';
 
 export const replaceColourIfError = (colour, props) => (props.hasVisibleError ? 'red' : colour);
 
+export const hasValidation = (validity) => {
+  const isValidityEmpty = Object.getOwnPropertyNames(validity).length === 0;
+  return !isValidityEmpty || (validity instanceof ValidityState);
+};
+
 export const hasVisibleError = (value, validity, areErrorsVisible) => {
+  if (!hasValidation(validity)) return false;
   const isValid = validity.valid;
   const isDirty = value !== '';
   return (areErrorsVisible || isDirty) && !isValid;
@@ -50,7 +56,6 @@ const Container = styled.div`
 `;
 
 const Label = styled.label`
-  padding: 0 12px;
   font-size: 1rem;
   color: ${props => replaceColourIfError(colours.green['600'], props)};
 `;
@@ -71,12 +76,14 @@ const FormField = ({
   validity,
 }) => (
   <Container area={area} className={className}>
-    <Label
-      hasVisibleError={hasError}
-      htmlFor={label}
-    >
-      {label}
-    </Label>
+    {label && (
+      <Label
+        hasVisibleError={hasError}
+        htmlFor={label}
+      >
+        {label}
+      </Label>
+    )}
     {children}
     {hasError && validity.valueMissing && (
     <Error htmlFor={label}>This field is required</Error>
@@ -102,17 +109,17 @@ FormField.propTypes = {
   ]),
   type: PropTypes.string,
   validity: PropTypes.shape({
-    badInput: PropTypes.bool.isRequired,
-    customError: PropTypes.bool.isRequired,
-    patternMismatch: PropTypes.bool.isRequired,
-    rangeOverflow: PropTypes.bool.isRequired,
-    stepMismatch: PropTypes.bool.isRequired,
-    tooLong: PropTypes.bool.isRequired,
-    tooShort: PropTypes.bool.isRequired,
-    typeMismatch: PropTypes.bool.isRequired,
-    valid: PropTypes.bool.isRequired,
-    valueMissing: PropTypes.bool.isRequired,
-  }).isRequired,
+    badInput: PropTypes.bool,
+    customError: PropTypes.bool,
+    patternMismatch: PropTypes.bool,
+    rangeOverflow: PropTypes.bool,
+    stepMismatch: PropTypes.bool,
+    tooLong: PropTypes.bool,
+    tooShort: PropTypes.bool,
+    typeMismatch: PropTypes.bool,
+    valid: PropTypes.bool,
+    valueMissing: PropTypes.bool,
+  }),
 };
 
 FormField.defaultProps = {
@@ -121,6 +128,7 @@ FormField.defaultProps = {
   hasVisibleError: true,
   minLength: '',
   type: 'text',
+  validity: {},
 };
 
 export default FormField;
