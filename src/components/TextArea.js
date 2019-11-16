@@ -16,6 +16,7 @@ const StyledTextArea = styled.textarea`
   border-radius: ${borderRadius};
   color: ${props => replaceColourIfError(colours.green['600'], props)};
   font-family: ${fonts.body}, ${fonts.fallback};
+  font-size: 1.2rem;
   font-weight: 300;
   -webkit-appearance: none;
   box-shadow: ${boxShadow.innerMedium};

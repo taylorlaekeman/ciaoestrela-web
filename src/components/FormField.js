@@ -56,7 +56,6 @@ const Container = styled.div`
 `;
 
 const Label = styled.label`
-  padding: 0 12px;
   font-size: 1rem;
   color: ${props => replaceColourIfError(colours.green['600'], props)};
 `;
