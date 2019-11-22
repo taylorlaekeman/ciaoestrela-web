@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
+import { CardElement, injectStripe } from 'react-stripe-elements';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
+import border from '../styles/border';
+import borderRadius from '../styles/borderRadius';
+import boxShadow from '../styles/boxShadow';
 import Button from './Button';
 import CartSummary from './CartSummary';
 import CheckoutBottomImage from '../assets/images/checkout-bottom.png';
 import CheckoutTopImage from '../assets/images/checkout-top.png';
+import colours from '../styles/colours';
+import fonts from '../styles/fonts';
 import { getCart } from '../store/cart';
+import hslToRgb from '../utils/hslToRgb';
 import Image from './Image';
 import Input from './Input';
 import { emptyRequiredInput } from './FormField';
@@ -48,6 +55,13 @@ const Forms = styled.section`
   grid-area: forms;
   display: grid;
   grid-gap: 20px;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    'summary  summary '
+    'contact  contact '
+    'shipping shipping'
+    'billing  billing '
+    'button   .       ';
 `;
 
 const Images = styled.section`
@@ -63,6 +77,7 @@ const Form = styled.form`
 `;
 
 const ContactForm = styled(Form)`
+  grid-area: contact;
   grid-template-areas:
     'title  title '
     'email  email '
@@ -70,6 +85,7 @@ const ContactForm = styled(Form)`
 `;
 
 const ShippingForm = styled(Form)`
+  grid-area: shipping;
   grid-template-areas:
     'title     title    '
     'address   address  '
@@ -77,12 +93,10 @@ const ShippingForm = styled(Form)`
 `;
 
 const BillingForm = styled(Form)`
+  grid-area: billing;
   grid-template-areas:
-    'title    title   '
-    'credit   credit  '
-    'expiry   expiry  '
-    'security security'
-    'button   .       ';
+    'title '
+    'stripe';
 `;
 
 const SectionTitle = styled.h2`
@@ -99,14 +113,27 @@ const StyledSummary = styled(CartSummary)`
 
 const isValid = field => field.validity.valid;
 
+const StyledCardElement = styled(CardElement)`
+  border: ${border.normal};
+  border-radius: ${borderRadius};
+  padding: 12px;
+  box-shadow: ${boxShadow.innerMedium};
+`;
+
+const creditCardInputStyle = {
+  base: {
+    color: hslToRgb(colours.green['600']),
+    fontFamily: `${fonts.body}, ${fonts.fallback}`,
+    fontSize: '22px',
+    fontWeight: 300,
+  },
+};
+
 const CheckoutPage = () => {
   const cart = useSelector(getCart);
   const [email, setEmail] = useState(emptyRequiredInput);
   const [address, setAddress] = useState(emptyRequiredInput);
   const [areErrorsVisible, setAreErrorsVisible] = useState(false);
-  const [creditCardNumber, setCreditCardNumber] = useState(emptyRequiredInput);
-  const [expiry, setExpiry] = useState(emptyRequiredInput);
-  const [security, setSecurity] = useState(emptyRequiredInput);
 
   const placeOrder = (event) => {
     event.preventDefault();
@@ -120,7 +147,7 @@ const CheckoutPage = () => {
   return (
     <Main>
       <Forms>
-        <StyledSummary cart={cart} />
+        <StyledSummary area="summary" cart={cart} />
         <ContactForm action="#">
           <SectionTitle>Contact Information</SectionTitle>
           <Input
@@ -149,45 +176,12 @@ const CheckoutPage = () => {
         </ShippingForm>
         <BillingForm action="#">
           <SectionTitle>Billing Information</SectionTitle>
-          <Input
-            area="credit"
-            areErrorsVisible={areErrorsVisible}
-            isRequired
-            label="Credit card number"
-            pattern="\d{16}"
-            type="number"
-            onChange={setCreditCardNumber}
-            validity={creditCardNumber.validity}
-            value={creditCardNumber.value}
+          <StyledCardElement
+            hidePostalCode
+            style={creditCardInputStyle}
           />
-          <Input
-            area="expiry"
-            areErrorsVisible={areErrorsVisible}
-            isRequired
-            label="Expiry"
-            type="number"
-            onChange={setExpiry}
-            validity={expiry.validity}
-            value={expiry.value}
-          />
-          <Input
-            area="security"
-            areErrorsVisible={areErrorsVisible}
-            isRequired
-            label="Security Code"
-            type="number"
-            onChange={setSecurity}
-            validity={security.validity}
-            value={security.value}
-          />
-          <Button
-            area="button"
-            isFormSubmit
-            onClick={placeOrder}
-          >
-            Place order
-          </Button>
         </BillingForm>
+        <Button area="button" onClick={placeOrder}>Place order</Button>
       </Forms>
       <Images>
         <Image
@@ -203,4 +197,4 @@ const CheckoutPage = () => {
   );
 };
 
-export default CheckoutPage;
+export default injectStripe(CheckoutPage);

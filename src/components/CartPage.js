@@ -116,7 +116,7 @@ const CartPage = () => {
   return (
     <Main>
       <Contents>
-        <CartSummary cart={cart} />
+        <CartSummary area="summary" cart={cart} />
         <CartItems>
           {cart.map((item, index) => (
             <CartItem

@@ -10,7 +10,6 @@ import FormField, { hasVisibleError, replaceColourIfError } from './FormField';
 
 const StyledInput = styled.input`
   box-sizing: border-box;
-  border-radius: 0;
   width: 100%;
   padding: 12px;
   border: solid ${props => replaceColourIfError(colours.grey['300'], props)} 1px;
