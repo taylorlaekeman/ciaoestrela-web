@@ -79,17 +79,15 @@ const Form = styled.form`
 const ContactForm = styled(Form)`
   grid-area: contact;
   grid-template-areas:
-    'title  title '
-    'email  email '
-    'button .     ';
+    'title'
+    'email';
 `;
 
 const ShippingForm = styled(Form)`
   grid-area: shipping;
   grid-template-areas:
-    'title     title    '
-    'address   address  '
-    'button    .        ';
+    'title  '
+    'address';
 `;
 
 const BillingForm = styled(Form)`
@@ -114,7 +112,7 @@ const StyledSummary = styled(CartSummary)`
 const isValid = field => field.validity.valid;
 
 const StyledCardElement = styled(CardElement)`
-  border: ${border.normal};
+  border: ${props => (props.areErrorsVisible ? border.error : border.normal)};
   border-radius: ${borderRadius};
   padding: 12px;
   box-shadow: ${boxShadow.innerMedium};
@@ -126,6 +124,9 @@ const creditCardInputStyle = {
     fontFamily: `${fonts.body}, ${fonts.fallback}`,
     fontSize: '22px',
     fontWeight: 300,
+  },
+  invalid: {
+    color: hslToRgb(colours.red['300']),
   },
 };
 
@@ -177,6 +178,7 @@ const CheckoutPage = () => {
         <BillingForm action="#">
           <SectionTitle>Billing Information</SectionTitle>
           <StyledCardElement
+            areErrorsVisible={areErrorsVisible}
             hidePostalCode
             style={creditCardInputStyle}
           />

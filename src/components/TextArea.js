@@ -2,19 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import border from '../styles/border';
 import borderRadius from '../styles/borderRadius';
 import colours from '../styles/colours';
 import boxShadow from '../styles/boxShadow';
 import fonts from '../styles/fonts';
-import FormField, { hasValidation, hasVisibleError, replaceColourIfError } from './FormField';
+import FormField, { hasValidation, hasVisibleError } from './FormField';
 
 const StyledTextArea = styled.textarea`
   box-sizing: border-box;
   width: 100%;
   padding: 12px;
-  border: solid ${props => replaceColourIfError(colours.grey['300'], props)} 1px;
+  border: ${props => (props.hasVisibleError ? border.error : border.normal)};
   border-radius: ${borderRadius};
-  color: ${props => replaceColourIfError(colours.green['600'], props)};
+  color: ${props => (props.hasVisibleError ? colours.red['400'] : colours.green['600'])};
   font-family: ${fonts.body}, ${fonts.fallback};
   font-size: 1.2rem;
   font-weight: 300;

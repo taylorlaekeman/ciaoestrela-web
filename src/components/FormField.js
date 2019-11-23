@@ -5,8 +5,6 @@ import styled from 'styled-components';
 import colours from '../styles/colours';
 import getArea from '../utils/getArea';
 
-export const replaceColourIfError = (colour, props) => (props.hasVisibleError ? 'red' : colour);
-
 export const hasValidation = (validity) => {
   const isValidityEmpty = Object.getOwnPropertyNames(validity).length === 0;
   return !isValidityEmpty || (validity instanceof ValidityState);
@@ -56,13 +54,11 @@ const Container = styled.div`
 `;
 
 const Label = styled.label`
-  font-size: 1rem;
-  color: ${props => replaceColourIfError(colours.green['600'], props)};
+  color: ${props => (props.hasVisibleError ? colours.red['400'] : colours.green['600'])};
 `;
 
 const Error = styled.label`
-  padding: 12px;
-  color: red;
+  color: ${colours.red['400']};
 `;
 
 const FormField = ({

@@ -2,22 +2,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import border from '../styles/border';
 import borderRadius from '../styles/borderRadius';
 import boxShadow from '../styles/boxShadow';
 import colours from '../styles/colours';
 import fonts from '../styles/fonts';
-import FormField, { hasVisibleError, replaceColourIfError } from './FormField';
+import FormField, { hasVisibleError } from './FormField';
 
 const StyledInput = styled.input`
   box-sizing: border-box;
   width: 100%;
   padding: 12px;
-  border: solid ${props => replaceColourIfError(colours.grey['300'], props)} 1px;
+  border: ${props => (props.hasVisibleError ? border.error : border.normal)};
   border-radius: ${borderRadius};
   font-family: ${fonts.body}, ${fonts.fallback};
   font-size: 1.2rem;
   font-weight: 300;
-  color: ${props => replaceColourIfError(colours.green['600'], props)};
+  color: ${props => (props.hasVisibleError ? colours.red['400'] : colours.green['600'])};
   box-shadow: ${boxShadow.innerMedium};
   -webkit-appearance: none;
 
