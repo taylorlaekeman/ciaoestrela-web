@@ -130,18 +130,20 @@ const creditCardInputStyle = {
   },
 };
 
-const CheckoutPage = () => {
+const CheckoutPage = ({ stripe }) => {
   const cart = useSelector(getCart);
   const [email, setEmail] = useState(emptyRequiredInput);
   const [address, setAddress] = useState(emptyRequiredInput);
   const [areErrorsVisible, setAreErrorsVisible] = useState(false);
 
-  const placeOrder = (event) => {
+  const placeOrder = async (event) => {
     event.preventDefault();
     setAreErrorsVisible(true);
-    const hasErrors = !(isValid(email) && isValid(address));
+    const result = await stripe.createToken();
+    const hasErrors = !(isValid(email) && isValid(address) && !('error' in result));
     if (!hasErrors) {
-      console.log('placed order!');
+      const { token } = result;
+      console.log('placed order', token);
     }
   };
 
