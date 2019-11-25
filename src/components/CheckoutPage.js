@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { CardElement, injectStripe } from 'react-stripe-elements';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
@@ -11,14 +12,14 @@ import CartSummary from './CartSummary';
 import CheckoutBottomImage from '../assets/images/checkout-bottom.png';
 import CheckoutTopImage from '../assets/images/checkout-top.png';
 import colours from '../styles/colours';
+import Field from './Form/Field';
 import fonts from '../styles/fonts';
 import { getCart } from '../store/cart';
 import hslToRgb from '../utils/hslToRgb';
 import Image from './Image';
-import Input from './Input';
-import { emptyRequiredInput } from './FormField';
+import Input from './Form/Input';
 import panelStyle from '../styles/panelStyle';
-import TextArea from './TextArea';
+import TextArea from './Form/TextArea';
 
 const Main = styled.main`
   display: grid;
@@ -109,10 +110,8 @@ const StyledSummary = styled(CartSummary)`
   ${panelStyle}
 `;
 
-const isValid = field => field.validity.valid;
-
 const StyledCardElement = styled(CardElement)`
-  border: ${props => (props.areErrorsVisible ? border.error : border.normal)};
+  border: ${props => (props.errorMessage ? border.error : border.normal)};
   border-radius: ${borderRadius};
   padding: 12px;
   box-shadow: ${boxShadow.innerMedium};
@@ -130,17 +129,33 @@ const creditCardInputStyle = {
   },
 };
 
+const getEmailErrorMessage = (email, hasSubmitted) => {
+  if (!hasSubmitted) return '';
+  if (!email) return 'Please enter your email address';
+  if (!(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))) return 'The email you\'ve entered is invalid';
+  return '';
+};
+
+const getAddressErrorMessage = (address, hasSubmitted) => {
+  if (!hasSubmitted) return '';
+  if (!address) return 'Please enter your shipping address';
+  return '';
+};
+
 const CheckoutPage = ({ stripe }) => {
   const cart = useSelector(getCart);
-  const [email, setEmail] = useState(emptyRequiredInput);
-  const [address, setAddress] = useState(emptyRequiredInput);
-  const [areErrorsVisible, setAreErrorsVisible] = useState(false);
+  const [email, setEmail] = useState('');
+  const [address, setAddress] = useState('');
+  const [hasSubmitted, setHasSubmitted] = useState(false);
+
+  const emailError = getEmailErrorMessage(email, hasSubmitted);
+  const addressError = getAddressErrorMessage(address, hasSubmitted);
 
   const placeOrder = async (event) => {
     event.preventDefault();
-    setAreErrorsVisible(true);
+    setHasSubmitted(true);
     const result = await stripe.createToken();
-    const hasErrors = !(isValid(email) && isValid(address) && !('error' in result));
+    const hasErrors = !(emailError && addressError && !('error' in result));
     if (!hasErrors) {
       const { token } = result;
       console.log('placed order', token);
@@ -153,34 +168,39 @@ const CheckoutPage = ({ stripe }) => {
         <StyledSummary area="summary" cart={cart} />
         <ContactForm action="#">
           <SectionTitle>Contact Information</SectionTitle>
-          <Input
+          <Field
             area="email"
-            areErrorsVisible={areErrorsVisible}
-            isRequired
+            errorMessage={emailError}
             label="Email Address"
-            type="email"
-            onChange={setEmail}
-            validity={email.validity}
-            value={email.value}
-          />
+          >
+            <Input
+              errorMessage={emailError}
+              label="Email Address"
+              type="email"
+              onChange={setEmail}
+              value={email.value}
+            />
+          </Field>
         </ContactForm>
         <ShippingForm action="#">
           <SectionTitle>Shipping Information</SectionTitle>
-          <TextArea
+          <Field
             area="address"
-            areErrorsVisible={areErrorsVisible}
-            isRequired
+            errorMessage={addressError}
             label="Address"
-            onChange={setAddress}
-            rows={4}
-            validity={address.validity}
-            value={address.value}
-          />
+          >
+            <TextArea
+              errorMessage={addressError}
+              label="Address"
+              onChange={setAddress}
+              rows={4}
+              value={address}
+            />
+          </Field>
         </ShippingForm>
         <BillingForm action="#">
           <SectionTitle>Billing Information</SectionTitle>
           <StyledCardElement
-            areErrorsVisible={areErrorsVisible}
             hidePostalCode
             style={creditCardInputStyle}
           />
@@ -199,6 +219,12 @@ const CheckoutPage = ({ stripe }) => {
       </Images>
     </Main>
   );
+};
+
+CheckoutPage.propTypes = {
+  stripe: PropTypes.shape({
+    createToken: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default injectStripe(CheckoutPage);
