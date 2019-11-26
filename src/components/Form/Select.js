@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import colours from '../styles/colours';
+
+import colours from '../../styles/colours';
 
 const Option = styled.div`
   padding: 8px 16px;

@@ -8,7 +8,7 @@ import colours from '../styles/colours';
 import getArea from '../utils/getArea';
 
 const getSharedStyles = props => `
-  ${getArea}
+  ${getArea(props)}
   font-size: 0.9rem;
   font-weight: 400;
   text-align: center;
@@ -54,6 +54,7 @@ const StyledLink = styled(({ isPlain, isSecondary, ...rest }) => <Link {...rest}
 `;
 
 const Button = ({
+  area,
   children,
   className,
   isFormSubmit,
@@ -65,6 +66,7 @@ const Button = ({
   if (isFormSubmit) {
     return (
       <StyledSubmit
+        area={area}
         className={className}
         isSecondary={isSecondary}
         type="submit"
@@ -76,6 +78,7 @@ const Button = ({
   if (navigateTo) {
     return (
       <StyledLink
+        area={area}
         className={className}
         isPlain={isPlain}
         isSecondary={isSecondary}
@@ -87,6 +90,7 @@ const Button = ({
   }
   return (
     <StyledButton
+      area={area}
       className={className}
       isSecondary={isSecondary}
       onClick={onClick}
@@ -97,6 +101,7 @@ const Button = ({
 };
 
 Button.propTypes = {
+  area: PropTypes.string,
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
   isFormSubmit: PropTypes.bool,
@@ -107,6 +112,7 @@ Button.propTypes = {
 };
 
 Button.defaultProps = {
+  area: '',
   className: '',
   isFormSubmit: false,
   isPlain: false,

@@ -2,11 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import getArea from '../utils/getArea';
+
 const Bold = styled.span`
   font-weight: 600;
 `;
 
 const Container = styled.section`
+  ${getArea}
   display: flex;
   justify-content: space-between;
   align-items: baseline;
@@ -23,8 +26,8 @@ const TotalCost = styled.p`
   margin: 0;
 `;
 
-const Summary = ({ cart, className }) => (
-  <Container className={className}>
+const Summary = ({ area, cart, className }) => (
+  <Container area={area} className={className}>
     <TotalCost>{`$${cart.length * 10}`}</TotalCost>
     <CostBreakdown>
       <Bold>{cart.length}</Bold>
@@ -34,6 +37,7 @@ const Summary = ({ cart, className }) => (
 );
 
 Summary.propTypes = {
+  area: PropTypes.string,
   cart: PropTypes.arrayOf(PropTypes.shape({
     cardstock: PropTypes.string.isRequired,
     ideas: PropTypes.string,
@@ -42,6 +46,7 @@ Summary.propTypes = {
 };
 
 Summary.defaultProps = {
+  area: '',
   className: '',
 };
 

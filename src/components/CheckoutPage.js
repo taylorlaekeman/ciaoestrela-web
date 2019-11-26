@@ -1,17 +1,25 @@
 import React, { useState } from 'react';
+import { CardElement, injectStripe } from 'react-stripe-elements';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
+import border from '../styles/border';
+import borderRadius from '../styles/borderRadius';
+import boxShadow from '../styles/boxShadow';
 import Button from './Button';
 import CartSummary from './CartSummary';
 import CheckoutBottomImage from '../assets/images/checkout-bottom.png';
 import CheckoutTopImage from '../assets/images/checkout-top.png';
+import colours from '../styles/colours';
+import Field from './Form/Field';
+import fonts from '../styles/fonts';
 import { getCart } from '../store/cart';
+import hslToRgb from '../utils/hslToRgb';
 import Image from './Image';
-import Input from './Input';
-import { emptyRequiredInput } from './FormField';
+import Input from './Form/Input';
 import panelStyle from '../styles/panelStyle';
-import TextArea from './TextArea';
+import TextArea from './Form/TextArea';
 
 const Main = styled.main`
   display: grid;
@@ -48,6 +56,13 @@ const Forms = styled.section`
   grid-area: forms;
   display: grid;
   grid-gap: 20px;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    'summary  summary '
+    'contact  contact '
+    'shipping shipping'
+    'billing  billing '
+    'button   .       ';
 `;
 
 const Images = styled.section`
@@ -63,26 +78,24 @@ const Form = styled.form`
 `;
 
 const ContactForm = styled(Form)`
+  grid-area: contact;
   grid-template-areas:
-    'title  title '
-    'email  email '
-    'button .     ';
+    'title'
+    'email';
 `;
 
 const ShippingForm = styled(Form)`
+  grid-area: shipping;
   grid-template-areas:
-    'title     title    '
-    'address   address  '
-    'button    .        ';
+    'title  '
+    'address';
 `;
 
 const BillingForm = styled(Form)`
+  grid-area: billing;
   grid-template-areas:
-    'title    title   '
-    'credit   credit  '
-    'expiry   expiry  '
-    'security security'
-    'button   .       ';
+    'title '
+    'stripe';
 `;
 
 const SectionTitle = styled.h2`
@@ -97,97 +110,102 @@ const StyledSummary = styled(CartSummary)`
   ${panelStyle}
 `;
 
-const isValid = field => field.validity.valid;
+const StyledCardElement = styled(CardElement)`
+  border: ${props => (props.errorMessage ? border.error : border.normal)};
+  border-radius: ${borderRadius};
+  padding: 12px;
+  box-shadow: ${boxShadow.innerMedium};
+`;
 
-const CheckoutPage = () => {
+const creditCardInputStyle = {
+  base: {
+    color: hslToRgb(colours.green['600']),
+    fontFamily: `${fonts.body}, ${fonts.fallback}`,
+    fontSize: '22px',
+    fontWeight: 300,
+  },
+  invalid: {
+    color: hslToRgb(colours.red['300']),
+  },
+};
+
+const getEmailErrorMessage = (email, hasSubmitted) => {
+  if (!hasSubmitted) return '';
+  if (!email) return 'Please enter your email address';
+  if (!(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))) return 'The email you\'ve entered is invalid';
+  return '';
+};
+
+const getAddressErrorMessage = (address, hasSubmitted) => {
+  if (!hasSubmitted) return '';
+  if (!address) return 'Please enter your shipping address';
+  return '';
+};
+
+const CheckoutPage = ({ stripe }) => {
   const cart = useSelector(getCart);
-  const [email, setEmail] = useState(emptyRequiredInput);
-  const [address, setAddress] = useState(emptyRequiredInput);
-  const [areErrorsVisible, setAreErrorsVisible] = useState(false);
-  const [creditCardNumber, setCreditCardNumber] = useState(emptyRequiredInput);
-  const [expiry, setExpiry] = useState(emptyRequiredInput);
-  const [security, setSecurity] = useState(emptyRequiredInput);
+  const [email, setEmail] = useState('');
+  const [address, setAddress] = useState('');
+  const [hasSubmitted, setHasSubmitted] = useState(false);
 
-  const placeOrder = (event) => {
+  const emailError = getEmailErrorMessage(email, hasSubmitted);
+  const addressError = getAddressErrorMessage(address, hasSubmitted);
+
+  const placeOrder = async (event) => {
     event.preventDefault();
-    setAreErrorsVisible(true);
-    const hasErrors = !(isValid(email) && isValid(address));
+    setHasSubmitted(true);
+    const result = await stripe.createToken();
+    const hasErrors = !(emailError && addressError && !('error' in result));
     if (!hasErrors) {
-      console.log('placed order!');
+      const { token } = result;
+      console.log('placed order', token);
     }
   };
 
   return (
     <Main>
       <Forms>
-        <StyledSummary cart={cart} />
+        <StyledSummary area="summary" cart={cart} />
         <ContactForm action="#">
           <SectionTitle>Contact Information</SectionTitle>
-          <Input
+          <Field
             area="email"
-            areErrorsVisible={areErrorsVisible}
-            isRequired
+            errorMessage={emailError}
             label="Email Address"
-            type="email"
-            onChange={setEmail}
-            validity={email.validity}
-            value={email.value}
-          />
+          >
+            <Input
+              errorMessage={emailError}
+              label="Email Address"
+              type="email"
+              onChange={setEmail}
+              value={email.value}
+            />
+          </Field>
         </ContactForm>
         <ShippingForm action="#">
           <SectionTitle>Shipping Information</SectionTitle>
-          <TextArea
+          <Field
             area="address"
-            areErrorsVisible={areErrorsVisible}
-            isRequired
+            errorMessage={addressError}
             label="Address"
-            onChange={setAddress}
-            rows={4}
-            validity={address.validity}
-            value={address.value}
-          />
+          >
+            <TextArea
+              errorMessage={addressError}
+              label="Address"
+              onChange={setAddress}
+              rows={4}
+              value={address}
+            />
+          </Field>
         </ShippingForm>
         <BillingForm action="#">
           <SectionTitle>Billing Information</SectionTitle>
-          <Input
-            area="credit"
-            areErrorsVisible={areErrorsVisible}
-            isRequired
-            label="Credit card number"
-            pattern="\d{16}"
-            type="number"
-            onChange={setCreditCardNumber}
-            validity={creditCardNumber.validity}
-            value={creditCardNumber.value}
+          <StyledCardElement
+            hidePostalCode
+            style={creditCardInputStyle}
           />
-          <Input
-            area="expiry"
-            areErrorsVisible={areErrorsVisible}
-            isRequired
-            label="Expiry"
-            type="number"
-            onChange={setExpiry}
-            validity={expiry.validity}
-            value={expiry.value}
-          />
-          <Input
-            area="security"
-            areErrorsVisible={areErrorsVisible}
-            isRequired
-            label="Security Code"
-            type="number"
-            onChange={setSecurity}
-            validity={security.validity}
-            value={security.value}
-          />
-          <Button
-            area="button"
-            isFormSubmit
-            onClick={placeOrder}
-          >
-            Place order
-          </Button>
         </BillingForm>
+        <Button area="button" onClick={placeOrder}>Place order</Button>
       </Forms>
       <Images>
         <Image
@@ -203,4 +221,10 @@ const CheckoutPage = () => {
   );
 };
 
-export default CheckoutPage;
+CheckoutPage.propTypes = {
+  stripe: PropTypes.shape({
+    createToken: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
+export default injectStripe(CheckoutPage);

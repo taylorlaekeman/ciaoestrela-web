@@ -5,10 +5,11 @@ import { Redirect } from 'react-router-dom';
 
 import Button from './Button';
 import { actions as cartActions, getCartItem } from '../store/cart';
+import Field from './Form/Field';
 import OrderPageImage from '../assets/images/order.png';
 import panelStyle from '../styles/panelStyle';
-import TextArea from './TextArea';
-import UnstyledSelect from './Select';
+import TextArea from './Form/TextArea';
+import UnstyledSelect from './Form/Select';
 
 const Main = styled.main`
   display: grid;
@@ -105,19 +106,22 @@ const OrderPage = () => {
     <Main>
       <Form action="#">
         <CardstockLabel>Which cardstock would you like me to use to make your card?</CardstockLabel>
-
         <Select
           onSelect={setCardstock}
           options={['4" x 5.5" white', '4" x 5.5" ivory', '4" x 5.5" brown', '5" x 6.5" white']}
           selected={cardstock}
         />
 
-        <TextArea
+        <Field
           area="ideas"
           label="Please share any ideas you have for the design of your card!"
-          onChange={setIdeas}
-          value={ideas}
-        />
+        >
+          <TextArea
+            label="Please share any ideas you have for the design of your card!"
+            onChange={setIdeas}
+            value={ideas}
+          />
+        </Field>
 
         <Button onClick={submitForm} isFormSubmit>{isEdit() ? 'Update cart' : 'Add to cart'}</Button>
       </Form>

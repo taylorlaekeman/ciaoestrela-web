@@ -62,10 +62,11 @@ const EmptyButton = styled(Button)`
 const Contents = styled.section`
   grid-area: content;
   display: grid;
+  grid-template-columns: auto auto 1fr;
   grid-template-areas:
-    'summary'
-    'items'
-    'buttons';
+    'summary  summary summary'
+    'items    items   items  '
+    'checkout add     .      ';
   grid-gap: 20px;
 `;
 
@@ -73,13 +74,6 @@ const CartItems = styled.section`
   display: grid;
   grid-area: items;
   grid-gap: 20px;
-`;
-
-const Buttons = styled.section`
-  grid-area: buttons;
-  display: grid;
-  grid-gap: 20px;
-  grid-template-columns: auto auto 1fr;
 `;
 
 const Image = styled.img`
@@ -116,7 +110,7 @@ const CartPage = () => {
   return (
     <Main>
       <Contents>
-        <CartSummary cart={cart} />
+        <CartSummary area="summary" cart={cart} />
         <CartItems>
           {cart.map((item, index) => (
             <CartItem
@@ -129,10 +123,8 @@ const CartPage = () => {
             />
           ))}
         </CartItems>
-        <Buttons>
-          <Button navigateTo="/checkout">Proceed to checkout</Button>
-          <Button navigateTo="/order">Add another card</Button>
-        </Buttons>
+        <Button area="checkout" navigateTo="/checkout">Proceed to checkout</Button>
+        <Button area="add" navigateTo="/order">Add another card</Button>
       </Contents>
       {ImageComponent}
     </Main>
