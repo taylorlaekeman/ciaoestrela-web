@@ -60,7 +60,7 @@ TextArea.propTypes = {
 };
 
 TextArea.defaultProps = {
-  errorMessage: PropTypes.string,
+  errorMessage: '',
   className: '',
   rows: 3,
 };
