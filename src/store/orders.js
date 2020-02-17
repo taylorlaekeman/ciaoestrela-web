@@ -3,7 +3,7 @@ import {
   selectors as cartSelectors,
 } from './cart';
 
-const actionTypes = {
+export const actionTypes = {
   CONFIRM_PAYMENT_FAILURE: 'confirm-payment-failure',
   CONFIRM_PAYMENT_REQUEST: 'confirm-payment-request',
   CONFIRM_PAYMENT_SUCCESS: 'confirm-payment-success',

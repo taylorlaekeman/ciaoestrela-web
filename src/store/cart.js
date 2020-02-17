@@ -1,6 +1,6 @@
-const initialState = {
-  cart: [],
-};
+import {
+  actionTypes as orderActionTypes,
+} from './orders';
 
 export const actions = {
   addCustomCardToCart: card => ({
@@ -17,6 +17,10 @@ export const actions = {
     type: 'update-cart-item',
     payload: { item, index },
   }),
+};
+
+const initialState = {
+  cart: [],
 };
 
 export const reducers = (state = initialState, action) => {
@@ -45,6 +49,13 @@ export const reducers = (state = initialState, action) => {
       return {
         ...state,
         cart,
+      };
+    }
+
+    case orderActionTypes.CONFIRM_PAYMENT_SUCCESS: {
+      return {
+        ...state,
+        cart: [],
       };
     }
 
