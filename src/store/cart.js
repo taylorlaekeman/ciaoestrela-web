@@ -1,11 +1,11 @@
-const initialState = {
-  cart: [],
-};
+import {
+  actionTypes as orderActionTypes,
+} from './orders';
 
 export const actions = {
   addCustomCardToCart: card => ({
     type: 'add-custom-card-to-cart',
-    payload: card,
+    payload: { ...card, orderType: 'custom card' },
   }),
 
   removeItemFromCart: index => ({
@@ -17,6 +17,10 @@ export const actions = {
     type: 'update-cart-item',
     payload: { item, index },
   }),
+};
+
+const initialState = {
+  cart: [],
 };
 
 export const reducers = (state = initialState, action) => {
@@ -48,8 +52,14 @@ export const reducers = (state = initialState, action) => {
       };
     }
 
+    case orderActionTypes.CONFIRM_PAYMENT_SUCCESS: {
+      return {
+        ...state,
+        cart: [],
+      };
+    }
+
     default: {
-      if (action.type.indexOf('@@redux') === -1) console.log(`received unhandled action "${action.type}"`);
       return state;
     }
   }
@@ -60,4 +70,9 @@ export const getCart = state => state.cart.cart;
 export const getCartItem = (state, index) => {
   if (parseInt(index, 10) === undefined) return {};
   return state.cart.cart[index];
+};
+
+export const selectors = {
+  getCart,
+  getCartItem,
 };

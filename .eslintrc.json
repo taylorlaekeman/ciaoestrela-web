@@ -15,11 +15,26 @@
         "ecmaVersion": 2018,
         "sourceType": "module"
     },
+    "settings": {
+      "import/resolver": {
+        "node": {
+          "paths": ["src"]
+        }
+      }
+    },
     "plugins": [
         "react"
     ],
     "rules": {
       "react/jsx-filename-extension": [1, {"extensions": [".js", ".jsx"]}],
       "no-use-before-define": "off"
-    }
+    },
+    "overrides": [
+      {
+        "files": ["src/store/*"],
+        "rules": {
+          "import/no-cycle": "off"
+        }
+      }
+    ]
 }
