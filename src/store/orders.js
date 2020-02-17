@@ -4,6 +4,7 @@ import {
 } from './cart';
 
 export const actionTypes = {
+  CLEAR_ORDER: 'clear-order',
   CONFIRM_PAYMENT_FAILURE: 'confirm-payment-failure',
   CONFIRM_PAYMENT_REQUEST: 'confirm-payment-request',
   CONFIRM_PAYMENT_SUCCESS: 'confirm-payment-success',
@@ -31,6 +32,9 @@ export const actions = {
     try {
       await api.confirmPayment(orderId);
       dispatch({ type: actionTypes.CONFIRM_PAYMENT_SUCCESS });
+      setTimeout(() => {
+        dispatch({ type: actionTypes.CLEAR_ORDER });
+      }, 2000);
     } catch (error) {
       dispatch({ type: actionTypes.CONFIRM_PAYMENT_FAILURE });
     }
@@ -48,6 +52,12 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case actionTypes.CLEAR_ORDER: {
+      return {
+        ...initialState,
+      };
+    }
+
     case actionTypes.CONFIRM_PAYMENT_FAILURE: {
       return {
         ...state,
