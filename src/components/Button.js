@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import boxShadow from '../styles/boxShadow';
-import colours from '../styles/colours';
 import getArea from '../utils/getArea';
 
 const getSharedStyles = props => `
@@ -13,8 +12,8 @@ const getSharedStyles = props => `
   font-weight: 400;
   text-align: center;
   text-decoration: none;
-  color: ${colours.grey[600]};
-  background-color: ${props.isSecondary ? colours.grey['300'] : colours.green['200']};
+  color: ${props.theme.colours.grey[600]};
+  background-color: ${props.isSecondary ? props.theme.colours.grey['300'] : props.theme.colours.green['200']};
   border: none;
   border-radius: 5px;
   box-shadow: ${boxShadow.medium};
@@ -23,17 +22,17 @@ const getSharedStyles = props => `
   -webkit-appearance: none;
 
   &:hover {
-    background-color: ${props.isSecondary ? colours.grey['400'] : colours.green['300']};
+    background-color: ${props.isSecondary ? props.theme.colours.grey['400'] : props.theme.colours.green['300']};
   }
 
   &:active {
-    box-shadow: ${boxShadow.low};
+    box-shadow: ${props.theme.boxShadow.low};
   }
 `;
 
-const plainLinkStyles = `
-  ${getArea}
-  color: ${colours.grey[600]};
+const getPlainStyles = props => `
+  ${getArea(props)}
+  color: ${props.theme.colours.grey[600]};
   text-decoration: none;
 
   &:hover {
@@ -50,7 +49,7 @@ const StyledSubmit = styled.input`
 `;
 
 const StyledLink = styled(({ isPlain, isSecondary, ...rest }) => <Link {...rest} />)`
-  ${props => (props.isPlain ? plainLinkStyles : getSharedStyles(props))}
+  ${props => (props.isPlain ? getPlainStyles(props) : getSharedStyles(props))}
 `;
 
 const Button = ({
