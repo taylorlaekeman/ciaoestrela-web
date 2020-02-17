@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CardElement, injectStripe } from 'react-stripe-elements';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import border from 'styles/border';
 import {
   actions as orderActions,
+  selectors as orderSelectors,
 } from 'store/orders';
 import borderRadius from '../styles/borderRadius';
 import boxShadow from '../styles/boxShadow';
@@ -145,9 +147,11 @@ const getAddressErrorMessage = (address, hasSubmitted) => {
   return '';
 };
 
-const CheckoutPage = () => {
+const CheckoutPage = ({ elements, stripe }) => {
   const dispatch = useDispatch();
   const cart = useSelector(getCart);
+  const clientSecret = useSelector(orderSelectors.getClientSecret);
+  const hasPaid = useSelector(orderSelectors.hasPaid);
   const [email, setEmail] = useState('');
   const [address, setAddress] = useState('');
   const [hasSubmitted, setHasSubmitted] = useState(false);
@@ -155,11 +159,33 @@ const CheckoutPage = () => {
   const emailError = getEmailErrorMessage(email, hasSubmitted);
   const addressError = getAddressErrorMessage(address, hasSubmitted);
 
-  const placeOrder = async (event) => {
+  const placeOrder = (event) => {
     event.preventDefault();
     dispatch(orderActions.createOrder(email, address));
     setHasSubmitted(true);
   };
+
+  useEffect(() => {
+    if (clientSecret) {
+      const makePayment = async () => {
+        const paymentInfo = {
+          payment_method: {
+            card: elements.getElement('card'),
+          },
+        };
+        const result = await stripe.confirmCardPayment(clientSecret, paymentInfo);
+        const isConfirmed = !('error' in result);
+        if (isConfirmed) dispatch(orderActions.confirmPayment);
+      };
+      makePayment();
+    }
+  }, [clientSecret, dispatch, elements, stripe]);
+
+  if (hasPaid) {
+    return (
+      <Redirect to="/" />
+    );
+  }
 
   return (
     <Main>
@@ -221,8 +247,11 @@ const CheckoutPage = () => {
 };
 
 CheckoutPage.propTypes = {
+  elements: PropTypes.shape({
+    getElement: PropTypes.func.isRequired,
+  }).isRequired,
   stripe: PropTypes.shape({
-    createToken: PropTypes.func.isRequired,
+    confirmCardPayment: PropTypes.func.isRequired,
   }).isRequired,
 };
 
