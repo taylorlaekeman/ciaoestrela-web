@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import { CardElement, injectStripe } from 'react-stripe-elements';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import border from '../styles/border';
+import border from 'styles/border';
+import {
+  actions as orderActions,
+} from 'store/orders';
 import borderRadius from '../styles/borderRadius';
 import boxShadow from '../styles/boxShadow';
 import Button from './Button';
@@ -142,7 +145,8 @@ const getAddressErrorMessage = (address, hasSubmitted) => {
   return '';
 };
 
-const CheckoutPage = ({ stripe }) => {
+const CheckoutPage = () => {
+  const dispatch = useDispatch();
   const cart = useSelector(getCart);
   const [email, setEmail] = useState('');
   const [address, setAddress] = useState('');
@@ -153,13 +157,8 @@ const CheckoutPage = ({ stripe }) => {
 
   const placeOrder = async (event) => {
     event.preventDefault();
+    dispatch(orderActions.createOrder(email, address));
     setHasSubmitted(true);
-    const result = await stripe.createToken();
-    const hasErrors = !(emailError && addressError && !('error' in result));
-    if (!hasErrors) {
-      const { token } = result;
-      console.log('placed order', token);
-    }
   };
 
   return (
@@ -178,7 +177,7 @@ const CheckoutPage = ({ stripe }) => {
               label="Email Address"
               type="email"
               onChange={setEmail}
-              value={email.value}
+              value={email}
             />
           </Field>
         </ContactForm>

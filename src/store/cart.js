@@ -5,7 +5,7 @@ const initialState = {
 export const actions = {
   addCustomCardToCart: card => ({
     type: 'add-custom-card-to-cart',
-    payload: card,
+    payload: { ...card, orderType: 'custom card' },
   }),
 
   removeItemFromCart: index => ({
@@ -49,7 +49,6 @@ export const reducers = (state = initialState, action) => {
     }
 
     default: {
-      if (action.type.indexOf('@@redux') === -1) console.log(`received unhandled action "${action.type}"`);
       return state;
     }
   }
@@ -60,4 +59,9 @@ export const getCart = state => state.cart.cart;
 export const getCartItem = (state, index) => {
   if (parseInt(index, 10) === undefined) return {};
   return state.cart.cart[index];
+};
+
+export const selectors = {
+  getCart,
+  getCartItem,
 };
