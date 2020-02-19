@@ -2,24 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import border from '../../styles/border';
-import borderRadius from '../../styles/borderRadius';
-import colours from '../../styles/colours';
-import boxShadow from '../../styles/boxShadow';
-import fonts from '../../styles/fonts';
-
 const StyledTextArea = styled.textarea`
   box-sizing: border-box;
   width: 100%;
   padding: 12px;
-  border: ${props => (props.errorMessage ? border.error : border.normal)};
-  border-radius: ${borderRadius};
-  color: ${props => (props.errorMessage ? colours.red['400'] : colours.green['600'])};
-  font-family: ${fonts.body}, ${fonts.fallback};
+  border: ${props => (props.errorMessage ? props.theme.border.error : props.theme.border.normal)};
+  border-radius: ${props => props.theme.borderRadius};
+  color: ${props => (props.errorMessage ? props.theme.colours.red['400'] : props.theme.colours.green['600'])};
+  font-family: ${props => `${props.theme.fonts.body}, ${props.theme.fonts.fallback}`};
   font-size: 1.2rem;
   font-weight: 300;
   -webkit-appearance: none;
-  box-shadow: ${props => (props.errorMessage ? boxShadow.innerError : boxShadow.inner)};
+  box-shadow: ${props => (props.errorMessage ? props.theme.boxShadow.innerError : props.theme.boxShadow.inner)};
 
   resize: none;
 
