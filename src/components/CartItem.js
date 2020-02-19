@@ -3,9 +3,6 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 import Button from './Button';
-import colours from '../styles/colours';
-import iconStyle from '../styles/iconStyle';
-import panelStyle from '../styles/panelStyle';
 import { ReactComponent as UnstyledEdit } from '../assets/icons/pencil.svg';
 import { ReactComponent as UnstyledDelete } from '../assets/icons/trash.svg';
 
@@ -26,7 +23,7 @@ const getGridAreas = ({ ideas, isSelected }) => {
 };
 
 const Section = styled.section`
-  ${panelStyle}
+  ${props => props.theme.panel}
   display: grid;
   grid-template-areas: ${getGridAreas};
   grid-template-columns: auto auto 1fr;
@@ -51,7 +48,7 @@ const Ideas = styled.p`
 
 const Bold = styled.mark`
   font-weight: 600;
-  color: ${colours.grey[600]};
+  color: ${props => props.theme.colours.grey[600]};
   background: none;
 `;
 
@@ -60,7 +57,7 @@ const EditButton = styled(Button)`
 `;
 
 const Edit = styled(UnstyledEdit)`
-  ${iconStyle}
+  ${props => props.theme.icon}
 `;
 
 const DeleteButton = styled(Button)`
@@ -68,7 +65,7 @@ const DeleteButton = styled(Button)`
 `;
 
 const Delete = styled(UnstyledDelete)`
-  ${iconStyle}
+  ${props => props.theme.icon}
 `;
 
 const CartItem = ({

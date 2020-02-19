@@ -7,7 +7,6 @@ import { actions as cartActions, getCart } from '../store/cart';
 import CartItem from './CartItem';
 import CartPageImage from '../assets/images/cart.png';
 import CartSummary from './CartSummary';
-import panelStyle from '../styles/panelStyle';
 
 const Main = styled.main`
   display: grid;
@@ -46,7 +45,7 @@ const EmptyContents = styled.section`
     'button .   ';
   grid-template-columns: auto 1fr;
   grid-gap: 20px;
-  ${panelStyle}
+  ${props => props.theme.panel}
 `;
 
 const EmptyMessage = styled.h2`

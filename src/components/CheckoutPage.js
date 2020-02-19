@@ -23,7 +23,6 @@ import { getCart } from '../store/cart';
 import hslToRgb from '../utils/hslToRgb';
 import Image from './Image';
 import Input from './Form/Input';
-import panelStyle from '../styles/panelStyle';
 import TextArea from './Form/TextArea';
 
 const Main = styled.main`
@@ -77,7 +76,7 @@ const Images = styled.section`
 `;
 
 const Form = styled.form`
-  ${panelStyle}
+  ${props => props.theme.panel}
   display: grid;
   grid-gap: 20px;
 `;
@@ -112,7 +111,7 @@ const SectionTitle = styled.h2`
 `;
 
 const StyledSummary = styled(CartSummary)`
-  ${panelStyle}
+  ${props => props.theme.panel}
 `;
 
 const StyledCardElement = styled(CardElement)`
