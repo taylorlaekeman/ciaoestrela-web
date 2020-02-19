@@ -35,6 +35,12 @@
         "rules": {
           "import/no-cycle": "off"
         }
+      },
+      {
+        "files": ["src/serviceWorker.js"],
+        "rules": {
+          "no-console": "off"
+        }
       }
     ]
 }

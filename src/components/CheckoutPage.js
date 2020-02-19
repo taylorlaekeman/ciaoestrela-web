@@ -5,25 +5,21 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import border from 'styles/border';
 import {
   actions as orderActions,
   selectors as orderSelectors,
 } from 'store/orders';
-import borderRadius from '../styles/borderRadius';
-import boxShadow from '../styles/boxShadow';
+import colours from 'styles/colours';
+import fonts from 'styles/fonts';
 import Button from './Button';
 import CartSummary from './CartSummary';
 import CheckoutBottomImage from '../assets/images/checkout-bottom.png';
 import CheckoutTopImage from '../assets/images/checkout-top.png';
-import colours from '../styles/colours';
 import Field from './Form/Field';
-import fonts from '../styles/fonts';
 import { getCart } from '../store/cart';
 import hslToRgb from '../utils/hslToRgb';
 import Image from './Image';
 import Input from './Form/Input';
-import panelStyle from '../styles/panelStyle';
 import TextArea from './Form/TextArea';
 
 const Main = styled.main`
@@ -77,7 +73,7 @@ const Images = styled.section`
 `;
 
 const Form = styled.form`
-  ${panelStyle}
+  ${props => props.theme.panel}
   display: grid;
   grid-gap: 20px;
 `;
@@ -112,14 +108,14 @@ const SectionTitle = styled.h2`
 `;
 
 const StyledSummary = styled(CartSummary)`
-  ${panelStyle}
+  ${props => props.theme.panel}
 `;
 
 const StyledCardElement = styled(CardElement)`
-  border: ${props => (props.errorMessage ? border.error : border.normal)};
-  border-radius: ${borderRadius};
+  border: ${props => (props.errorMessage ? props.theme.border.error : props.theme.border.normal)};
+  border-radius: ${props => props.theme.borderRadius};
   padding: 12px;
-  box-shadow: ${boxShadow.innerMedium};
+  box-shadow: ${props => props.theme.boxShadow.innerMedium};
 `;
 
 const creditCardInputStyle = {

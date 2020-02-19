@@ -7,7 +7,6 @@ import Button from './Button';
 import { actions as cartActions, getCartItem } from '../store/cart';
 import Field from './Form/Field';
 import OrderPageImage from '../assets/images/order.png';
-import panelStyle from '../styles/panelStyle';
 import TextArea from './Form/TextArea';
 import UnstyledSelect from './Form/Select';
 
@@ -43,7 +42,7 @@ const Main = styled.main`
 `;
 
 const Form = styled.form`
-  ${panelStyle}
+  ${props => props.theme.panel}
   grid-area: form;
 
   display: grid;

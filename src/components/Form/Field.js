@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import colours from '../../styles/colours';
 import getArea from '../../utils/getArea';
 
 const Container = styled.div`
@@ -10,11 +9,11 @@ const Container = styled.div`
 `;
 
 const Label = styled.label`
-  color: ${props => (props.errorMessage ? colours.red['400'] : colours.green['600'])};
+  color: ${props => (props.errorMessage ? props.theme.colours.red['400'] : props.theme.colours.green['600'])};
 `;
 
 const Error = styled.label`
-  color: ${colours.red['400']};
+  color: ${props => props.theme.colours.red['400']};
 `;
 
 const Field = ({

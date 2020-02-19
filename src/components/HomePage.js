@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import Button from './Button';
 import { ReactComponent as UnstyledCompose } from '../assets/icons/compose.svg';
 import { ReactComponent as UnstyledCheckmark } from '../assets/icons/checkmark.svg';
 import { ReactComponent as UnstyledEnvelope } from '../assets/icons/envelope.svg';
 import HomePageImage from '../assets/images/home.png';
-import colours from '../styles/colours';
 
 const Main = styled.main`
   display: grid;
@@ -72,19 +72,19 @@ const ListItem = styled.li`
 `;
 
 const Compose = styled(UnstyledCompose)`
-  fill: ${colours.grey['300']};
+  fill: ${props => props.theme.colours.grey['300']};
   width: 15px;
   margin-right: 20px;
 `;
 
 const Checkmark = styled(UnstyledCheckmark)`
-  fill: ${colours.grey['300']};
+  fill: ${props => props.theme.colours.grey['300']};
   width: 15px;
   margin-right: 20px;
 `;
 
 const Envelope = styled(UnstyledEnvelope)`
-  fill: ${colours.grey['300']};
+  fill: ${props => props.theme.colours.grey['300']};
   width: 15px;
   margin-right: 20px;
 `;
