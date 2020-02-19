@@ -9,13 +9,13 @@ import {
   actions as orderActions,
   selectors as orderSelectors,
 } from 'store/orders';
+import colours from 'styles/colours';
+import fonts from 'styles/fonts';
 import Button from './Button';
 import CartSummary from './CartSummary';
 import CheckoutBottomImage from '../assets/images/checkout-bottom.png';
 import CheckoutTopImage from '../assets/images/checkout-top.png';
 import Field from './Form/Field';
-import colours from 'styles/colours';
-import fonts from 'styles/fonts';
 import { getCart } from '../store/cart';
 import hslToRgb from '../utils/hslToRgb';
 import Image from './Image';
