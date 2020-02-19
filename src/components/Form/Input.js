@@ -2,23 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import border from '../../styles/border';
-import borderRadius from '../../styles/borderRadius';
-import boxShadow from '../../styles/boxShadow';
-import colours from '../../styles/colours';
-import fonts from '../../styles/fonts';
-
 const StyledInput = styled.input`
   box-sizing: border-box;
   width: 100%;
   padding: 12px;
-  border: ${props => (props.errorMessage ? border.error : border.normal)};
-  border-radius: ${borderRadius};
-  font-family: ${fonts.body}, ${fonts.fallback};
+  border: ${props => (props.errorMessage ? props.theme.border.error : props.theme.border.normal)};
+  border-radius: ${props => props.theme.borderRadius};
+  font-family: ${props => `${props.theme.fonts.body}, ${props.theme.fonts.fallback}`};
   font-size: 1.2rem;
   font-weight: 300;
-  color: ${props => (props.errorMessage ? colours.red['400'] : colours.green['600'])};
-  box-shadow: ${props => (props.errorMessage ? boxShadow.innerError : boxShadow.inner)};
+  color: ${props => (props.errorMessage ? props.theme.colours.red['400'] : props.theme.colours.green['600'])};
+  box-shadow: ${props => (props.errorMessage ? props.theme.boxShadow.innerError : props.theme.boxShadow.inner)};
   -webkit-appearance: none;
 
   &:focus {
