@@ -5,20 +5,17 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import border from 'styles/border';
 import {
   actions as orderActions,
   selectors as orderSelectors,
 } from 'store/orders';
-import borderRadius from '../styles/borderRadius';
-import boxShadow from '../styles/boxShadow';
 import Button from './Button';
 import CartSummary from './CartSummary';
 import CheckoutBottomImage from '../assets/images/checkout-bottom.png';
 import CheckoutTopImage from '../assets/images/checkout-top.png';
-import colours from '../styles/colours';
 import Field from './Form/Field';
-import fonts from '../styles/fonts';
+import colours from 'styles/colours';
+import fonts from 'styles/fonts';
 import { getCart } from '../store/cart';
 import hslToRgb from '../utils/hslToRgb';
 import Image from './Image';
@@ -115,10 +112,10 @@ const StyledSummary = styled(CartSummary)`
 `;
 
 const StyledCardElement = styled(CardElement)`
-  border: ${props => (props.errorMessage ? border.error : border.normal)};
-  border-radius: ${borderRadius};
+  border: ${props => (props.errorMessage ? props.theme.border.error : props.theme.border.normal)};
+  border-radius: ${props => props.theme.borderRadius};
   padding: 12px;
-  box-shadow: ${boxShadow.innerMedium};
+  box-shadow: ${props => props.theme.boxShadow.innerMedium};
 `;
 
 const creditCardInputStyle = {
