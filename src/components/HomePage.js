@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { ReactComponent as UnstyledCompose } from 'assets/icons/compose.svg';
+import { ReactComponent as UnstyledCheckmark } from 'assets/icons/checkmark.svg';
+import { ReactComponent as UnstyledEnvelope } from 'assets/icons/envelope.svg';
+import HomePageImage from 'assets/images/home.png';
 import Button from './Button';
-import { ReactComponent as UnstyledCompose } from '../assets/icons/compose.svg';
-import { ReactComponent as UnstyledCheckmark } from '../assets/icons/checkmark.svg';
-import { ReactComponent as UnstyledEnvelope } from '../assets/icons/envelope.svg';
-import HomePageImage from '../assets/images/home.png';
 
 const Main = styled.main`
   display: grid;
