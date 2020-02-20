@@ -7,7 +7,7 @@ import { Redirect } from 'react-router-dom';
 
 import {
   actions as orderActions,
-  selectors as orderSelectors,
+  selectors as orderSelectors
 } from 'store/orders';
 import colours from 'styles/colours';
 import fonts from 'styles/fonts';
@@ -112,7 +112,8 @@ const StyledSummary = styled(CartSummary)`
 `;
 
 const StyledCardElement = styled(CardElement)`
-  border: ${props => (props.errorMessage ? props.theme.border.error : props.theme.border.normal)};
+  border: ${props =>
+    props.errorMessage ? props.theme.border.error : props.theme.border.normal};
   border-radius: ${props => props.theme.borderRadius};
   padding: 12px;
   box-shadow: ${props => props.theme.boxShadow.innerMedium};
@@ -123,17 +124,18 @@ const creditCardInputStyle = {
     color: hslToRgb(colours.green['600']),
     fontFamily: `${fonts.body}, ${fonts.fallback}`,
     fontSize: '22px',
-    fontWeight: 300,
+    fontWeight: 300
   },
   invalid: {
-    color: hslToRgb(colours.red['300']),
-  },
+    color: hslToRgb(colours.red['300'])
+  }
 };
 
 const getEmailErrorMessage = (email, hasSubmitted) => {
   if (!hasSubmitted) return '';
   if (!email) return 'Please enter your email address';
-  if (!(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))) return 'The email you\'ve entered is invalid';
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
+    return "The email you've entered is invalid";
   return '';
 };
 
@@ -155,7 +157,7 @@ const CheckoutPage = ({ elements, stripe }) => {
   const emailError = getEmailErrorMessage(email, hasSubmitted);
   const addressError = getAddressErrorMessage(address, hasSubmitted);
 
-  const placeOrder = (event) => {
+  const placeOrder = event => {
     event.preventDefault();
     dispatch(orderActions.createOrder(email, address));
     setHasSubmitted(true);
@@ -166,10 +168,13 @@ const CheckoutPage = ({ elements, stripe }) => {
       const makePayment = async () => {
         const paymentInfo = {
           payment_method: {
-            card: elements.getElement('card'),
-          },
+            card: elements.getElement('card')
+          }
         };
-        const result = await stripe.confirmCardPayment(clientSecret, paymentInfo);
+        const result = await stripe.confirmCardPayment(
+          clientSecret,
+          paymentInfo
+        );
         const isConfirmed = !('error' in result);
         if (isConfirmed) dispatch(orderActions.confirmPayment);
       };
@@ -178,9 +183,7 @@ const CheckoutPage = ({ elements, stripe }) => {
   }, [clientSecret, dispatch, elements, stripe]);
 
   if (hasPaid) {
-    return (
-      <Redirect to="/" />
-    );
+    return <Redirect to="/" />;
   }
 
   return (
@@ -189,11 +192,7 @@ const CheckoutPage = ({ elements, stripe }) => {
         <StyledSummary area="summary" cart={cart} />
         <ContactForm action="#">
           <SectionTitle>Contact Information</SectionTitle>
-          <Field
-            area="email"
-            errorMessage={emailError}
-            label="Email Address"
-          >
+          <Field area="email" errorMessage={emailError} label="Email Address">
             <Input
               errorMessage={emailError}
               label="Email Address"
@@ -205,11 +204,7 @@ const CheckoutPage = ({ elements, stripe }) => {
         </ContactForm>
         <ShippingForm action="#">
           <SectionTitle>Shipping Information</SectionTitle>
-          <Field
-            area="address"
-            errorMessage={addressError}
-            label="Address"
-          >
+          <Field area="address" errorMessage={addressError} label="Address">
             <TextArea
               errorMessage={addressError}
               label="Address"
@@ -221,12 +216,11 @@ const CheckoutPage = ({ elements, stripe }) => {
         </ShippingForm>
         <BillingForm action="#">
           <SectionTitle>Billing Information</SectionTitle>
-          <StyledCardElement
-            hidePostalCode
-            style={creditCardInputStyle}
-          />
+          <StyledCardElement hidePostalCode style={creditCardInputStyle} />
         </BillingForm>
-        <Button area="button" onClick={placeOrder}>Place order</Button>
+        <Button area="button" onClick={placeOrder}>
+          Place order
+        </Button>
       </Forms>
       <Images>
         <Image
@@ -244,11 +238,11 @@ const CheckoutPage = ({ elements, stripe }) => {
 
 CheckoutPage.propTypes = {
   elements: PropTypes.shape({
-    getElement: PropTypes.func.isRequired,
+    getElement: PropTypes.func.isRequired
   }).isRequired,
   stripe: PropTypes.shape({
-    confirmCardPayment: PropTypes.func.isRequired,
-  }).isRequired,
+    confirmCardPayment: PropTypes.func.isRequired
+  }).isRequired
 };
 
 export default injectStripe(CheckoutPage);

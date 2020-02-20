@@ -15,7 +15,7 @@ import ZodiacCard from '../assets/images/zodiac-card.png';
 const Main = styled.main`
   display: grid;
   grid-gap: 20px;
-  grid-template-areas: 
+  grid-template-areas:
     'wedding    '
     'whistle    '
     'roses      '
@@ -110,17 +110,50 @@ const ZodiacImage = styled(Image)`
 
 const GalleryPage = () => (
   <Main>
-    <WeddingImage src={WeddingCard} alt="Ciao, Estrela Co. card; a couple embracing after their wedding ceremony surrounded by floral decorations over a banner reading 'The Shewinis'" />
-    <WhistleImage src={WhistleCard} alt="Ciao, Estrela Co. card; silver metal with red lanyard, with a speech bubble saying 'Happy Mother's Day!'" />
-    <RosesImage src={RosesCard} alt="Ciao, Estrela Co. card; a bouquet of roses and honeysuckle" />
-    <ZodiacImage src={ZodiacCard} alt="Ciao, Estrela Co. card; taurus the bull speaking with leo the lion, saying 'Me? Stubborn? No way!!'" />
-    <CactusImage src={CactusCard} alt="Ciao, Estrela Co. card; two cacti, one saying to the other 'Thank you for helping me grow!'" />
-    <JaneAustenImage src={JaneAustenCard} alt="Ciao, Estrela Co. card; two silhouettes facing eachother overlayed over text from Jane Austen's 'Great Expectations'" />
-    <CookiesImage src={CookiesCard} alt="Ciao, Estrela Co. card; a pile of chocolate-chip cookies sitting on a napkin in front of the text 'happy mother's day'" />
-    <HouseImage src={HouseCard} alt="Ciao, Estrela Co. card; clouds cut-out of spotted paper over a house cut-out of black paper with an engagement ring in the center of it over the text 'congrats!'" />
-    <GownImage src={GownCard} alt="Ciao, Estrela Co. card; a wedding gown on a hangar, cut out from floral-print paper beside the text 'for the bride-to-be...'" />
-    <PigImage src={PigCard} alt="Ciao, Estrela Co. card; cartoon pig hanging from a grey party balloon, floating through the sky" />
-    <YurtImage src={YurtCard} alt="Ciao, Estrela Co. card; two women flying a rainbow kite in an open field, with a campfire, part of a yurt, and green mountains in the background" />
+    <WeddingImage
+      src={WeddingCard}
+      alt="Ciao, Estrela Co. card; a couple embracing after their wedding ceremony surrounded by floral decorations over a banner reading 'The Shewinis'"
+    />
+    <WhistleImage
+      src={WhistleCard}
+      alt="Ciao, Estrela Co. card; silver metal with red lanyard, with a speech bubble saying 'Happy Mother's Day!'"
+    />
+    <RosesImage
+      src={RosesCard}
+      alt="Ciao, Estrela Co. card; a bouquet of roses and honeysuckle"
+    />
+    <ZodiacImage
+      src={ZodiacCard}
+      alt="Ciao, Estrela Co. card; taurus the bull speaking with leo the lion, saying 'Me? Stubborn? No way!!'"
+    />
+    <CactusImage
+      src={CactusCard}
+      alt="Ciao, Estrela Co. card; two cacti, one saying to the other 'Thank you for helping me grow!'"
+    />
+    <JaneAustenImage
+      src={JaneAustenCard}
+      alt="Ciao, Estrela Co. card; two silhouettes facing eachother overlayed over text from Jane Austen's 'Great Expectations'"
+    />
+    <CookiesImage
+      src={CookiesCard}
+      alt="Ciao, Estrela Co. card; a pile of chocolate-chip cookies sitting on a napkin in front of the text 'happy mother's day'"
+    />
+    <HouseImage
+      src={HouseCard}
+      alt="Ciao, Estrela Co. card; clouds cut-out of spotted paper over a house cut-out of black paper with an engagement ring in the center of it over the text 'congrats!'"
+    />
+    <GownImage
+      src={GownCard}
+      alt="Ciao, Estrela Co. card; a wedding gown on a hangar, cut out from floral-print paper beside the text 'for the bride-to-be...'"
+    />
+    <PigImage
+      src={PigCard}
+      alt="Ciao, Estrela Co. card; cartoon pig hanging from a grey party balloon, floating through the sky"
+    />
+    <YurtImage
+      src={YurtCard}
+      alt="Ciao, Estrela Co. card; two women flying a rainbow kite in an open field, with a campfire, part of a yurt, and green mountains in the background"
+    />
   </Main>
 );
 

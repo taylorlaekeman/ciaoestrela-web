@@ -10,8 +10,7 @@ const Header = styled.header`
   background-color: white;
   box-shadow: 0px 2px 6px -4px ${colours.grey['400']};
   grid-template-columns: 1fr;
-  grid-template-areas:
-    'nav';
+  grid-template-areas: 'nav';
 
   @media (min-width: 1160px) {
     grid-template-areas: '. nav .';
@@ -71,10 +70,18 @@ export default () => (
       <TitleLink navigateTo="/" isPlain>
         <h1>Ciao, Estrela Co.</h1>
       </TitleLink>
-      <CartLink navigateTo="/cart" isPlain><Cart /></CartLink>
-      <AboutLink navigateTo="/about" isPlain>about</AboutLink>
-      <GalleryLink navigateTo="/gallery" isPlain>gallery</GalleryLink>
-      <OrderLink navigateTo="/order" isPlain>order now</OrderLink>
+      <CartLink navigateTo="/cart" isPlain>
+        <Cart />
+      </CartLink>
+      <AboutLink navigateTo="/about" isPlain>
+        about
+      </AboutLink>
+      <GalleryLink navigateTo="/gallery" isPlain>
+        gallery
+      </GalleryLink>
+      <OrderLink navigateTo="/order" isPlain>
+        order now
+      </OrderLink>
     </Nav>
   </Header>
 );

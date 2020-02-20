@@ -80,15 +80,20 @@ const Image = styled.img`
   width: 100%;
 `;
 
-const isItemSelected = (item, selected) => item.cardstock === selected.cardstock
-  && item.ideas === selected.ideas;
+const isItemSelected = (item, selected) =>
+  item.cardstock === selected.cardstock && item.ideas === selected.ideas;
 
 const CartPage = () => {
   const cart = useSelector(getCart);
   const [selectedCartItem, selectCartItem] = useState('');
   const dispatch = useDispatch();
 
-  const ImageComponent = <Image src={CartPageImage} alt="Sun cartoon character pushing shopping cart full of potted plants" />;
+  const ImageComponent = (
+    <Image
+      src={CartPageImage}
+      alt="Sun cartoon character pushing shopping cart full of potted plants"
+    />
+  );
 
   if (cart.length === 0) {
     return (
@@ -122,8 +127,12 @@ const CartPage = () => {
             />
           ))}
         </CartItems>
-        <Button area="checkout" navigateTo="/checkout">Proceed to checkout</Button>
-        <Button area="add" navigateTo="/order">Add another card</Button>
+        <Button area="checkout" navigateTo="/checkout">
+          Proceed to checkout
+        </Button>
+        <Button area="add" navigateTo="/order">
+          Add another card
+        </Button>
       </Contents>
       {ImageComponent}
     </Main>

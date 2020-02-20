@@ -6,7 +6,7 @@ import orderReducers from './orders';
 
 const reducers = combineReducers({
   cart: cartReducers,
-  orders: orderReducers,
+  orders: orderReducers
 });
 
 const store = createStore(reducers, applyMiddleware(thunk));

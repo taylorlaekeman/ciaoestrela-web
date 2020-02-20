@@ -9,26 +9,20 @@ const Container = styled.div`
 `;
 
 const Label = styled.label`
-  color: ${props => (props.errorMessage ? props.theme.colours.red['400'] : props.theme.colours.green['600'])};
+  color: ${props =>
+    props.errorMessage
+      ? props.theme.colours.red['400']
+      : props.theme.colours.green['600']};
 `;
 
 const Error = styled.label`
   color: ${props => props.theme.colours.red['400']};
 `;
 
-const Field = ({
-  area,
-  children,
-  className,
-  errorMessage,
-  label,
-}) => (
+const Field = ({ area, children, className, errorMessage, label }) => (
   <Container area={area} className={className}>
     {label && (
-      <Label
-        errorMessage={errorMessage}
-        htmlFor={label}
-      >
+      <Label errorMessage={errorMessage} htmlFor={label}>
         {label}
       </Label>
     )}
@@ -42,13 +36,13 @@ Field.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
   errorMessage: PropTypes.string,
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired
 };
 
 Field.defaultProps = {
   area: '',
   className: '',
-  errorMessage: '',
+  errorMessage: ''
 };
 
 export default Field;

@@ -1,26 +1,24 @@
-import {
-  actionTypes as orderActionTypes,
-} from './orders';
+import { actionTypes as orderActionTypes } from './orders';
 
 export const actions = {
   addCustomCardToCart: card => ({
     type: 'add-custom-card-to-cart',
-    payload: { ...card, orderType: 'custom card' },
+    payload: { ...card, orderType: 'custom card' }
   }),
 
   removeItemFromCart: index => ({
     type: 'remove-item-from-cart',
-    payload: index,
+    payload: index
   }),
 
   updateCartItem: (item, index) => ({
     type: 'update-cart-item',
-    payload: { item, index },
-  }),
+    payload: { item, index }
+  })
 };
 
 const initialState = {
-  cart: [],
+  cart: []
 };
 
 export const reducers = (state = initialState, action) => {
@@ -30,7 +28,7 @@ export const reducers = (state = initialState, action) => {
       cart.push(action.payload);
       return {
         ...state,
-        cart,
+        cart
       };
     }
 
@@ -39,7 +37,7 @@ export const reducers = (state = initialState, action) => {
       cart.splice(action.payload, 1);
       return {
         ...state,
-        cart,
+        cart
       };
     }
 
@@ -48,14 +46,14 @@ export const reducers = (state = initialState, action) => {
       cart[action.payload.index] = action.payload.item;
       return {
         ...state,
-        cart,
+        cart
       };
     }
 
     case orderActionTypes.CONFIRM_PAYMENT_SUCCESS: {
       return {
         ...state,
-        cart: [],
+        cart: []
       };
     }
 
@@ -74,5 +72,5 @@ export const getCartItem = (state, index) => {
 
 export const selectors = {
   getCart,
-  getCartItem,
+  getCartItem
 };

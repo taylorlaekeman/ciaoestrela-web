@@ -13,7 +13,7 @@ const theme = {
   fonts,
   colours,
   icon,
-  panel,
+  panel
 };
 
 export default theme;
