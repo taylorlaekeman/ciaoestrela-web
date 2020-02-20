@@ -5,13 +5,13 @@ import { ThemeProvider } from 'styled-components';
 
 import theme from 'styles';
 import GlobalStyle from 'styles/globalStyle';
-import AboutPage from './components/AboutPage';
-import CartPage from './components/CartPage';
-import CheckoutPage from './components/CheckoutPage';
-import GalleryPage from './components/GalleryPage';
-import Header from './components/Header';
-import HomePage from './components/HomePage';
-import OrderPage from './components/OrderPage';
+import AboutPage from 'components/AboutPage';
+import CartPage from 'components/CartPage';
+import CheckoutPage from 'components/CheckoutPage';
+import GalleryPage from 'components/GalleryPage';
+import Header from 'components/Header';
+import HomePage from 'components/HomePage';
+import OrderPage from 'components/OrderPage';
 
 function App() {
   return (
