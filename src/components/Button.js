@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import boxShadow from '../styles/boxShadow';
-import getArea from '../utils/getArea';
+import boxShadow from 'styles/boxShadow';
+import getArea from 'utils/getArea';
 
 const getSharedStyles = props => `
   ${getArea(props)}
