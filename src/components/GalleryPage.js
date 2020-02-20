@@ -1,16 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
-import CactusCard from '../assets/images/cactus-card.png';
-import CookiesCard from '../assets/images/cookies-card.png';
-import GownCard from '../assets/images/gown-card.png';
-import HouseCard from '../assets/images/house-card.png';
-import JaneAustenCard from '../assets/images/jane-austen-card.png';
-import PigCard from '../assets/images/pig-card.png';
-import RosesCard from '../assets/images/roses-card.png';
-import WeddingCard from '../assets/images/wedding-card.png';
-import WhistleCard from '../assets/images/whistle-card.png';
-import YurtCard from '../assets/images/yurt-card.png';
-import ZodiacCard from '../assets/images/zodiac-card.png';
+
+import CactusCard from 'assets/images/cactus-card.png';
+import CookiesCard from 'assets/images/cookies-card.png';
+import GownCard from 'assets/images/gown-card.png';
+import HouseCard from 'assets/images/house-card.png';
+import JaneAustenCard from 'assets/images/jane-austen-card.png';
+import PigCard from 'assets/images/pig-card.png';
+import RosesCard from 'assets/images/roses-card.png';
+import WeddingCard from 'assets/images/wedding-card.png';
+import WhistleCard from 'assets/images/whistle-card.png';
+import YurtCard from 'assets/images/yurt-card.png';
+import ZodiacCard from 'assets/images/zodiac-card.png';
 
 const Main = styled.main`
   display: grid;
