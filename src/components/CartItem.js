@@ -6,12 +6,14 @@ import Button from './Button';
 import { ReactComponent as UnstyledEdit } from '../assets/icons/pencil.svg';
 import { ReactComponent as UnstyledDelete } from '../assets/icons/trash.svg';
 
-const truncateIdeas = (ideas) => {
+const truncateIdeas = ideas => {
   if (ideas.length <= 40) {
     return ideas;
   }
   const words = ideas.substring(0, 40).split(' ');
-  const sentence = words.reduce((accumulator, currentValue) => `${accumulator} ${currentValue}`);
+  const sentence = words.reduce(
+    (accumulator, currentValue) => `${accumulator} ${currentValue}`
+  );
   return `${sentence}...`;
 };
 
@@ -68,12 +70,14 @@ const Delete = styled(UnstyledDelete)`
   ${props => props.theme.icon}
 `;
 
-const CartItem = ({
-  index, isSelected, item, onDelete, onSelect,
-}) => {
+const CartItem = ({ index, isSelected, item, onDelete, onSelect }) => {
   const ideasText = isSelected ? item.ideas : truncateIdeas(item.ideas);
   return (
-    <Section ideas={item.ideas} onClick={() => onSelect(item)} isSelected={isSelected}>
+    <Section
+      ideas={item.ideas}
+      onClick={() => onSelect(item)}
+      isSelected={isSelected}
+    >
       <Heading>Custom card</Heading>
       <Cardstock>
         {'on '}
@@ -81,8 +85,16 @@ const CartItem = ({
         {' paper'}
       </Cardstock>
       {item.ideas && <Ideas>{ideasText}</Ideas>}
-      {isSelected && <EditButton navigateTo={`/order/${index + 1}`}><Edit /></EditButton>}
-      {isSelected && <DeleteButton onClick={onDelete}><Delete /></DeleteButton>}
+      {isSelected && (
+        <EditButton navigateTo={`/order/${index + 1}`}>
+          <Edit />
+        </EditButton>
+      )}
+      {isSelected && (
+        <DeleteButton onClick={onDelete}>
+          <Delete />
+        </DeleteButton>
+      )}
     </Section>
   );
 };
@@ -92,10 +104,10 @@ CartItem.propTypes = {
   isSelected: PropTypes.bool.isRequired,
   item: PropTypes.shape({
     cardstock: PropTypes.string.isRequired,
-    ideas: PropTypes.string,
+    ideas: PropTypes.string
   }).isRequired,
   onDelete: PropTypes.func.isRequired,
-  onSelect: PropTypes.func.isRequired,
+  onSelect: PropTypes.func.isRequired
 };
 
 export default CartItem;

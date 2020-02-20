@@ -6,13 +6,21 @@ const StyledInput = styled.input`
   box-sizing: border-box;
   width: 100%;
   padding: 12px;
-  border: ${props => (props.errorMessage ? props.theme.border.error : props.theme.border.normal)};
+  border: ${props =>
+    props.errorMessage ? props.theme.border.error : props.theme.border.normal};
   border-radius: ${props => props.theme.borderRadius};
-  font-family: ${props => `${props.theme.fonts.body}, ${props.theme.fonts.fallback}`};
+  font-family: ${props =>
+    `${props.theme.fonts.body}, ${props.theme.fonts.fallback}`};
   font-size: 1.2rem;
   font-weight: 300;
-  color: ${props => (props.errorMessage ? props.theme.colours.red['400'] : props.theme.colours.green['600'])};
-  box-shadow: ${props => (props.errorMessage ? props.theme.boxShadow.innerError : props.theme.boxShadow.inner)};
+  color: ${props =>
+    props.errorMessage
+      ? props.theme.colours.red['400']
+      : props.theme.colours.green['600']};
+  box-shadow: ${props =>
+    props.errorMessage
+      ? props.theme.boxShadow.innerError
+      : props.theme.boxShadow.inner};
   -webkit-appearance: none;
 
   &:focus {
@@ -20,14 +28,7 @@ const StyledInput = styled.input`
   }
 `;
 
-const Input = ({
-  className,
-  errorMessage,
-  label,
-  onChange,
-  type,
-  value,
-}) => (
+const Input = ({ className, errorMessage, label, onChange, type, value }) => (
   <StyledInput
     className={className}
     errorMessage={errorMessage}
@@ -45,17 +46,14 @@ Input.propTypes = {
   label: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   type: PropTypes.string,
-  value: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]),
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
 
 Input.defaultProps = {
   className: '',
   errorMessage: '',
   type: 'text',
-  value: '',
+  value: ''
 };
 
 export default Input;

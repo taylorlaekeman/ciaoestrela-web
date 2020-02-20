@@ -83,7 +83,9 @@ const parseIndexFromUrl = () => {
 const OrderPage = () => {
   const index = parseIndexFromUrl();
   const cartItem = useSelector(state => getCartItem(state, index));
-  const [cardstock, setCardstock] = useState(isEdit() ? cartItem.cardstock : '4" x 5.5" white');
+  const [cardstock, setCardstock] = useState(
+    isEdit() ? cartItem.cardstock : '4" x 5.5" white'
+  );
   const [ideas, setIdeas] = useState(isEdit() ? cartItem.ideas : '');
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const dispatch = useDispatch();
@@ -104,10 +106,17 @@ const OrderPage = () => {
   return (
     <Main>
       <Form action="#">
-        <CardstockLabel>Which cardstock would you like me to use to make your card?</CardstockLabel>
+        <CardstockLabel>
+          Which cardstock would you like me to use to make your card?
+        </CardstockLabel>
         <Select
           onSelect={setCardstock}
-          options={['4" x 5.5" white', '4" x 5.5" ivory', '4" x 5.5" brown', '5" x 6.5" white']}
+          options={[
+            '4" x 5.5" white',
+            '4" x 5.5" ivory',
+            '4" x 5.5" brown',
+            '5" x 6.5" white'
+          ]}
           selected={cardstock}
         />
 
@@ -122,7 +131,9 @@ const OrderPage = () => {
           />
         </Field>
 
-        <Button onClick={submitForm} isFormSubmit>{isEdit() ? 'Update cart' : 'Add to cart'}</Button>
+        <Button onClick={submitForm} isFormSubmit>
+          {isEdit() ? 'Update cart' : 'Add to cart'}
+        </Button>
       </Form>
       <Image src={OrderPageImage} alt="Ciao, Estrela lion with leaves" />
     </Main>

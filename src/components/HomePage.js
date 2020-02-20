@@ -10,7 +10,7 @@ import HomePageImage from '../assets/images/home.png';
 const Main = styled.main`
   display: grid;
   grid-row-gap: 20px;
-  grid-template-areas: 
+  grid-template-areas:
     'article'
     'image  ';
 
@@ -22,15 +22,13 @@ const Main = styled.main`
   }
 
   @media (min-width: 1060px) {
-    grid-template-areas:
-      'article image';
+    grid-template-areas: 'article image';
     grid-column-gap: 20px;
     grid-template-columns: 500px 1fr;
   }
 
   @media (min-width: 1160px) {
-    grid-template-areas:
-      '. article . image .';
+    grid-template-areas: '. article . image .';
     grid-column-gap: 0;
     grid-template-columns: 1fr 500px 20px 600px 1fr;
   }
@@ -123,7 +121,10 @@ function HomePage() {
         </Section>
         <OrderButton navigateTo="/order">Order a card</OrderButton>
       </Article>
-      <Image src={HomePageImage} alt="Ciao, Estrela card with dog and flowers" />
+      <Image
+        src={HomePageImage}
+        alt="Ciao, Estrela card with dog and flowers"
+      />
     </Main>
   );
 }

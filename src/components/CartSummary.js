@@ -38,16 +38,18 @@ const Summary = ({ area, cart, className }) => (
 
 Summary.propTypes = {
   area: PropTypes.string,
-  cart: PropTypes.arrayOf(PropTypes.shape({
-    cardstock: PropTypes.string.isRequired,
-    ideas: PropTypes.string,
-  })).isRequired,
-  className: PropTypes.string,
+  cart: PropTypes.arrayOf(
+    PropTypes.shape({
+      cardstock: PropTypes.string.isRequired,
+      ideas: PropTypes.string
+    })
+  ).isRequired,
+  className: PropTypes.string
 };
 
 Summary.defaultProps = {
   area: '',
-  className: '',
+  className: ''
 };
 
 export default Summary;

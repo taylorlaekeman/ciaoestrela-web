@@ -6,14 +6,22 @@ const StyledTextArea = styled.textarea`
   box-sizing: border-box;
   width: 100%;
   padding: 12px;
-  border: ${props => (props.errorMessage ? props.theme.border.error : props.theme.border.normal)};
+  border: ${props =>
+    props.errorMessage ? props.theme.border.error : props.theme.border.normal};
   border-radius: ${props => props.theme.borderRadius};
-  color: ${props => (props.errorMessage ? props.theme.colours.red['400'] : props.theme.colours.green['600'])};
-  font-family: ${props => `${props.theme.fonts.body}, ${props.theme.fonts.fallback}`};
+  color: ${props =>
+    props.errorMessage
+      ? props.theme.colours.red['400']
+      : props.theme.colours.green['600']};
+  font-family: ${props =>
+    `${props.theme.fonts.body}, ${props.theme.fonts.fallback}`};
   font-size: 1.2rem;
   font-weight: 300;
   -webkit-appearance: none;
-  box-shadow: ${props => (props.errorMessage ? props.theme.boxShadow.innerError : props.theme.boxShadow.inner)};
+  box-shadow: ${props =>
+    props.errorMessage
+      ? props.theme.boxShadow.innerError
+      : props.theme.boxShadow.inner};
 
   resize: none;
 
@@ -28,7 +36,7 @@ const TextArea = ({
   label,
   onChange,
   rows,
-  value,
+  value
 }) => (
   <StyledTextArea
     className={className}
@@ -47,16 +55,13 @@ TextArea.propTypes = {
   label: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   rows: PropTypes.number,
-  value: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]).isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired
 };
 
 TextArea.defaultProps = {
   errorMessage: '',
   className: '',
-  rows: 3,
+  rows: 3
 };
 
 export default TextArea;

@@ -1,7 +1,5 @@
 import api from 'services/api';
-import {
-  selectors as cartSelectors,
-} from './cart';
+import { selectors as cartSelectors } from './cart';
 
 export const actionTypes = {
   CLEAR_ORDER: 'clear-order',
@@ -10,11 +8,10 @@ export const actionTypes = {
   CONFIRM_PAYMENT_SUCCESS: 'confirm-payment-success',
   CREATE_ORDER_FAILURE: 'create-order-failure',
   CREATE_ORDER_REQUEST: 'create-order-request',
-  CREATE_ORDER_SUCCESS: 'create-order-success',
+  CREATE_ORDER_SUCCESS: 'create-order-success'
 };
 
 export const actions = {
-
   createOrder: (contact, destination) => async (dispatch, getState) => {
     dispatch({ type: actionTypes.CREATE_ORDER_REQUEST });
     const cart = cartSelectors.getCart(getState());
@@ -38,8 +35,7 @@ export const actions = {
     } catch (error) {
       dispatch({ type: actionTypes.CONFIRM_PAYMENT_FAILURE });
     }
-  },
-
+  }
 };
 
 const initialState = {
@@ -47,21 +43,21 @@ const initialState = {
   hasPaid: false,
   isConfirmingPayment: false,
   isCreatingOrder: false,
-  orderId: '',
+  orderId: ''
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.CLEAR_ORDER: {
       return {
-        ...initialState,
+        ...initialState
       };
     }
 
     case actionTypes.CONFIRM_PAYMENT_FAILURE: {
       return {
         ...state,
-        isConfirmingPayment: false,
+        isConfirmingPayment: false
       };
     }
 
@@ -69,7 +65,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         hasPaid: false,
-        isConfirmingPayment: true,
+        isConfirmingPayment: true
       };
     }
 
@@ -79,14 +75,14 @@ const reducer = (state = initialState, action) => {
         clientSecret: '',
         hasPaid: true,
         isConfirmingPayment: false,
-        orderId: '',
+        orderId: ''
       };
     }
 
     case actionTypes.CREATE_ORDER_FAILURE: {
       return {
         ...state,
-        isCreatingOrder: false,
+        isCreatingOrder: false
       };
     }
 
@@ -95,7 +91,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         clientSecret: '',
         isCreatingOrder: true,
-        orderId: '',
+        orderId: ''
       };
     }
 
@@ -105,7 +101,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         clientSecret: payment,
         isCreatingOrder: false,
-        orderId: id,
+        orderId: id
       };
     }
 
@@ -119,7 +115,7 @@ export const selectors = {
   getClientSecret: state => state.orders.clientSecret,
   getOrderId: state => state.orders.orderId,
   hasPaid: state => state.orders.hasPaid,
-  isConfirmingPayment: state => state.orders.isConfirmingPayment,
+  isConfirmingPayment: state => state.orders.isConfirmingPayment
 };
 
 export default reducer;

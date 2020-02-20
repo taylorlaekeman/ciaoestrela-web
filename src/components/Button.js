@@ -13,7 +13,11 @@ const getSharedStyles = props => `
   text-align: center;
   text-decoration: none;
   color: ${props.theme.colours.grey[600]};
-  background-color: ${props.isSecondary ? props.theme.colours.grey['300'] : props.theme.colours.green['200']};
+  background-color: ${
+    props.isSecondary
+      ? props.theme.colours.grey['300']
+      : props.theme.colours.green['200']
+  };
   border: none;
   border-radius: 5px;
   box-shadow: ${boxShadow.medium};
@@ -22,7 +26,11 @@ const getSharedStyles = props => `
   -webkit-appearance: none;
 
   &:hover {
-    background-color: ${props.isSecondary ? props.theme.colours.grey['400'] : props.theme.colours.green['300']};
+    background-color: ${
+      props.isSecondary
+        ? props.theme.colours.grey['400']
+        : props.theme.colours.green['300']
+    };
   }
 
   &:active {
@@ -48,7 +56,9 @@ const StyledSubmit = styled.input`
   ${getSharedStyles}
 `;
 
-const StyledLink = styled(({ isPlain, isSecondary, ...rest }) => <Link {...rest} />)`
+const StyledLink = styled(({ isPlain, isSecondary, ...rest }) => (
+  <Link {...rest} />
+))`
   ${props => (props.isPlain ? getPlainStyles(props) : getSharedStyles(props))}
 `;
 
@@ -60,7 +70,7 @@ const Button = ({
   isPlain,
   isSecondary,
   navigateTo,
-  onClick,
+  onClick
 }) => {
   if (isFormSubmit) {
     return (
@@ -107,7 +117,7 @@ Button.propTypes = {
   isPlain: PropTypes.bool,
   isSecondary: PropTypes.bool,
   navigateTo: PropTypes.string,
-  onClick: PropTypes.func,
+  onClick: PropTypes.func
 };
 
 Button.defaultProps = {
@@ -117,7 +127,7 @@ Button.defaultProps = {
   isPlain: false,
   isSecondary: false,
   navigateTo: '',
-  onClick: null,
+  onClick: null
 };
 
 export default Button;

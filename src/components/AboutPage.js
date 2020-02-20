@@ -20,14 +20,12 @@ const Main = styled.main`
   }
 
   @media (min-width: 1060px) {
-    grid-template-areas:
-      'about . about-text-box';
+    grid-template-areas: 'about . about-text-box';
     grid-template-columns: 500px 1fr 500px;
   }
 
   @media (min-width: 1160px) {
-    grid-template-areas:
-      '. about . about-text-box .';
+    grid-template-areas: '. about . about-text-box .';
     grid-template-columns: 1fr 500px 120px 500px 1fr;
   }
 `;
@@ -44,8 +42,14 @@ const AboutTextBoxImg = styled.img`
 
 const AboutPage = () => (
   <Main>
-    <AboutImg src={AboutImage} alt="Ciao, Estrela portrait with sun and quotation" />
-    <AboutTextBoxImg src={AboutTextBoxImage} alt="Ciao, Estrela speech bubble with fronds" />
+    <AboutImg
+      src={AboutImage}
+      alt="Ciao, Estrela portrait with sun and quotation"
+    />
+    <AboutTextBoxImg
+      src={AboutTextBoxImage}
+      alt="Ciao, Estrela speech bubble with fronds"
+    />
   </Main>
 );
 
