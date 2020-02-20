@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { Redirect } from 'react-router-dom';
 
+import OrderPageImage from 'assets/images/order.png';
+import { actions as cartActions, getCartItem } from 'store/cart';
 import Button from './Button';
-import { actions as cartActions, getCartItem } from '../store/cart';
 import Field from './Form/Field';
-import OrderPageImage from '../assets/images/order.png';
 import TextArea from './Form/TextArea';
 import UnstyledSelect from './Form/Select';
 
