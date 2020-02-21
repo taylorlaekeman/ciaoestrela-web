@@ -56,10 +56,15 @@ const Paragraph = styled.p`
 
 const ConfirmationPage = () => (
   <Main>
-    <Image src={ConfirmationImage} alt="Ciao, Estrela: the text 'thank you for your order' in a speech bubble with hearts, on a background with a smiling sun, stars, and a sleeping lion" />
+    <Image
+      src={ConfirmationImage}
+      alt="Ciao, Estrela: the text 'thank you for your order' in a speech bubble with hearts, on a background with a smiling sun, stars, and a sleeping lion"
+    />
     <Article>
       <Heading>Check your email!</Heading>
-      <Paragraph>You should get a confirmation email from me very soon.</Paragraph>
+      <Paragraph>
+        You should get a confirmation email from me very soon.
+      </Paragraph>
     </Article>
   </Main>
 );
