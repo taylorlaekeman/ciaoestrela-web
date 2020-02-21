@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Redirect } from 'react-router-dom';
 
 import OrderPageImage from 'assets/images/order.png';
-import { actions as cartActions, getCartItem } from 'store/cart';
+import { actions as cartActions, getCartItem } from 'state/cart';
 import Button from './Button';
 import Field from './Form/Field';
 import TextArea from './Form/TextArea';
