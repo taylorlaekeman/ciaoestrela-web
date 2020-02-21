@@ -183,7 +183,7 @@ const CheckoutPage = ({ elements, stripe }) => {
   }, [clientSecret, dispatch, elements, stripe]);
 
   if (hasPaid) {
-    return <Redirect to="/" />;
+    return <Redirect to="/thanks" />;
   }
 
   return (
