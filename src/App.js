@@ -6,6 +6,7 @@ import { ThemeProvider } from 'styled-components';
 import AboutPage from 'components/AboutPage';
 import CartPage from 'components/CartPage';
 import CheckoutPage from 'components/CheckoutPage';
+import ConfirmationPage from 'components/ConfirmationPage';
 import GalleryPage from 'components/GalleryPage';
 import Header from 'components/Header';
 import HomePage from 'components/HomePage';
@@ -28,6 +29,7 @@ function App() {
             <Route path="/gallery" component={GalleryPage} />
             <Route path="/order" exact component={OrderPage} />
             <Route path="/order/:index" component={OrderPage} />
+            <Route path="/thanks" component={ConfirmationPage} />
           </BrowserRouter>
         </Elements>
       </StripeProvider>
