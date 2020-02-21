@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import CartPageImage from 'assets/images/cart.png';
-import { actions as cartActions, getCart } from 'store/cart';
+import { actions as cartActions, getCart } from 'state/cart';
 import Button from './Button';
 import CartItem from './CartItem';
 import CartSummary from './CartSummary';

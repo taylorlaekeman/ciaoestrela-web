@@ -7,11 +7,11 @@ import { Redirect } from 'react-router-dom';
 
 import CheckoutBottomImage from 'assets/images/checkout-bottom.png';
 import CheckoutTopImage from 'assets/images/checkout-top.png';
-import { getCart } from 'store/cart';
+import { getCart } from 'state/cart';
 import {
   actions as orderActions,
   selectors as orderSelectors
-} from 'store/orders';
+} from 'state/orders';
 import colours from 'styles/colours';
 import fonts from 'styles/fonts';
 import hslToRgb from 'utils/hslToRgb';
