@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+
+import { ReactComponent as UnstyledCart } from 'assets/icons/cart.svg';
+import colours from 'styles/colours';
 import Button from './Button';
-import colours from '../styles/colours';
-import { ReactComponent as UnstyledCart } from '../assets/icons/cart.svg';
 
 const Header = styled.header`
   display: grid;

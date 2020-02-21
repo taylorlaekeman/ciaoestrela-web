@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import AboutImage from '../assets/images/about.png';
-import AboutTextBoxImage from '../assets/images/about-text-box.png';
+import AboutImage from 'assets/images/about.png';
+import AboutTextBoxImage from 'assets/images/about-text-box.png';
 
 const Main = styled.main`
   display: grid;

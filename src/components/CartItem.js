@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
+import { ReactComponent as UnstyledEdit } from 'assets/icons/pencil.svg';
+import { ReactComponent as UnstyledDelete } from 'assets/icons/trash.svg';
 import Button from './Button';
-import { ReactComponent as UnstyledEdit } from '../assets/icons/pencil.svg';
-import { ReactComponent as UnstyledDelete } from '../assets/icons/trash.svg';
 
 const truncateIdeas = ideas => {
   if (ideas.length <= 40) {
