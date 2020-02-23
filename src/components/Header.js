@@ -7,7 +7,7 @@ import Button from './Button';
 
 const Header = styled.header`
   display: grid;
-  padding: 20px 20px;
+  padding: 20px;
   background-color: white;
   box-shadow: 0px 2px 6px -4px ${colours.grey['400']};
   grid-template-columns: 1fr;
