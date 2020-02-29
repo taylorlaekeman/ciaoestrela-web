@@ -1,3 +1,3 @@
 window.env = {
-  API_URL: 'http://api.ciaoestrela.co'
+  API_URL: 'https://api.ciaoestrela.co'
 };
