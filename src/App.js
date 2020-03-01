@@ -15,10 +15,12 @@ import OrderPage from 'components/OrderPage';
 import GlobalStyle from 'styles/globalStyle';
 import theme from 'styles';
 
+const { STRIPE_PUBLIC_KEY } = window.env;
+
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <StripeProvider apiKey="pk_test_FPDcKMYO8kbyugztNmLNqSvL00mU17Lbav">
+      <StripeProvider apiKey={STRIPE_PUBLIC_KEY}>
         <Elements>
           <BrowserRouter>
             <GlobalStyle />
