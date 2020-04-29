@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { ReactComponent as UnstyledCart } from 'assets/icons/cart.svg';
+import Logo from 'assets/images/logo.png';
 import colours from 'styles/colours';
 import Button from './Button';
 
@@ -25,10 +26,10 @@ const Nav = styled.nav`
   grid-template-areas:
     'title title   cart '
     'about gallery order';
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: max-content 1fr max-content;
   grid-row-gap: 10px;
 
-  @media (min-width: 504px) {
+  @media (min-width: 575px) {
     grid-template-areas: 'title . about gallery order cart';
     grid-template-columns: auto 1fr auto auto auto auto;
     align-items: center;
@@ -36,7 +37,15 @@ const Nav = styled.nav`
   }
 `;
 
+const Image = styled.img`
+  height: 60px;
+  margin-right: 10px;
+  width: 60px;
+`;
+
 const TitleLink = styled(Button)`
+  align-items: center;
+  display: flex;
   grid-area: title;
 `;
 
@@ -69,6 +78,7 @@ export default () => (
   <Header>
     <Nav>
       <TitleLink navigateTo="/" isPlain>
+        <Image src={Logo} />
         <h1>Ciao, Estrela Co.</h1>
       </TitleLink>
       <CartLink navigateTo="/cart" isPlain>
