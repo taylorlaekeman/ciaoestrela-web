@@ -41,8 +41,7 @@ export const actions = {
 const initialState = {
   clientSecret: '',
   hasPaid: false,
-  isConfirmingPayment: false,
-  isCreatingOrder: false,
+  isSubmittingOrder: false,
   orderId: ''
 };
 
@@ -57,15 +56,14 @@ const reducer = (state = initialState, action) => {
     case actionTypes.CONFIRM_PAYMENT_FAILURE: {
       return {
         ...state,
-        isConfirmingPayment: false
+        isSubmittingOrder: false
       };
     }
 
     case actionTypes.CONFIRM_PAYMENT_REQUEST: {
       return {
         ...state,
-        hasPaid: false,
-        isConfirmingPayment: true
+        hasPaid: false
       };
     }
 
@@ -74,7 +72,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         clientSecret: '',
         hasPaid: true,
-        isConfirmingPayment: false,
+        isSubmittingOrder: false,
         orderId: ''
       };
     }
@@ -82,7 +80,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.CREATE_ORDER_FAILURE: {
       return {
         ...state,
-        isCreatingOrder: false
+        isSubmittingOrder: false
       };
     }
 
@@ -90,7 +88,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         clientSecret: '',
-        isCreatingOrder: true,
+        isSubmittingOrder: true,
         orderId: ''
       };
     }
@@ -100,7 +98,6 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         clientSecret: payment,
-        isCreatingOrder: false,
         orderId: id
       };
     }
@@ -115,7 +112,7 @@ export const selectors = {
   getClientSecret: state => state.orders.clientSecret,
   getOrderId: state => state.orders.orderId,
   hasPaid: state => state.orders.hasPaid,
-  isConfirmingPayment: state => state.orders.isConfirmingPayment
+  isSubmittingOrder: state => state.orders.isSubmittingOrder
 };
 
 export default reducer;

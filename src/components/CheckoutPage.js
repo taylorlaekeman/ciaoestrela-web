@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
+import { ReactComponent as UnstyledCog } from 'assets/icons/cog.svg';
 import CheckoutBottomImage from 'assets/images/checkout-bottom.png';
 import CheckoutTopImage from 'assets/images/checkout-top.png';
 import { getCart } from 'state/cart';
@@ -21,6 +22,19 @@ import Field from './Form/Field';
 import Image from './Image';
 import Input from './Form/Input';
 import TextArea from './Form/TextArea';
+
+const Cog = styled(UnstyledCog)`
+  animation: spin 1s linear infinite;
+  fill: ${colours.grey['300']};
+  width: 20px;
+  -moz-animation: spin 2s linear infinite;
+
+  @keyframes spin {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+`;
 
 const Main = styled.main`
   display: grid;
@@ -150,6 +164,7 @@ const CheckoutPage = ({ elements, stripe }) => {
   const cart = useSelector(getCart);
   const clientSecret = useSelector(orderSelectors.getClientSecret);
   const hasPaid = useSelector(orderSelectors.hasPaid);
+  const isSubmittingOrder = useSelector(orderSelectors.isSubmittingOrder);
   const [email, setEmail] = useState('');
   const [address, setAddress] = useState('');
   const [hasSubmitted, setHasSubmitted] = useState(false);
@@ -159,8 +174,10 @@ const CheckoutPage = ({ elements, stripe }) => {
 
   const placeOrder = event => {
     event.preventDefault();
-    dispatch(orderActions.createOrder(email, address));
-    setHasSubmitted(true);
+    if (!isSubmittingOrder) {
+      dispatch(orderActions.createOrder(email, address));
+      setHasSubmitted(true);
+    }
   };
 
   useEffect(() => {
@@ -219,7 +236,7 @@ const CheckoutPage = ({ elements, stripe }) => {
           <StyledCardElement hidePostalCode style={creditCardInputStyle} />
         </BillingForm>
         <Button area="button" onClick={placeOrder}>
-          Place order
+          {isSubmittingOrder ? <Cog /> : 'Place order'}
         </Button>
       </Forms>
       <Images>
